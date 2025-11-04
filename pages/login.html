@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - منصة صُنّاع</title>
+    
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./imgaes/الشعار الجديد .png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./imgaes/الشعار الجديد .png">
+    </head>
+<body class="bg-gray-50 min-h-screen flex flex-col antialiased font-cairo text-right">
+  
+    <div x-data="{ open: false }" class="w-full bg-cream shadow-md sticky top-0 z-50">
+        <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
+            
+            <div class="flex items-center space-x-2 flex-row-reverse order-1">
+                <a href="../index.html" class="focus:outline-none focus:shadow-outline flex items-center">
+                    <img src="../imgaes/الشعار الجديد .png" alt="شعار صُنّاع" class="h-12 w-auto"> 
+                </a>
+                
+                <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline mr-4" @click="open = !open">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                        <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                        <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="hidden md:flex flex-grow justify-center order-2">
+                <div class="flex items-center md:space-x-8 md:space-x-reverse">
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="../index.html">الرئيسية</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="about.html">عن صُنّاع</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="news.html">اخبارنا</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="products.html">منتجاتنا</a>
+                </div>
+            </nav>
+
+            <div class="hidden md:flex items-center space-x-3 order-3">
+                <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-darken rounded-full shadow-xl hover:shadow-2xl transition duration-300 font-bold" href="#">تسجيل دخول</a>
+                <a class="px-8 py-2 text-sm text-center bg-white text-darken rounded-full shadow-md hover:shadow-lg transition duration-300" href="register.html">تسجيل</a>
+            </div>
+
+            <div :class="{ 'transform md:transform-none': !open, 'h-full': open }" 
+                class="absolute top-full left-0 right-0 w-full bg-cream md:hidden z-40 
+                        h-0 overflow-hidden transition-all duration-300 transform scale-y-0 origin-top">
+                <div class="flex flex-col items-center py-4 space-y-2">
+                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="../index.html">الرئيسية</a>
+                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="about.html">عن صُنّاع</a>
+                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="news.html">اخبارنا</a>
+                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="products.html">منتجاتنا</a>
+                    <div class="pt-4 border-t border-gray-300 w-11/12 text-center">
+                        <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-darken rounded-full shadow-xl block w-full font-bold mb-2" href="#">تسجيل دخول</a>
+                        <a class="px-8 py-2 text-sm text-center bg-white text-darken rounded-full shadow-md block w-full" href="register.html">تسجيل</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flex-grow flex items-center justify-center p-4">
+        <div class="login-form-wrapper bg-white shadow-2xl rounded-xl p-8 w-full max-w-sm">
+            <h1 class="text-3xl font-bold text-center text-darken mb-2">تسجيل الدخول</h1>
+            <p class="form-subtitle text-center text-gray-500 mb-8">رحباً بعودتك! سجل الدخول لحسابك</p>
+            
+            <form id="loginForm" class="login-form space-y-6" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="block text-sm font-medium text-gray-700">كلمة المرور</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+                
+                <div class="form-remember flex justify-between items-center text-sm">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-yellow-600 border-gray-300 rounded focus:ring-yellow-500">
+                        <label for="remember" class="mr-2 text-gray-900">تذكرني</label>
+                    </div>
+                    <a href="#" class="forgot-password text-yellow-500 hover:text-yellow-600 font-medium">هل نسيت كلمة المرور؟</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-full w-full py-3 rounded-lg font-bold">تسجيل الدخول</button>
+            </form>
+            
+            
+            <p class="form-link text-center mt-6 text-gray-600">
+                ما عندك حساب؟ <a href="register.html" class="text-yellow-500 hover:text-yellow-600 font-medium">سجل الآن</a>
+            </p>
+            
+            <div class="social-login mt-8 text-center">
+                <p class="text-gray-500 mb-4">أو تسجيل الدخول من خلال</p>
+                <div class="social-buttons flex flex-col space-y-3">
+                    
+                    <button class="social-btn flex items-center justify-center space-x-2 w-full py-2.5 rounded-lg shadow-md transition duration-200 border border-gray-300 bg-white text-darken hover:bg-gray-50">
+                        <svg class="w-4 h-4 ml-2" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.343c-1.776 5.071-6.175 8.358-11.343 8.358c-6.14 0-11.128-4.988-11.128-11.128s4.988-11.128 11.128-11.128c3.13 0 5.867 1.272 7.986 3.329l5.657-5.657C34.093 4.904 29.096 3 24 3C12.955 3 3.989 12.012 3.989 23.083s8.966 20.083 20.011 20.083c11.055 0 19.53-8.118 19.53-19.387c0-1.378-.172-2.738-.49-4.041z"/>
+                            <path fill="#FF3D00" d="M6.357 15.655v4.428H10.16V15.655H6.357zM6.357 20.083v4.428H10.16V20.083H6.357z"/>
+                            <path fill="#4CAF50" d="M24 43.167c-5.835 0-11.164-2.285-15.011-6.096l5.657-5.657c3.27 3.238 7.55 5.226 10.354 5.226c6.14 0 11.128-4.988 11.128-11.128c0-3.921-1.611-7.558-4.404-10.158l5.657-5.657c4.646 4.398 7.234 10.217 7.234 16.615c0 11.273-8.475 19.387-19.53 19.387z"/>
+                            <path fill="#1976D2" d="M43.611 20.083h-19.611V28h11.343c-.88 2.55-2.074 4.887-3.79 6.883l-5.657 5.657c-1.577 1.577-3.415 2.761-5.467 3.538C29.096 43.167 34.093 45 39.111 45c3.25 0 6.31-1.042 9.074-2.839l-4.554-3.58z"/>
+                        </svg>
+                        <span>تسجيل الدخول بـ Google</span>
+                    </button>
+                    
+                    <button class="social-btn flex items-center justify-center space-x-2 w-full py-2.5 rounded-lg shadow-md transition duration-200 border border-gray-300 bg-white text-darken hover:bg-gray-50">
+                        <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="#0077B5" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.23 0H1.77C.79 0 0 .77 0 1.72v20.56c0 .95.79 1.72 1.77 1.72h20.46c.98 0 1.77-.77 1.77-1.72V1.72c0-.95-.79-1.72-1.77-1.72zM7.22 20.5H3.59V8.62h3.63V20.5zM5.4 6.94c-1.16 0-1.92-.78-1.92-1.77c0-.99.76-1.77 1.92-1.77c1.16 0 1.92.78 1.92 1.77c0 .99-.76 1.77-1.92 1.77zm15.11 13.56h-3.63V14.4c0-1.46-.52-2.45-1.84-2.45c-.99 0-1.58.67-1.84 1.33c-.09.23-.11.55-.11.87v6.35H10.18V8.62h3.63v1.57c.5-.78 1.45-1.89 3.27-1.89c2.39 0 4.19 1.57 4.19 4.96V20.5z"/>
+                        </svg>
+                        <span>تسجيل الدخول بـ LinkedIn</span>
+                    </button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer mt-auto">
+        <div class="container max-w-screen-xl mx-auto px-8">
+            <p class="text-white">&copy; 2025 صُنّاع جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/form-validation.js"></script>
+</body>
+</html>

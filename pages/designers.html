@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المصممون والفنيون - شركة صناع الرسالة القابضة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="../imgaes/الشعار الجديد .png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../imgaes/الشعار الجديد .png">
+    
+    <style>
+        /* -------------------------------------------------------------------
+           التنسيقات الموحدة لشركة صُنّاع الرسالة القابضة (CSS Global Styles)
+           ------------------------------------------------------------------- */
+        :root {
+            --color-primary: #155FCF;           
+            --color-light-secondary: #AECFFB; 
+            --color-accent: #155FCF;            
+            --color-footer-dark: #ffffff; 
+            --color-dark-text: #111827;             
+            --color-gray-text: #6b7280;             
+            --color-white: #ffffff;                 
+            --color-primary-hover: #124d9f;         
+            --color-form-bg: #f8f8f8; 
+        }
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            text-align: right;
+            color: var(--color-dark-text);
+            background-color: var(--color-white); 
+            background-image: radial-gradient(rgba(12, 12, 12, 0.05) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: -5px -5px;
+        }
+        .text-darken, h1, h2, h3, h4 { color: var(--color-primary) !important; }
+
+        /* تطبيق الشفافية على الخلفيات لتظهر النقاط */
+        .bg-cream, .bg-gray-100, .bg-gray-50, .bg-white { background-color: transparent !important; }
+        
+        /* تنسيق الهيدر الافتتاحي (Page Header) */
+        .page-header {
+            height: 250px;
+            background-color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 0 0 16px 16px;
+        }
+        .page-header h1 { color: var(--color-white) !important; font-size: 3rem; font-weight: 700; }
+        .page-header p { color: #d1d8e0 !important; font-size: 1.25rem; }
+
+        /* تنسيق الأزرار الرئيسية */
+        .btn-primary { background-color: var(--color-primary) !important; color: var(--color-white) !important; transition: background-color 0.3s; }
+        .btn-primary:hover { background-color: var(--color-primary-hover) !important; }
+
+        /* تنسيق شريط التنقل (Navbar) - أبيض صلب */
+        .navbar { background-color: var(--color-white) !important; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); position: sticky; top: 0; z-index: 50; }
+        /* تنسيقات الـ Footer */
+        .footer { background-color: var(--color-footer-dark) !important; padding: 40px 0; }
+        .footer h4, .footer p, .footer a { color: var(--color-dark-text) !important; }
+        .footer a:hover { color: var(--color-primary) !important; text-decoration: underline; }
+        /* ------------------------------------------------------------------- */
+
+        /* تنسيقات خاصة بصفحة المصممين */
+        .designer-card {
+            background-color: var(--color-white); 
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            text-align: center;
+        }
+        .designer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(21, 95, 207, 0.1);
+        }
+        .designer-avatar {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--color-light-secondary);
+        }
+    </style>
+</head>
+<body class="antialiased font-cairo text-right">
+
+    <div x-data="{ open: false }" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
+            
+            <div class="flex items-center space-x-2 flex-row-reverse order-1">
+                <a href="../index.html" class="focus:outline-none focus:shadow-outline flex items-center">
+                    <img src="../imgaes/الشعار الجديد .png" alt="شعار صُنّاع" class="h-12 w-auto"> 
+                </a>
+                
+                <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline mr-4" @click="open = !open">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                        <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                        <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="hidden md:flex flex-grow justify-center order-2">
+                <div class="flex items-center md:space-x-8 md:space-x-reverse">
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-blue-600 focus:outline-none focus:shadow-outline font-semibold text-gray-800" href="../index.html">الرئيسية</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-blue-600 focus:outline-none focus:shadow-outline text-gray-700" href="services.html">خدماتنا</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-blue-600 focus:outline-none focus:shadow-outline text-gray-700" href="news.html">أخبارنا</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-blue-600 focus:outline-none focus:shadow-outline text-gray-700" href="products.html">منتجاتنا</a>
+                </div>
+            </nav>
+
+            <div class="hidden md:flex items-center space-x-3 order-3">
+                <a class="px-8 py-2 text-sm text-center bg-white text-gray-800 border border-gray-300 rounded-full shadow-md hover:shadow-lg transition duration-300" href="login.html">تسجيل دخول</a>
+                <a class="px-8 py-2 text-sm text-center text-white rounded-full shadow-xl hover:shadow-2xl transition duration-300" 
+                   style="background-color: var(--color-primary); hover:background-color: var(--color-primary-hover);" href="register.html">انضم الآن</a>
+            </div>
+            
+            </div>
+    </div>
+    <section class="page-header">
+        <h1>المصممون والفنيون</h1>
+        <p>استكشف مجموعة من أفضل المصممين والفنيين والمهندسين المعتمدين</p>
+    </section>
+
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-extrabold text-center mb-12">كوادرنا المعتمدة</h2>
+            
+            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
+                
+                <div data-aos="fade-up" class="designer-card rounded-xl shadow-lg p-6">
+                    <img src="https://placehold.co/120x120/AECFFB/155FCF?text=D1" alt="المصمم خالد" class="designer-avatar mx-auto mb-4">
+                    <h3 class="text-xl font-bold mb-1 text-darken">خالد العتيبي</h3>
+                    <p class="text-gray-600 text-sm mb-4">مصمم منتجات صناعية (Product Designer)</p>
+                    <a href="contact.html" class="inline-block btn-primary px-4 py-2 rounded-lg text-sm font-semibold transition duration-200">عرض الملف →</a>
+                </div>
+                
+                <div data-aos="fade-up" data-aos-delay="100" class="designer-card rounded-xl shadow-lg p-6">
+                    <img src="https://placehold.co/120x120/155FCF/FFFFFF?text=E2" alt="المهندس سارة" class="designer-avatar mx-auto mb-4">
+                    <h3 class="text-xl font-bold mb-1 text-darken">سارة المحمد</h3>
+                    <p class="text-gray-600 text-sm mb-4">مهندس ميكانيكي ومتخصص في النمذجة (CAD)</p>
+                    <a href="contact.html" class="inline-block btn-primary px-4 py-2 rounded-lg text-sm font-semibold transition duration-200">عرض الملف →</a>
+                </div>
+                
+                <div data-aos="fade-up" data-aos-delay="200" class="designer-card rounded-xl shadow-lg p-6">
+                    <img src="https://placehold.co/120x120/AECFFB/111827?text=T3" alt="الفني فهد" class="designer-avatar mx-auto mb-4">
+                    <h3 class="text-xl font-bold mb-1 text-darken">فهد الزهراني</h3>
+                    <p class="text-gray-600 text-sm mb-4">فني تصنيع وروبوتات (CNC Technician)</p>
+                    <a href="contact.html" class="inline-block btn-primary px-4 py-2 rounded-lg text-sm font-semibold transition duration-200">عرض الملف →</a>
+                </div>
+                
+                <div data-aos="fade-up" data-aos-delay="300" class="designer-card rounded-xl shadow-lg p-6">
+                    <img src="https://placehold.co/120x120/155FCF/FFFFFF?text=D4" alt="المصممة نور" class="designer-avatar mx-auto mb-4">
+                    <h3 class="text-xl font-bold mb-1 text-darken">نور العلي</h3>
+                    <p class="text-gray-600 text-sm mb-4">خبير في تحليل المواد وهندسة الجودة</p>
+                    <a href="contact.html" class="inline-block btn-primary px-4 py-2 rounded-lg text-sm font-semibold transition duration-200">عرض الملف →</a>
+                </div>
+            </div>
+
+            <div class="text-center mt-16">
+                <a href="register.html" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-full hover:bg-gray-100 transition duration-300">انضم كـ صُنّاعي الآن</a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="mt-20 text-right" style="background-color: var(--color-footer-dark);">
+        <div class="max-w-screen-xl mx-auto px-8">
+            <div class="grid md:grid-cols-4 gap-12 py-16 text-sm"> 
+                
+                <div class="md:col-span-1 flex flex-col justify-start items-start text-right">
+                    <div class="flex items-center space-x-3 flex-row-reverse mb-4">
+                        <img src="../imgaes/الشعار الجديد .png" alt="شعار صُنّاع" class="w-20 h-20"> 
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الروابط الأساسية</h4> 
+                    <ul class="space-y-3 text-gray-700">
+                        <li><a href="../index.html" class="hover:text-blue-600 transition duration-200">الرئيسية</a></li>
+                        <li><a href="about.html" class="hover:text-blue-600 transition duration-200">عن صُنّاع</a></li>
+                        <li><a href="services.html" class="hover:text-blue-600 transition duration-200">خدماتنا</a></li>
+                        <li><a href="products.html" class="hover:text-blue-600 transition duration-200">منتجاتنا</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                     <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الدعم والتواصل</h4>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><a href="contact.html" class="hover:text-blue-600 transition duration-200">تواصل معنا</a></li>
+                        <li><a href="news.html" class="hover:text-blue-600 transition duration-200">أخبارنا ومستجداتنا</a></li>
+                        <li><a href="register.html" class="hover:text-blue-600 transition duration-200">انضم كصُنّاعي</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition duration-200">سياسة الخصوصية</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:col-span-1">
+                     <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">معلومات الاتصال</h4>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><span class="font-semibold" style="color: var(--color-dark-text);">البريد:</span> info@sunnaasar.com</li>
+                        <li><span class="font-semibold" style="color: var(--color-dark-text);">الهاتف:</span> +966 55 3372491</li>
+                        <li><span class="font-semibold" style="color: var(--color-dark-text);">الموقع الجغرافي:</span> المملكة العربية السعودية، مكة المكرمة - روزنامة للأعمال</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center border-t border-gray-300 py-4">
+                <p class="my-3 text-gray-500 text-xs">© 2025 شركة صناع الرسالة القابضة. جميع الحقوق محفوظة. </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+</html>

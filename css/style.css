@@ -1,0 +1,320 @@
+/* التنسيقات الموحدة لشركة صُنّاع الرسالة القابضة */
+
+/* -------------------------------------------------------------------
+   1. متغيرات الألوان والخطوط (Root Variables)
+   ------------------------------------------------------------------- */
+   :root {
+    --color-primary: #155FCF;           
+    --color-light-secondary: #ffffff; 
+    --color-accent: #155FCF;            
+    --color-footer-dark: #ffffff; /* تم تعديله ليتناسب مع لون الفوتر الجديد */
+    --color-dark-text: #111827;             
+    --color-gray-text: #6b7280;             
+    --color-white: #ffffff;                 
+    --color-primary-hover: #124d9f;         
+}
+
+/* -------------------------------------------------------------------
+   2. التنسيقات الأساسية وتطبيق نمط الخلفية
+   ------------------------------------------------------------------- */
+body {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    text-align: right;
+    color: var(--color-dark-text);
+    /* تم تثبيت نمط الخلفية بنقاط شعاعية ناعمة ليكون خلفية أساسية للصفحة */
+    background-color: var(--color-white); 
+    background-image: radial-gradient(rgba(12, 12, 12, 0.05) 2px, transparent 0);
+    background-size: 30px 30px;
+    background-position: -5px -5px;
+}
+
+.stat-number, .navbar a {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+/* 3. تنسيقات الألوان العامة (General Color Classes) */
+.bg-cream, .bg-gray-100, .bg-gray-50, .bg-white {
+    background-color:transparent !important;
+   /* background-color:#ffffff!important;*/
+
+}
+
+.text-darken, h1, h2, h3, h4 {
+    color: var(--color-primary) !important;
+}
+
+.bg-yellow-500, .bg-accent, .btn-primary {
+    background-color: var(--color-primary) !important; 
+    color: var(--color-white) !important;            
+}
+.btn-primary:hover {
+    background-color: var(--color-primary-hover) !important;
+}
+.text-yellow-500, .text-accent {
+    color: var(--color-primary) !important; 
+}
+
+.bg-red-500, .bg-yellow-300, .bg-yellow-300 span, .step-number {
+    background-color: var(--color-primary) !important;
+    color: var(--color-white) !important; 
+}
+
+.text-gray-500, .text-gray-700, .text-light, .section-subtitle {
+    color: var(--color-gray-text) !important;
+}
+
+.border-yellow-500 {
+    border-color: var(--color-primary) !important;
+}
+.hover\:border-yellow-500:hover {
+    border-color: var(--color-primary) !important;
+}
+.underline.text-yellow-500 {
+    color: var(--color-primary) !important;
+}
+
+
+   .navbar {
+    
+    background-color: var(--color-white) !important; 
+    
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+.navbar-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.navbar-logo .logo-text {
+    color: var(--color-white) !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-right: 0.5rem;
+}
+.navbar a {
+    color: var(--color-white) !important; 
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+.navbar a:hover, .navbar .nav-link.active {
+    color: var(--color-light-secondary) !important; 
+}
+.navbar-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.navbar-menu li {
+    margin: 0 1rem;
+}
+.nav-link {
+    padding: 0.5rem 0;
+    text-decoration: none;
+}
+.navbar-auth {
+    display: flex;
+    gap: 0.75rem;
+}
+.btn-login {
+    background-color: transparent;
+    border: 1px solid var(--color-white);
+    color: var(--color-white) !important;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s, border-color 0.3s;
+    text-decoration: none;
+}
+.btn-register {
+    background-color: var(--color-light-secondary); 
+    color: var(--color-primary) !important;         
+    border: 1px solid var(--color-light-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+.btn-login:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.btn-register:hover {
+    background-color: #9cbfee; /* slightly darker light secondary */
+}
+.hamburger {
+    display: none; /* Hide on desktop */
+    cursor: pointer;
+}
+@media (max-width: 768px) {
+    .navbar-menu, .navbar-auth {
+        display: none;
+    }
+    .hamburger {
+        display: block;
+    }
+}
+
+/* -------------------------------------------------------------------
+   5. تنسيقات حركات (Animations)
+   ------------------------------------------------------------------- */
+.floating {
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+@keyframes floating {
+    0% { transform: translate(0, 0px); }
+    50% { transform: translate(0, 8px); }
+    100% { transform: translate(0, -0px); } 
+}
+.floating-4 {
+    animation-name: floating-4;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+@keyframes floating-4 {
+    0% { transform: translate(0, 0px); }
+    50% { transform: translate(0, 8px); }
+    100% { transform: translate(0, -0px); } 
+}
+
+/* -------------------------------------------------------------------
+   6. تنسيقات خاصة بالصفحة (Page-Specific Styles)
+   ------------------------------------------------------------------- */
+/* تنسيق الهيدر الافتتاحي */
+.page-header {
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.header-overlay {
+    background-color: rgba(21, 95, 207, 0.7); /* Primary color with transparency */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 0 0 16px 16px;
+}
+.page-header h1 {
+    color: var(--color-white) !important;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+.page-header p {
+    color: #d1d8e0 !important;
+    font-size: 1.25rem;
+}
+
+/* قسم القيم الأساسية */
+.value-card {
+    /* الخلفية أصبحت شفافة بسبب التعديل في القسم 3 */
+    border: 1px solid #e5e7eb;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(21, 95, 207, 0.1);
+}
+
+/* تنسيقات تسجيل الدخول (Login/Register Forms) */
+.login-form-wrapper {
+    /* الخلفية أصبحت شفافة بسبب التعديل في القسم 3 */
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: 20px auto;
+}
+.login-form h1 {
+    color: var(--color-primary); 
+    margin-bottom: 10px;
+}
+.login-form input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 1px var(--color-primary);
+}
+.user-type-selector label {
+    border: 1px solid #ddd;
+    transition: all 0.2s;
+}
+.user-type-selector label:has(input:checked) {
+    border-color: var(--color-primary);             
+    background-color: var(--color-light-secondary); 
+    box-shadow: 0 0 0 1px var(--color-primary);
+}
+.form-link a, .forgot-password {
+    color: var(--color-primary);                    
+    text-decoration: none;
+    font-weight: 600;
+}
+.form-link a:hover, .forgot-password:hover {
+    text-decoration: underline;
+}
+.social-login .social-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.social-login .social-btn {
+    border: 1px solid var(--color-light-secondary);
+    /* الخلفية أصبحت شفافة بسبب التعديل في القسم 3 */
+    color: var(--color-dark-text); 
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.social-login .social-btn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.social-login .social-btn span {
+    color: var(--color-dark-text) !important;
+    margin-right: 8px;
+    font-size: 0.95rem;
+}
+
+/* -------------------------------------------------------------------
+   7. تنسيقات التذييل (Footer)
+   ------------------------------------------------------------------- */
+.footer {
+    background-color: var(--color-footer-dark) !important; 
+    padding: 40px 0;
+}
+.footer h4, .footer p, .footer a {
+    color: var(--color-dark-text) !important;
+}
+.footer a:hover {
+    color: var(--color-primary) !important;
+    text-decoration: underline;
+}
+.footer h1 { color: var(--color-primary) !important; }

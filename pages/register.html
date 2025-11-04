@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب - منصة صُنّاع</title>
+    
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="./imgaes/الشعار الجديد .png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./imgaes/الشعار الجديد .png">
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col antialiased font-cairo text-right">
+
+    <div x-data="{ open: false }" class="w-full bg-cream shadow-md sticky top-0 z-50">
+        <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
+            
+            <div class="flex items-center space-x-2 flex-row-reverse order-1">
+                <a href="../index.html" class="focus:outline-none focus:shadow-outline flex items-center">
+                    <img src="../imgaes/الشعار الجديد .png" alt="شعار صُنّاع" class="h-12 w-auto"> 
+                </a>
+                
+                <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline mr-4" @click="open = !open">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                        <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                        <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="hidden md:flex flex-grow justify-center order-2">
+                <div class="flex items-center md:space-x-8 md:space-x-reverse">
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="../index.html">الرئيسية</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="about.html">عن صُنّاع</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="news.html">اخبارنا</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="products.html">منتجاتنا</a>
+                </div>
+            </nav>
+
+            <div class="hidden md:flex items-center space-x-3 order-3">
+                <a class="px-8 py-2 text-sm text-center bg-white text-darken rounded-full shadow-md hover:shadow-lg transition duration-300" href="login.html">تسجيل دخول</a>
+                <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-darken rounded-full shadow-xl hover:shadow-2xl transition duration-300 font-bold" href="#">تسجيل</a>
+            </div>
+
+            <div :class="{ 'transform md:transform-none': !open, 'h-full': open }" 
+                class="absolute top-full left-0 right-0 w-full bg-cream md:hidden z-40 
+                        h-0 overflow-hidden transition-all duration-300 transform scale-y-0 origin-top">
+                <div class="flex flex-col items-center py-4 space-y-2">
+                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="../index.html">الرئيسية</a>
+                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="about.html">عن صُنّاع</a>
+                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="news.html">اخبارنا</a>
+                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="products.html">منتجاتنا</a>
+                    <div class="pt-4 border-t border-gray-300 w-11/12 text-center">
+                        <a class="px-8 py-2 text-sm text-center bg-white text-darken rounded-full shadow-md block w-full mb-2" href="login.html">تسجيل دخول</a>
+                        <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-darken rounded-full shadow-xl block w-full font-bold" href="#">تسجيل</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-grow flex items-center justify-center p-4">
+        <div class="login-form-wrapper bg-white shadow-2xl rounded-xl p-8 w-full max-w-lg md:max-w-xl">
+            <h1 class="text-3xl font-bold text-center text-darken mb-2">إنشاء حساب جديد</h1>
+            <p class="form-subtitle text-center text-gray-500 mb-8">انضم إلى منصتنا وابدأ رحلتك معنا</p>
+            
+            <form id="registerForm" class="login-form space-y-6" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label class="block text-right font-medium text-gray-700 mb-3">اختر نوع حسابك</label>
+                    <div class="user-type-selector grid grid-cols-2 md:grid-cols-3 gap-3">
+                        
+                        <label class="type-option block p-3 border border-gray-300 rounded-lg cursor-pointer transition duration-200 hover:bg-yellow-50 focus-within:ring-2 focus-within:ring-yellow-500">
+                            <input type="radio" name="userType" value="designer" required class="hidden">
+                            <span class="block font-semibold text-darken">مصمم</span>
+                            <small class="block text-gray-500 text-xs mt-1">أبحث عن مشاريع</small>
+                        </label>
+                        <label class="type-option block p-3 border border-gray-300 rounded-lg cursor-pointer transition duration-200 hover:bg-yellow-50 focus-within:ring-2 focus-within:ring-yellow-500">
+                            <input type="radio" name="userType" value="company" class="hidden">
+                            <span class="block font-semibold text-darken">شركة</span>
+                            <small class="block text-gray-500 text-xs mt-1">أبحث عن خدمات</small>
+                        </label>
+                        <label class="type-option block p-3 border border-gray-300 rounded-lg cursor-pointer transition duration-200 hover:bg-yellow-50 focus-within:ring-2 focus-within:ring-yellow-500">
+                            <input type="radio" name="userType" value="factory" class="hidden">
+                            <span>مصنع</span>
+                            <small class="block text-gray-500 text-xs mt-1">أريد الاتصال بالشركات</small>
+                        </label>
+                        <label class="type-option block p-3 border border-gray-300 rounded-lg cursor-pointer transition duration-200 hover:bg-yellow-50 focus-within:ring-2 focus-within:ring-yellow-500">
+                            <input type="radio" name="userType" value="expert" class="hidden">
+                            <span>خبير</span>
+                            <small class="block text-gray-500 text-xs mt-1">أقدم استشارات</small>
+                        </label>
+                        <label class="type-option block p-3 border border-gray-300 rounded-lg cursor-pointer transition duration-200 hover:bg-yellow-50 focus-within:ring-2 focus-within:ring-yellow-500">
+                            <input type="radio" name="userType" value="client" class="hidden">
+                            <span>عميل</span>
+                            <small class="block text-gray-500 text-xs mt-1">أبحث عن حلول</small>
+                        </label>
+                        
+                    </div>
+                </div>
+                
+                <div id="additionalFields" style="display: none;" class="space-y-6">
+                    <div class="form-group">
+                        <label for="fullname" class="block text-sm font-medium text-gray-700">الاسم الكامل</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="محمد علي" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reg-email" class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
+                        <input type="email" id="reg-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reg-password" class="block text-sm font-medium text-gray-700">كلمة المرور</label>
+                        <input type="password" id="reg-password" name="password" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password" class="block text-sm font-medium text-gray-700">تأكيد كلمة المرور</label>
+                        <input type="password" id="confirm-password" name="confirmPassword" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div class="form-group flex items-center">
+                        <input type="checkbox" id="terms" name="terms" required class="h-4 w-4 text-yellow-600 border-gray-300 rounded focus:ring-yellow-500">
+                        <label for="terms" class="mr-2 text-sm text-gray-900">أوافق على الشروط والأحكام وسياسة الخصوصية</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full w-full py-3 rounded-lg font-bold">إنشاء حساب</button>
+                </div>
+            </form>
+            
+            <p class="form-link text-center mt-6 text-gray-600">
+                لديك حساب بالفعل؟ <a href="login.html" class="text-yellow-500 hover:text-yellow-600 font-medium">سجل الدخول</a>
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer mt-auto">
+        <div class="container max-w-screen-xl mx-auto px-8">
+            <p class="text-white">&copy; 2025 صُنّاع جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/form-validation.js"></script>
+    <script>
+        // كود تشغيل إظهار الحقول الإضافية عند اختيار نوع الحساب
+        document.addEventListener('DOMContentLoaded', () => {
+            const userTypeRadios = document.querySelectorAll('input[name="userType"]');
+            const additionalFields = document.getElementById('additionalFields');
+
+            userTypeRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    additionalFields.style.display = 'block';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

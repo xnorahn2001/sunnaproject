@@ -1,0 +1,329 @@
+/* ==================== LOGIN CONTAINER ==================== */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+    padding: 40px 20px;
+    background-color: var(--light-bg);
+}
+
+.login-form-wrapper {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    width: 100%;
+}
+
+.login-form-wrapper h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-align: center;
+    color: var(--text-dark);
+}
+
+.form-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 30px;
+}
+
+/* ==================== FORM GROUPS ==================== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    color: var(--text-dark);
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* ==================== USER TYPE SELECTOR ==================== */
+.user-type-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.type-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.type-option input[type="radio"] {
+    display: none;
+}
+
+.type-option input[type="radio"] + span {
+    display: block;
+    padding: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background-color: var(--white);
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.type-option small {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 5px;
+    font-weight: normal;
+}
+
+.type-option input[type="radio"]:checked + span {
+    border-color: var(--primary-color);
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+    color: var(--primary-color);
+}
+
+/* ==================== FORM UTILITIES ==================== */
+.form-remember {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.form-remember input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.form-remember label {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.forgot-password {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: var(--secondary-color);
+}
+
+.form-link {
+    text-align: center;
+    color: var(--text-light);
+    margin-top: 20px;
+}
+
+.form-link a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.form-link a:hover {
+    color: var(--secondary-color);
+}
+
+/* ==================== SOCIAL LOGIN ==================== */
+.social-login {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+}
+
+.social-login p {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.social-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.social-btn {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--white);
+    color: var(--text-dark);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.social-btn:hover {
+    border-color: var(--primary-color);
+    background-color: var(--light-bg);
+}
+
+.social-btn.google {
+    color: #1f2937;
+}
+
+.social-btn.linkedin {
+    color: #0077b5;
+}
+
+/* ==================== ERROR & SUCCESS MESSAGES ==================== */
+.form-error {
+    color: var(--danger-color);
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.form-group.error input {
+    border-color: var(--danger-color);
+}
+
+.form-group.error .form-error {
+    display: block;
+}
+
+.form-success {
+    background-color: #dbeafe;
+    border: 1px solid #93c5fd;
+    color: #0c4a6e;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.form-error-message {
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: right;
+}
+/* ==================== PAGE LAYOUT CONTAINER ==================== */
+/* هذا هو الحاوية الجديدة التي تضمن أن المحتوى يملأ الشاشة عمودياً */
+.full-page-content {
+    display: flex;
+    flex-direction: column; /* لترتيب الهيدر والفوتر عمودياً */
+    min-height: 100vh;
+}
+
+/* ==================== LOGIN CONTAINER (القسم الأوسط الذي سيحتوي الفورم والصورة) ==================== */
+.login-content-wrapper {
+    /* يحل محل .login-container ليحتوي الفورم والصورة جنباً إلى جنب */
+    flex-grow: 1; /* لجعل هذا القسم يملأ المساحة المتاحة بين الهيدر والفوتر */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background-color: var(--light-bg);
+    width: 100%;
+}
+
+.login-layout {
+    /* الحاوية الداخلية التي تضم الفورم والصورة */
+    display: flex;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    max-width: 1000px; /* لتوسيع الحاوية لاستيعاب الصورة */
+    width: 90%;
+    overflow: hidden;
+    /* الترتيب الافتراضي: الفورم على اليمين والصورة على اليسار (Flexbox يبدأ من اليسار، لذلك نستخدم order) */
+}
+
+/* ==================== قسم الفورم (FORM) ==================== */
+.login-form-wrapper {
+    /* تم تعديله ليأخذ نصف العرض */
+    padding: 40px;
+    width: 100%;
+    max-width: 450px; /* لتقييد حجم الفورم ضمن نصف العرض */
+    margin: 0 auto; /* توسيط محتوى الفورم في النصف المخصص له */
+    /* إزالة الخلفية والظل لأنها أصبحت في .login-layout */
+    box-shadow: none; 
+    border-radius: 0;
+}
+
+/* على الشاشات الكبيرة (Desktop) */
+@media (min-width: 1024px) {
+    .login-form-container {
+        width: 50%;
+        order: 2; /* لجعل الفورم يظهر على اليمين في التصميم العربي (إذا كان الاتجاه rtl) */
+        padding: 60px 40px;
+    }
+    
+    .login-form-wrapper {
+        padding: 0;
+    }
+}
+
+/* ==================== قسم الصورة (IMAGE) ==================== */
+.login-image-side {
+    display: none; /* إخفاء الصورة على الجوال */
+}
+
+/* على الشاشات الكبيرة (Desktop) */
+@media (min-width: 1024px) {
+    .login-image-side {
+        display: block;
+        width: 50%; /* نصف العرض */
+        order: 1; /* لجعل الصورة تظهر على اليسار في التصميم العربي */
+        background-color: var(--primary-color-light); /* خلفية احتياطية */
+        position: relative;
+    }
+    
+    .login-image-side img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* لتغطية المساحة دون تشويه */
+        display: block;
+    }
+}

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التواصل معنا - شركة صناع الرسالة القابضة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="../imgaes/الشعار الجديد .png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../imgaes/الشعار الجديد .png">
+    
+    <style>
+        /* التنسيقات الموحدة لشركة صُنّاع الرسالة القابضة */
+        :root {
+            --color-primary: #155FCF;           
+            --color-light-secondary: #AECFFB; 
+            --color-accent: #155FCF;            
+            --color-footer-dark: #ffffff; 
+            --color-dark-text: #111827;             
+            --color-gray-text: #6b7280;             
+            --color-white: #ffffff;                 
+            --color-primary-hover: #124d9f;         
+            --color-form-bg: #f8f8f8; /* لون خلفية حقول الإدخال */
+        }
+
+        /* 2. التنسيقات الأساسية وتطبيق نمط الخلفية النقطية */
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            text-align: right;
+            color: var(--color-dark-text);
+            background-color: var(--color-white); 
+            background-image: radial-gradient(rgba(12, 12, 12, 0.05) 2px, transparent 0);
+            background-size: 30px 30px;
+            background-position: -5px -5px;
+        }
+        .text-darken, h1, h2, h3, h4 { color: var(--color-primary) !important; }
+
+        /* 3. تطبيق الشفافية على الخلفيات لتظهر النقاط */
+        .bg-cream, .bg-gray-100, .bg-gray-50, .bg-white { background-color: transparent !important; }
+
+        /* 4. تنسيق الهيدر الافتتاحي (Page Header) */
+        .page-header {
+            height: 250px;
+            background-image: url(../imgaes/background.png);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-direction: column;
+            border-radius: 0 0 16px 16px;
+        }
+        .page-header h1 {
+            color: var(--color-white) !important;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        .page-header p {
+            color: #000000 !important;
+            font-size: 1.25rem;
+        }
+
+        /* ----------------------------------------------------------- */
+        /* 5. تنسيقات حقول الإدخال الجديدة (Modern Floating Label) */
+        /* ----------------------------------------------------------- */
+        .form-group-modern {
+            position: relative;
+            margin-top: 1.5rem;
+        }
+        .form-input-modern {
+            padding: 1rem 0.75rem 0.5rem 0.75rem;
+            font-size: 0.95rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: var(--color-form-bg);
+            transition: all 0.2s ease;
+            width: 100%;
+            z-index: 1;
+        }
+        .form-input-modern:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 1px var(--color-primary);
+            outline: none;
+            background-color: var(--color-white);
+        }
+        .form-label-modern {
+            position: absolute;
+            top: 0;
+            right: 0.75rem;
+            padding: 0.75rem 0;
+            color: var(--color-gray-text);
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        /* Floating effect */
+        .form-input-modern:focus + .form-label-modern,
+        .form-input-modern:not(:placeholder-shown) + .form-label-modern {
+            top: -0.75rem;
+            right: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--color-primary);
+            background: var(--color-white);
+            padding: 0 0.2rem;
+            z-index: 5;
+            border-radius: 4px;
+        }
+
+        .form-input-modern::placeholder {
+            color: transparent; /* إخفاء النص عند وضع "placeholder" */
+        }
+
+        /* Textarea specific adjustments */
+        textarea.form-input-modern {
+            min-height: 10rem;
+            padding-top: 1.5rem;
+        }
+        textarea.form-input-modern:focus + .form-label-modern,
+        textarea.form-input-modern:not(:placeholder-shown) + .form-label-modern {
+            top: -0.75rem; /* رفع الليبل للأعلى */
+        }
+        /* ----------------------------------------------------------- */
+
+
+        /* تنسيقات الأزرار */
+        .btn-primary {
+            background-color: var(--color-primary) !important; 
+            color: var(--color-white) !important;            
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: var(--color-primary-hover) !important;
+        }
+
+        /* 6. تنسيق بطاقات معلومات التواصل */
+        .info-card {
+            background-color: var(--color-white); 
+            border-left: 4px solid var(--color-primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+        }
+        .info-card h3 { color: var(--color-dark-text) !important; font-weight: 600; margin-bottom: 0.25rem; }
+        .info-card p { color: var(--color-gray-text) !important; font-size: 0.95rem; }
+        .info-card .icon { color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+        .map-placeholder { 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            height: 250px; 
+            background-color: #f7f7f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-gray-text);
+        }
+        .map-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* 7. تنسيقات التذييل (Footer) */
+        .footer {
+            background-color: var(--color-footer-dark) !important; 
+            padding: 40px 0;
+        }
+        .footer h4, .footer p, .footer a {
+            color: var(--color-dark-text) !important;
+        }
+        .footer a:hover {
+            color: var(--color-primary) !important;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="antialiased font-cairo text-right">
+
+    <div x-data="{ open: false }" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
+            
+            <div class="flex items-center space-x-2 flex-row-reverse order-1">
+                <a href="../index.html" class="focus:outline-none focus:shadow-outline flex items-center">
+                    <img src="../imgaes/الشعار الجديد .png" alt="شعار صُنّاع" class="h-12 w-auto"> 
+                </a>
+                
+                <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline mr-4" @click="open = !open">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                        <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                        <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="hidden md:flex flex-grow justify-center order-2">
+                <div class="flex items-center md:space-x-8 md:space-x-reverse">
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-blue-600 focus:outline-none focus:shadow-outline font-semibold text-gray-800" href="../index.html">الرئيسية</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-blue-600 focus:outline-none focus:shadow-outline text-gray-700" href="../index.html#services">خدماتنا</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-blue-600 focus:outline-none focus:shadow-outline text-gray-700" href="../index.html#news">أخبارنا</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-blue-600 focus:outline-none focus:shadow-outline text-gray-700" href="products.html">منتجاتنا</a>
+                </div>
+            </nav>
+
+            <div class="hidden md:flex items-center space-x-3 order-3">
+                <a class="px-8 py-2 text-sm text-center bg-white text-gray-800 border border-gray-300 rounded-full shadow-md hover:shadow-lg transition duration-300" href="login.html">تسجيل دخول</a>
+                <a class="px-8 py-2 text-sm text-center text-white rounded-full shadow-xl hover:shadow-2xl transition duration-300" 
+                   style="background-color: var(--color-primary); hover:background-color: var(--color-primary-hover);" href="register.html">انضم الآن</a>
+            </div>
+
+            <div x-show="open" 
+                 x-transition:enter="transition ease-out duration-100" 
+                 x-transition:enter-start="transform opacity-0 scale-95" 
+                 x-transition:enter-end="transform opacity-100 scale-100" 
+                 x-transition:leave="transition ease-in duration-75" 
+                 x-transition:leave-start="transform opacity-100 scale-100" 
+                 x-transition:leave-end="transform opacity-0 scale-95"
+                 class="absolute inset-x-0 top-0 mt-20 p-2 transition transform origin-top-right md:hidden">
+                <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+                    <div class="px-5 pt-5 pb-6 space-y-6">
+                        <div class="grid grid-cols-1 gap-y-4 gap-x-8">
+                            <a class="py-2 text-base font-medium text-gray-700 hover:text-gray-900" href="../index.html">الرئيسية</a>
+                            <a class="py-2 text-base font-medium text-gray-700 hover:text-gray-900" href="../index.html#services">خدماتنا</a>
+                            <a class="py-2 text-base font-medium text-gray-700 hover:text-gray-900" href="../index.html#news">أخبارنا</a>
+                            <a class="py-2 text-base font-medium text-gray-700 hover:text-gray-900" href="products.html">منتجاتنا</a>
+                        </div>
+                        <div class="flex flex-col space-y-4">
+                            <a href="register.html" 
+                               class="w-full flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white shadow-sm"
+                               style="background-color: var(--color-primary);">
+                                انضم الآن
+                            </a>
+                            <a href="login.html" 
+                               class="w-full flex items-center justify-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-800 bg-white shadow-sm">
+                                تسجيل دخول
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <section class="page-header">
+        <h1>التواصل معنا</h1>
+        <p>نحن هنا للإجابة على جميع استفساراتك</p>
+    </section>
+    
+    <section class="py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-12">
+            
+            <div class="md:col-span-1 space-y-6">
+                <h2 class="text-3xl font-bold mb-6">معلومات التواصل</h2>
+                
+                <div class="info-card flex items-start space-x-4 space-x-reverse">
+                    <i class="icon fas fa-map-marker-alt mt-1"></i>
+                    <div>
+                        <h3>موقعنا</h3>
+                        <p>المملكة العربية السعودية، مكة المكرمة - روزنامة للأعمال</p>
+                    </div>
+                </div>
+                
+                <div class="info-card flex items-start space-x-4 space-x-reverse">
+                    <i class="icon fas fa-envelope mt-1"></i>
+                    <div>
+                        <h3>البريد الإلكتروني</h3>
+                        <p>info@sunnaasar.com</p>
+                    </div>
+                </div>
+                
+                <div class="info-card flex items-start space-x-4 space-x-reverse">
+                    <i class="icon fas fa-phone mt-1"></i>
+                    <div>
+                        <h3>الهاتف</h3>
+                        <p>+966 55 3372491</p>
+                    </div>
+                </div>
+                
+                <div class="map-placeholder border border-gray-300 rounded-xl overflow-hidden shadow-lg">
+                    <link map ="https://maps.app.goo.gl/uAWaxpgNi3kgqraN7" alt="" />
+                </div>
+            </div>
+
+            <div class="md:col-span-2 p-8 shadow-2xl rounded-xl border border-gray-200" style="background-color: var(--color-white);">
+                <h2 class="text-3xl font-bold mb-6">أرسل لنا رسالة</h2>
+                <form class="space-y-6" onsubmit="handleContact(event)">
+                    
+                    <div class="form-group-modern">
+                        <input type="text" id="name" name="name" placeholder=" " required class="form-input-modern">
+                        <label for="name" class="form-label-modern">الاسم الكامل</label>
+                    </div>
+                    
+                    <div class="form-group-modern">
+                        <input type="email" id="contact-email" name="email" placeholder=" " required class="form-input-modern">
+                        <label for="contact-email" class="form-label-modern">البريد الإلكتروني</label>
+                    </div>
+                    
+                    <div class="form-group-modern">
+                        <input type="text" id="subject" name="subject" placeholder=" " required class="form-input-modern">
+                        <label for="subject" class="form-label-modern">الموضوع</label>
+                    </div>
+                    
+                    <div class="form-group-modern">
+                        <textarea id="message" name="message" placeholder=" " rows="6" required class="form-input-modern"></textarea>
+                        <label for="message" class="form-label-modern">الرسالة</label>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary px-6 py-3 text-lg font-medium rounded-xl w-full">إرسال الرسالة</button>
+                </form>
+            </div>
+            
+        </div>
+    </section>
+
+    <footer class="mt-20 text-right" style="background-color: var(--color-footer-dark);">
+        <div class="max-w-screen-xl mx-auto px-8">
+            <div class="grid md:grid-cols-4 gap-12 py-16 text-sm"> 
+                
+                <div class="md:col-span-1 flex flex-col justify-start items-start text-right">
+                    <div class="flex items-center space-x-3 flex-row-reverse mb-4">
+                        <img src="../imgaes/الشعار الجديد .png" alt="شعار صُنّاع" class="w-20 h-20"> 
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الروابط الأساسية</h4> 
+                    <ul class="space-y-3 text-gray-700">
+                        <li><a href="../index.html" class="hover:text-blue-600 transition duration-200">الرئيسية</a></li>
+                        <li><a href="about.html" class="hover:text-blue-600 transition duration-200">عن صُنّاع</a></li>
+                        <li><a href="services.html" class="hover:text-blue-600 transition duration-200">خدماتنا</a></li>
+                        <li><a href="products.html" class="hover:text-blue-600 transition duration-200">منتجاتنا</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                     <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الدعم والتواصل</h4>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><a href="contact.html" class="hover:text-blue-600 transition duration-200">تواصل معنا</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition duration-200">أخبارنا ومستجداتنا</a></li>
+                        <li><a href="register.html" class="hover:text-blue-600 transition duration-200">انضم كصُنّاعي</a></li>
+                        <li><a href="#" class="hover:text-blue-600 transition duration-200">سياسة الخصوصية</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:col-span-1">
+                     <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">معلومات الاتصال</h4>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><span class="font-semibold" style="color: var(--color-dark-text);">البريد:</span> info@sunnaasar.com</li>
+                        <li><span class="font-semibold" style="color: var(--color-dark-text);">الهاتف:</span> +966 55 3372491</li>
+                        <li><span class="font-semibold" style="color: var(--color-dark-text);">الموقع الجغرافي:</span> المملكة العربية السعودية، مكة المكرمة - روزنامة للأعمال</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center border-t border-gray-300 py-4">
+                <p class="my-3 text-gray-500 text-xs">© 2025 شركة صناع الرسالة القابضة. جميع الحقوق محفوظة. </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // AOS initialization
+        AOS.init({ duration: 800, once: true });
+        
+        // Placeholder for contact form handling
+        function handleContact(event) {
+            event.preventDefault();
+            alert('تم إرسال الرسالة بنجاح (وظيفة الإرسال الفعلية تتطلب برمجة خلفية).');
+            // هنا يجب إضافة كود إرسال النموذج AJAX
+        }
+    </script>
+</body>
+</html>
