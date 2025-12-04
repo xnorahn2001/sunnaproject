@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الإدارة - صناع</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
+    
+    <style>
+        /* -------------------------------------------------------------------
+           1. التنسيقات الأساسية والمُتغيرات (الموحدة مع الموقع الخارجي)
+           ------------------------------------------------------------------- */
+        :root {
+            --color-primary: #155FCF;
+            --color-primary-hover: #124d9f;
+            --color-dark-text: #111827;
+            --color-gray-text: #6b7280;
+            --color-white: #ffffff;
+            --color-bg-light: #f9fafb; /* خلفية خفيفة للوحة */
+            --color-sidebar: var(--color-primary); /* الشريط الجانبي باللون الأساسي */
+            --color-sidebar-hover: #000000; 
+        }
+
+        .dashboard-body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            text-align: right;
+            background-color: var(--color-bg-light);
+            display: flex;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            position: relative; 
+        }
+
+        /* -------------------------------------------------------------------
+           2. تنسيقات الشريط الجانبي (Sidebar) - أزرق موحد
+           ------------------------------------------------------------------- */
+        .sidebar {
+            width: 280px;
+            background-color: var(--color-white);
+            color: var(--color-white);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1rem;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            height: 100%;
+            top: 0;
+            right: 0;
+            z-index: 50;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar { right: -280px; transition: right 0.3s ease-in-out; }
+            .sidebar.open { right: 0; }
+        }
+        
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--color-primary-hover);
+            margin-bottom: 1rem;
+        }
+        
+        .sidebar-header .logo-text { font-size: 1.5rem; font-weight: 700; color: var(--color-white); }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            color: #000000; 
+            text-decoration: none;
+            transition: background-color 0.2s;
+            font-weight: 500;
+        }
+        .menu-item:hover { background-color: var(--color-primary-hover); color: var(--color-white); }
+        .menu-item.active { background-color: var(--color-primary-hover); color: var(--color-white); font-weight: 600; }
+        .menu-item .menu-icon { margin-left: 1rem; font-size: 1.25rem; width: 24px; text-align: center; }
+        
+        .logout-btn { display: block; width: 100%; text-align: center; background-color: #ef4444; color: var(--color-white); padding: 0.75rem; border-radius: 8px; text-decoration: none; transition: background-color 0.2s; }
+        .logout-btn:hover { background-color: #dc2626; }
+
+        /* -------------------------------------------------------------------
+           3. تنسيق المحتوى الرئيسي (Main Content)
+           ------------------------------------------------------------------- */
+        .dashboard-main {
+            margin-right: 280px;
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        @media (max-width: 1024px) {
+            .dashboard-main { margin-right: 0; width: 100%; padding: 1rem; }
+        }
+        
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 40; display: none;
+        }
+        .overlay.active { display: block; }
+        
+        .hamburger-menu-button {
+            display: none; 
+            position: fixed; top: 1rem; right: 1rem; z-index: 60;
+            background-color: var(--color-primary); color: var(--color-white);
+            border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 1.25rem;
+            border: none; cursor: pointer;
+        }
+        @media (max-width: 1024px) { .hamburger-menu-button { display: block; } }
+        
+        .dashboard-header {
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .dashboard-header h1 { font-size: 2rem; font-weight: 700; color: var(--color-dark-text); }
+        .dashboard-header p { color: var(--color-gray-text); }
+        
+        img.w-8 {
+            width: 8rem;
+        }
+        
+    </style>
+</head>
+<body class="dashboard-body" x-data="{ sidebarOpen: false }">
+    
+    <button class="hamburger-menu-button" @click="sidebarOpen = true">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="overlay" :class="{ 'active': sidebarOpen }" @click="sidebarOpen = false" x-show="sidebarOpen" x-transition.opacity.duration.300ms style="display: none;"></div>
+
+    <div class="dashboard-container flex w-full">
+        
+        <aside class="sidebar lg:static lg:mr-0" 
+               :class="{ 'open': sidebarOpen }" 
+               @click.away="sidebarOpen = false">
+            
+               <div class="sidebar-header">
+                <img src="../imgaes/شعار صناع (2).png" alt="شعار صناع" class="w-8 h-auto" style="margin-left: 0.75rem;">            </div>
+            
+            <nav class="sidebar-menu">
+                
+                <a href="#" class="menu-item active">
+                    <i class="fas fa-chart-line menu-icon"></i>
+                    <span>نظرة عامة وإحصائيات</span>
+                </a>
+                
+                <h3 class="text-xs uppercase font-semibold text-gray-400 mt-4 mb-2 pr-2">إدارة الموقع والمحتوى</h3>
+                
+                <a href="#" class="menu-item">
+                    <i class="fas fa-edit menu-icon"></i>
+                    <span>تعديل تفاصيل وأقسام الموقع</span> 
+                </a>
+                
+                <a href="#" class="menu-item">
+                    <i class="fas fa-newspaper menu-icon"></i>
+                    <span>إدارة ونشر الأخبار</span> 
+                </a>
+                
+                <a href="#" class="menu-item">
+                    <i class="fas fa-bullhorn menu-icon"></i>
+                    <span>إدارة إعلانات التدريب والتوظيف</span>
+                </a>
+
+                <h3 class="text-xs uppercase font-semibold text-gray-400 mt-4 mb-2 pr-2">إدارة المستخدمين والعمليات</h3>
+                
+                <a href="#" class="menu-item">
+                    <i class="fas fa-users-cog menu-icon"></i>
+                    <span>إدارة المستخدمين (شركات/أفراد)</span>
+                </a>
+                
+                <a href="#" class="menu-item">
+                    <i class="fas fa-tasks menu-icon"></i>
+                    <span>متابعة المشاريع والطلبات</span>
+                </a>
+                
+                <a href="#" class="menu-item">
+                    <i class="fas fa-cog menu-icon"></i>
+                    <span>إعدادات النظام</span>
+                </a>
+                
+            </nav>
+            
+            <div class="mt-auto pt-4 border-t border-gray-700">
+                 <a href="#" class="logout-btn">تسجيل الخروج</a>
+            </div>
+        </aside>
+
+        <main class="dashboard-main flex-grow">
+            <header class="dashboard-header">
+                <h1>لوحة تحكم الإدارة (صناع)</h1>
+                <p class="text-gray-600">إدارة شاملة للموقع، المستخدمين، والمحتوى.</p>
+            </header>
+            
+            <section>
+                 <h2 class="text-xl font-semibold mb-4 text-gray-700">محتوى لوحة القياس (Dashboard)</h2>
+                 <div class="p-6 bg-white rounded-xl shadow-md">
+                     <p class="text-gray-500">هنا سيتم عرض الإحصائيات الرئيسية، مثل عدد المستخدمين الجدد، عدد المشاريع النشطة، وأحدث الأخبار التي تحتاج إلى مراجعة.</p>
+                 </div>
+            </section>
+        </main>
+    </div>
+    
+    <script>
+        // سكريبت Alpine.js لإغلاق القائمة في الجوال
+        document.addEventListener('alpine:init', () => {
+            Alpine.magic('closeSidebar', () => () => {
+                const sidebar = document.querySelector('.sidebar');
+                const overlay = document.querySelector('.overlay');
+                if (window.innerWidth <= 1024 && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                }
+            });
+            
+            // إضافة خاصية إغلاق القائمة عند النقر خارجها في الجوال
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.overlay');
+            sidebar.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') { // إذا نقر على رابط داخل القائمة
+                     if (window.innerWidth <= 1024) {
+                        sidebar.classList.remove('open');
+                        overlay.classList.remove('active');
+                    }
+                }
+            });
+            // لتشغيل الـ overlay عند الفتح في الجوال
+            sidebar.addEventListener('transitionend', () => {
+                if (sidebar.classList.contains('open')) {
+                    overlay.classList.add('active');
+                } else {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

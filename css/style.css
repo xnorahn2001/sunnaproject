@@ -1,4 +1,4 @@
-/* التنسيقات الموحدة لشركة صُنّاع الرسالة القابضة */
+/* التنسيقات الموحدة لشركة صناع الرسالة القابضة */
 
 /* -------------------------------------------------------------------
    1. متغيرات الألوان والخطوط (Root Variables)
@@ -7,7 +7,7 @@
     --color-primary: #155FCF;           
     --color-light-secondary: #ffffff; 
     --color-accent: #155FCF;            
-    --color-footer-dark: #ffffff; /* تم تعديله ليتناسب مع لون الفوتر الجديد */
+    --color-footer-dark: #ffffff; 
     --color-dark-text: #111827;             
     --color-gray-text: #6b7280;             
     --color-white: #ffffff;                 
@@ -15,15 +15,15 @@
 }
 
 /* -------------------------------------------------------------------
-   2. التنسيقات الأساسية وتطبيق نمط الخلفية
+   2. التنسيقات الأساسية وتطبيق نمط الخلفية (تم التعديل ليصبح أبيض نقي)
    ------------------------------------------------------------------- */
 body {
     font-family: 'IBM Plex Sans Arabic', sans-serif;
     text-align: right;
     color: var(--color-dark-text);
-    /* تم تثبيت نمط الخلفية بنقاط شعاعية ناعمة ليكون خلفية أساسية للصفحة */
-    background-color: var(--color-white); 
-    background-image: radial-gradient(rgba(12, 12, 12, 0.05) 2px, transparent 0);
+    /* الخلفية بيضاء بالكامل */
+    background-color: var(--color-white) !important; 
+    background-image:url(../imgaes/خلفيه\ بيضا\ .jpg)!important; /* إزالة نمط النقاط */
     background-size: 30px 30px;
     background-position: -5px -5px;
 }
@@ -32,17 +32,17 @@ body {
     font-family: 'Montserrat', sans-serif !important;
 }
 
-/* 3. تنسيقات الألوان العامة (General Color Classes) */
+/* 3. تنسيقات الألوان العامة (General Color Classes) - تم تعديل الخلفيات الفاتحة */
 .bg-cream, .bg-gray-100, .bg-gray-50, .bg-white {
-    background-color:transparent !important;
-   /* background-color:#ffffff!important;*/
-
+    /* يجب أن تصبح بيضاء صريحة إذا كانت الخلفية بيضاء بالكامل */
+    background-color: var(--color-white) !important;
 }
 
 .text-darken, h1, h2, h3, h4 {
     color: var(--color-primary) !important;
 }
 
+/* تم توحيد لون الـ Accent باللون الأزرق الأساسي */
 .bg-yellow-500, .bg-accent, .btn-primary {
     background-color: var(--color-primary) !important; 
     color: var(--color-white) !important;            
@@ -54,6 +54,7 @@ body {
     color: var(--color-primary) !important; 
 }
 
+/* توحيد الأزرار والأرقام ذات الألوان الزاهية */
 .bg-red-500, .bg-yellow-300, .bg-yellow-300 span, .step-number {
     background-color: var(--color-primary) !important;
     color: var(--color-white) !important; 
@@ -74,10 +75,9 @@ body {
 }
 
 
-   .navbar {
-    
+/* 4. تنسيقات شريط التنقل (Navbar) */
+.navbar {
     background-color: var(--color-white) !important; 
-    
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     position: sticky;
     top: 0;
@@ -97,18 +97,18 @@ body {
     text-decoration: none;
 }
 .navbar-logo .logo-text {
-    color: var(--color-white) !important;
+    color: var(--color-primary) !important; /* تم تعديل اللون ليكون primary */
     font-size: 1.5rem;
     font-weight: 700;
     margin-right: 0.5rem;
 }
 .navbar a {
-    color: var(--color-white) !important; 
+    color: var(--color-dark-text) !important; /* تم تعديل اللون ليتناسب مع خلفية بيضاء */
     font-weight: 500;
     transition: color 0.3s ease;
 }
 .navbar a:hover, .navbar .nav-link.active {
-    color: var(--color-light-secondary) !important; 
+    color: var(--color-primary) !important; /* التفاعل باللون الأساسي */
 }
 .navbar-menu {
     display: flex;
@@ -129,17 +129,17 @@ body {
 }
 .btn-login {
     background-color: transparent;
-    border: 1px solid var(--color-white);
-    color: var(--color-white) !important;
+    border: 1px solid var(--color-primary); /* تم تعديل لون الحدود */
+    color: var(--color-primary) !important;
     padding: 0.5rem 1rem;
     border-radius: 8px;
     transition: background-color 0.3s, border-color 0.3s;
     text-decoration: none;
 }
 .btn-register {
-    background-color: var(--color-light-secondary); 
-    color: var(--color-primary) !important;         
-    border: 1px solid var(--color-light-secondary);
+    background-color: var(--color-primary); 
+    color: var(--color-white) !important;         
+    border: 1px solid var(--color-primary);
     padding: 0.5rem 1rem;
     border-radius: 8px;
     font-weight: 600;
@@ -147,13 +147,13 @@ body {
     text-decoration: none;
 }
 .btn-login:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(21, 95, 207, 0.1);
 }
 .btn-register:hover {
-    background-color: #9cbfee; /* slightly darker light secondary */
+    background-color: var(--color-primary-hover) !important; 
 }
 .hamburger {
-    display: none; /* Hide on desktop */
+    display: none; 
     cursor: pointer;
 }
 @media (max-width: 768px) {
@@ -205,7 +205,7 @@ body {
     position: relative;
 }
 .header-overlay {
-    background-color: rgba(21, 95, 207, 0.7); /* Primary color with transparency */
+    background-color: rgba(21, 95, 207, 0.9); /* Primary color مع شفافية بسيطة */
     position: absolute;
     top: 0;
     left: 0;
@@ -232,7 +232,7 @@ body {
 
 /* قسم القيم الأساسية */
 .value-card {
-    /* الخلفية أصبحت شفافة بسبب التعديل في القسم 3 */
+    background-color: var(--color-white) !important; /* ضمان الخلفية البيضاء */
     border: 1px solid #e5e7eb;
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -243,7 +243,7 @@ body {
 
 /* تنسيقات تسجيل الدخول (Login/Register Forms) */
 .login-form-wrapper {
-    /* الخلفية أصبحت شفافة بسبب التعديل في القسم 3 */
+    background-color: var(--color-white) !important; /* ضمان الخلفية البيضاء */
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     padding: 40px;
@@ -264,7 +264,7 @@ body {
 }
 .user-type-selector label:has(input:checked) {
     border-color: var(--color-primary);             
-    background-color: var(--color-light-secondary); 
+    background-color: #f0f5ff; /* خلفية فاتحة عند الاختيار */
     box-shadow: 0 0 0 1px var(--color-primary);
 }
 .form-link a, .forgot-password {
@@ -281,8 +281,8 @@ body {
     gap: 12px;
 }
 .social-login .social-btn {
-    border: 1px solid var(--color-light-secondary);
-    /* الخلفية أصبحت شفافة بسبب التعديل في القسم 3 */
+    border: 1px solid #ddd;
+    background-color: var(--color-white); 
     color: var(--color-dark-text); 
     padding: 10px 20px;
     border-radius: 8px;

@@ -3,26 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - منصة صُنّاع</title>
+    <title>تسجيل الدخول - منصة صناع</title>
     
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
+    <script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
     
-    <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
-    <script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
     
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="./imgaes/الشعار الجديد .png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="./imgaes/الشعار الجديد .png">
-    </head>
-<body class="bg-gray-50 min-h-screen flex flex-col antialiased font-cairo text-right">
-  
-    <div x-data="{ open: false }" class="w-full bg-cream shadow-md sticky top-0 z-50">
+    <style>
+        /* -------------------------------------------------------------------
+           1. متغيرات الألوان والخطوط (Root Variables)
+           ------------------------------------------------------------------- */
+           :root {
+            --color-primary: #155FCF;           
+            --color-light-secondary: #ffffff; 
+            --color-accent: #155FCF;            
+            --color-footer-dark: #ffffff; 
+            --color-dark-text: #111827;             
+            --color-gray-text: #6b7280;             
+            --color-white: #ffffff;                 
+            --color-primary-hover: #124d9f;         
+        }
+        
+        /* -------------------------------------------------------------------
+           2. التنسيقات الأساسية وتطبيق نمط الخلفية (أبيض نقي مع باترن خفيف)
+           ------------------------------------------------------------------- */
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            text-align: right;
+            color: var(--color-dark-text);
+            /* تطبيق الباترن كـ CSS Gradient (نقاط خفيفة متباينة) */
+            background-color: var(--color-white) !important; 
+            background-image: radial-gradient(#e0e0e0 0.5px, transparent 0.5px), radial-gradient(#e0e0e0 0.5px, #ffffff 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-number, .navbar a {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+        
+        /* 3. تنسيقات الألوان العامة (General Color Classes) */
+        .bg-cream, .bg-gray-100, .bg-gray-50, .bg-white {
+            background-color: var(--color-white) !important;
+        }
+        
+        .text-darken, h1, h2, h3, h4 {
+            color: var(--color-primary) !important;
+        }
+        
+        .bg-yellow-500, .bg-accent, .btn-primary {
+            background-color: var(--color-primary) !important; 
+            color: var(--color-white) !important;            
+        }
+        .btn-primary:hover {
+            background-color: var(--color-primary-hover) !important;
+        }
+        .text-yellow-500, .text-accent {
+            color: var(--color-primary) !important; 
+        }
+        
+        .text-gray-500, .text-gray-700, .text-light, .section-subtitle {
+            color: var(--color-gray-text) !important;
+        }
+        
+        /* 4. تنسيقات شريط التنقل (Navbar) */
+        .navbar a {
+            color: var(--color-dark-text) !important; 
+            font-weight: 500;
+        }
+        .navbar a:hover {
+            color: var(--color-primary) !important; 
+        }
+        .btn-login {
+            border: 1px solid var(--color-primary); 
+            color: var(--color-primary) !important;
+        }
+        .btn-register {
+            background-color: var(--color-primary) !important; 
+            color: var(--color-white) !important;         
+            border: 1px solid var(--color-primary);
+        }
+        .btn-login:hover {
+            background-color: rgba(21, 95, 207, 0.1);
+        }
+        .btn-register:hover {
+            background-color: var(--color-primary-hover) !important; 
+        }
+        
+        /* تنسيقات تسجيل الدخول (Login/Register Forms) */
+        .login-form-wrapper {
+            background-color: var(--color-white) !important; 
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin: 20px auto;
+        }
+        .login-form input {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            border-radius: 8px; /* تم تغييرها لـ 8px */
+            width: 100%;
+        }
+        .login-form input:focus {
+            border-color: var(--color-primary);
+            outline: none;
+            box-shadow: 0 0 0 1px var(--color-primary);
+        }
+        .forgot-password, .form-link a {
+            color: var(--color-primary) !important;
+            transition: color 0.2s;
+        }
+        .forgot-password:hover, .form-link a:hover {
+             text-decoration: underline;
+        }
+        
+        /* تنسيق الفوتر */
+        .footer {
+            background-color: var(--color-white) !important;
+            width: 100%;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body class="antialiased font-cairo">
+
+    <div x-data="{ open: false }" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
             
             <div class="flex items-center space-x-2 flex-row-reverse order-1">
                 <a href="../index.html" class="focus:outline-none focus:shadow-outline flex items-center">
-                    <img src="../imgaes/الشعار الجديد .png" alt="شعار صُنّاع" class="h-12 w-auto"> 
+                    <img src="../imgaes/شعار صناع (2).png" alt="شعار صناع" class="h-12 w-auto"> 
                 </a>
                 
                 <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline mr-4" @click="open = !open">
@@ -35,39 +153,67 @@
 
             <nav class="hidden md:flex flex-grow justify-center order-2">
                 <div class="flex items-center md:space-x-8 md:space-x-reverse">
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="../index.html">الرئيسية</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="about.html">عن صُنّاع</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="news.html">اخبارنا</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline text-gray-700" href="products.html">منتجاتنا</a>
+                    
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-darken" href="../index.html">الرئيسية</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="services.html">الخدمات</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="about.html">عن صناع</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="news.html">أخبارنا</a>
+                    
+                    <div @click.away="dropdownOpen = false" class="relative group" x-data="{ dropdownOpen: false }">
+                        <button @click="dropdownOpen = !dropdownOpen" class="flex flex-row items-center w-full px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700 md:w-auto md:inline md:mt-0 md:mr-4">
+                            <span>انضم لنا</span>
+                            <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': dropdownOpen, 'rotate-0': !dropdownOpen}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </button>
+                        <div x-show="dropdownOpen" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48 z-20" style="right: 0; min-width: 150px;">
+                            <div class="px-2 py-2 bg-white rounded-md shadow-xl">
+                                <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="training.html" @click="dropdownOpen = false">تدريب</a>
+                                <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="jobs.html" @click="dropdownOpen = false">توظيف</a>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </nav>
 
             <div class="hidden md:flex items-center space-x-3 order-3">
-                <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-darken rounded-full shadow-xl hover:shadow-2xl transition duration-300 font-bold" href="#">تسجيل دخول</a>
-                <a class="px-8 py-2 text-sm text-center bg-white text-darken rounded-full shadow-md hover:shadow-lg transition duration-300" href="register.html">تسجيل</a>
+                <a class="px-3 py-2 text-sm text-center bg-gray-100 text-darken rounded-lg hover:bg-gray-200 transition duration-300 font-semibold" 
+                   href="./english.html">English</a>
+                   
+                <a class="px-8 py-2 text-sm text-center bg-white text-gray-800 rounded-full shadow-md hover:shadow-lg transition duration-300 btn-login" href="login.html">تسجيل دخول</a>
+                <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-white rounded-full shadow-xl hover:shadow-2xl transition duration-300 font-bold btn-register" href="register.html">تسجيل</a>
             </div>
+            
+        </div>
 
-            <div :class="{ 'transform md:transform-none': !open, 'h-full': open }" 
-                class="absolute top-full left-0 right-0 w-full bg-cream md:hidden z-40 
-                        h-0 overflow-hidden transition-all duration-300 transform scale-y-0 origin-top">
-                <div class="flex flex-col items-center py-4 space-y-2">
-                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="../index.html">الرئيسية</a>
-                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="about.html">عن صُنّاع</a>
-                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="news.html">اخبارنا</a>
-                    <a class="px-4 py-2 text-sm rounded-lg hover:text-gray-900 focus:outline-none focus:shadow-outline" href="products.html">منتجاتنا</a>
-                    <div class="pt-4 border-t border-gray-300 w-11/12 text-center">
-                        <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-darken rounded-full shadow-xl block w-full font-bold mb-2" href="#">تسجيل دخول</a>
-                        <a class="px-8 py-2 text-sm text-center bg-white text-darken rounded-full shadow-md block w-full" href="register.html">تسجيل</a>
-                    </div>
+        <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:hidden">
+            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200 font-semibold" href="../index.html">الرئيسية</a>
+            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./services.html">الخدمات</a>
+            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./about.html">عن صناع</a>
+            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./news.html">أخبارنا</a>
+            <div class="relative" x-data="{ mobileDropdownOpen: false }">
+                 <button @click="mobileDropdownOpen = !mobileDropdownOpen" class="flex flex-row items-center w-full px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200 focus:outline-none focus:shadow-outline text-gray-700">
+                    <span>انضم لنا</span>
+                    <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': mobileDropdownOpen, 'rotate-0': !mobileDropdownOpen}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+                <div x-show="mobileDropdownOpen" class="bg-gray-100 py-1 px-4 text-sm">
+                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./forms.html" @click="mobileDropdownOpen = false">تدريب</a>
+                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./forms.html" @click="mobileDropdownOpen = false">توظيف</a>
                 </div>
             </div>
-        </div>
+            
+            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" 
+               href="./english.html">English</a>
+            
+            <a class="px-4 py-2 text-sm bg-yellow-500 text-white rounded-lg text-center mt-3 mx-4 btn-register" href="./register.html">تسجيل</a>
+            <a class="px-4 py-2 text-sm bg-white text-darken rounded-lg text-center mt-2 mx-4 btn-login" href="./register.html">تسجيل دخول</a>
+        </nav>
+        
     </div>
     
     <div class="flex-grow flex items-center justify-center p-4">
         <div class="login-form-wrapper bg-white shadow-2xl rounded-xl p-8 w-full max-w-sm">
             <h1 class="text-3xl font-bold text-center text-darken mb-2">تسجيل الدخول</h1>
-            <p class="form-subtitle text-center text-gray-500 mb-8">رحباً بعودتك! سجل الدخول لحسابك</p>
+            <p class="form-subtitle text-center text-gray-500 mb-8">مرحباً بعودتك! سجل الدخول لحسابك</p>
             
             <form id="loginForm" class="login-form space-y-6" onsubmit="handleLogin(event)">
                 <div class="form-group">
@@ -82,13 +228,13 @@
                 
                 <div class="form-remember flex justify-between items-center text-sm">
                     <div class="flex items-center">
-                        <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-yellow-600 border-gray-300 rounded focus:ring-yellow-500">
+                        <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-yellow-600 border-gray-300 rounded focus:ring-yellow-500" style="direction: ltr;">
                         <label for="remember" class="mr-2 text-gray-900">تذكرني</label>
                     </div>
                     <a href="#" class="forgot-password text-yellow-500 hover:text-yellow-600 font-medium">هل نسيت كلمة المرور؟</a>
                 </div>
                 
-                <button type="submit" class="btn btn-primary btn-full w-full py-3 rounded-lg font-bold">تسجيل الدخول</button>
+                <button type="submit" class="btn btn-primary btn-full w-full py-3 rounded-xl font-bold shadow-md hover:shadow-lg transition duration-300">تسجيل الدخول</button>
             </form>
             
             
@@ -100,8 +246,8 @@
                 <p class="text-gray-500 mb-4">أو تسجيل الدخول من خلال</p>
                 <div class="social-buttons flex flex-col space-y-3">
                     
-                    <button class="social-btn flex items-center justify-center space-x-2 w-full py-2.5 rounded-lg shadow-md transition duration-200 border border-gray-300 bg-white text-darken hover:bg-gray-50">
-                        <svg class="w-4 h-4 ml-2" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <button class="social-btn flex items-center justify-center space-x-2 flex-row-reverse w-full py-2.5 rounded-lg shadow-md transition duration-200 border border-gray-300 bg-white text-darken hover:bg-gray-50">
+                        <svg class="w-4 h-4 mr-2" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.343c-1.776 5.071-6.175 8.358-11.343 8.358c-6.14 0-11.128-4.988-11.128-11.128s4.988-11.128 11.128-11.128c3.13 0 5.867 1.272 7.986 3.329l5.657-5.657C34.093 4.904 29.096 3 24 3C12.955 3 3.989 12.012 3.989 23.083s8.966 20.083 20.011 20.083c11.055 0 19.53-8.118 19.53-19.387c0-1.378-.172-2.738-.49-4.041z"/>
                             <path fill="#FF3D00" d="M6.357 15.655v4.428H10.16V15.655H6.357zM6.357 20.083v4.428H10.16V20.083H6.357z"/>
                             <path fill="#4CAF50" d="M24 43.167c-5.835 0-11.164-2.285-15.011-6.096l5.657-5.657c3.27 3.238 7.55 5.226 10.354 5.226c6.14 0 11.128-4.988 11.128-11.128c0-3.921-1.611-7.558-4.404-10.158l5.657-5.657c4.646 4.398 7.234 10.217 7.234 16.615c0 11.273-8.475 19.387-19.53 19.387z"/>
@@ -110,8 +256,8 @@
                         <span>تسجيل الدخول بـ Google</span>
                     </button>
                     
-                    <button class="social-btn flex items-center justify-center space-x-2 w-full py-2.5 rounded-lg shadow-md transition duration-200 border border-gray-300 bg-white text-darken hover:bg-gray-50">
-                        <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="#0077B5" xmlns="http://www.w3.org/2000/svg">
+                    <button class="social-btn flex items-center justify-center space-x-2 flex-row-reverse w-full py-2.5 rounded-lg shadow-md transition duration-200 border border-gray-300 bg-white text-darken hover:bg-gray-50">
+                        <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="#0077B5" xmlns="http://www.w3.org/2000/svg">
                             <path d="M22.23 0H1.77C.79 0 0 .77 0 1.72v20.56c0 .95.79 1.72 1.77 1.72h20.46c.98 0 1.77-.77 1.77-1.72V1.72c0-.95-.79-1.72-1.77-1.72zM7.22 20.5H3.59V8.62h3.63V20.5zM5.4 6.94c-1.16 0-1.92-.78-1.92-1.77c0-.99.76-1.77 1.92-1.77c1.16 0 1.92.78 1.92 1.77c0 .99-.76 1.77-1.92 1.77zm15.11 13.56h-3.63V14.4c0-1.46-.52-2.45-1.84-2.45c-.99 0-1.58.67-1.84 1.33c-.09.23-.11.55-.11.87v6.35H10.18V8.62h3.63v1.57c.5-.78 1.45-1.89 3.27-1.89c2.39 0 4.19 1.57 4.19 4.96V20.5z"/>
                         </svg>
                         <span>تسجيل الدخول بـ LinkedIn</span>
@@ -123,12 +269,74 @@
     </div>
 
     <footer class="footer mt-auto">
-        <div class="container max-w-screen-xl mx-auto px-8">
-            <p class="text-white">&copy; 2025 صُنّاع جميع الحقوق محفوظة</p>
+        <div class="max-w-screen-xl mx-auto px-8">
+            <div class="grid md:grid-cols-4 gap-12 py-16 text-sm"> 
+                
+                <div class="md:col-span-1 flex flex-col justify-start items-start text-right">
+                    <div class="flex items-center space-x-3 flex-row-reverse mb-4">
+                         <img src="../imgaes/شعار صناع (2).png" alt="شعار صناع الجديد" class="w-20 h-auto"> 
+                    </div>
+                </div> 
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الروابط الأساسية</h4> 
+                    <ul class="space-y-3 text-gray-700">
+                        <li><a href="../index.html" class="hover:text-blue-600 transition duration-200">الرئيسية</a></li>
+                        <li><a href="./about.html" class="hover:text-blue-600 transition duration-200">عن صناع</a></li>
+                        <li><a href="./services.html" class="hover:text-blue-600 transition duration-200">خدماتنا</a></li>
+                        <li><a href="./products.html" class="hover:text-blue-600 transition duration-200">منتجاتنا</a></li>
+                        <li><a href="../index.html#partners-section" class="hover:text-blue-600 transition duration-200">شركاؤنا</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                     <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الدعم والتواصل</h4>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><a href="./contact.html" class="hover:text-blue-600 transition duration-200">تواصل معنا</a></li>
+                        <li><a href="./news.html" class="hover:text-blue-600 transition duration-200">أخبارنا ومستجداتنا</a></li>
+                        <li><a href="./register.html" class="hover:text-blue-600 transition duration-200">انضم كصانع</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-blue-600 transition duration-200">سياسة الخصوصية و المستخدم</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:col-span-1">
+                    <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">تواصل معنا</h4>
+                    <ul class="space-y-4 text-gray-700 mt-2"> 
+                        
+                        <li class="flex items-center space-x-2 flex-row justify-start"> 
+                            <a href="mailto:info@sunnaasar.com" class="text-primary hover:text-primary-hover transition duration-300">
+                                <i class="fas fa-envelope fa-lg"></i>
+                            </a>
+                        </li>
+                        
+                        <li class="flex items-center space-x-2 flex-row justify-start">
+                            <a href="tel:+9660553881493" class="text-primary hover:text-primary-hover transition duration-300">
+                                <i class="fas fa-phone fa-lg"></i>
+                            </a>
+                        </li>
+                        
+                        <li class="flex items-center space-x-2 flex-row justify-start">
+                            <a href="https://maps.app.goo.gl/gRLStKRE25fQxw4L7" target="_blank" class="text-primary hover:text-primary-hover transition duration-300">
+                                <i class="fas fa-map-marker-alt fa-lg"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-300 py-4 text-center">
+                <p class="my-3 text-gray-500 text-xs">© 2025 شركة صناع الرسالة القابضة. جميع الحقوق محفوظة. </p>
+            </div>
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
-    <script src="../js/form-validation.js"></script>
+    <script>
+        // وظيفة مؤقتة للـ Form Submit - يجب ربطها بالـ Backend
+        function handleLogin(event) {
+             event.preventDefault();
+             alert('تم إرسال بيانات تسجيل الدخول بنجاح! (يحتاج إلى ربط بالـ Backend)');
+        }
+    </script>
 </body>
 </html>

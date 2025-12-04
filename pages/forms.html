@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج التقديم - وظائف وتدريب</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
+    
+    <style>
+        /* -------------------------------------------------------------------
+           التنسيقات الموحدة لشركة صُنّاع الرسالة القابضة
+           ------------------------------------------------------------------- */
+        :root {
+            --color-primary: #155FCF;           
+            --color-dark-text: #111827;             
+            --color-gray-text: #6b7280;             
+            --color-white: #ffffff;                 
+            --color-primary-hover: #124d9f;         
+            --color-theme-secondary: #3b82f6;
+        }
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            text-align: right;
+            background-color: var(--color-white); 
+            /* الخلفية المتباينة */
+            background-image: radial-gradient(#e0e0e0 0.5px, transparent 0.5px), radial-gradient(#e0e0e0 0.5px, #ffffff 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        .text-darken, h1, h2, h3, h4 { color: var(--color-primary) !important; }
+        .btn-primary { background-color: var(--color-primary) !important; color: var(--color-white) !important; transition: background-color 0.3s; }
+        .btn-primary:hover { background-color: var(--color-primary-hover) !important; }
+
+        /* تنسيقات حقول النموذج */
+        input[type="text"], input[type="email"], input[type="tel"], textarea, input[type="file"] {
+            border: 1px solid #d1d5db;
+            padding: 10px 15px;
+            border-radius: 8px;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+        input:focus, textarea:focus {
+            border-color: var(--color-primary);
+            outline: none;
+            box-shadow: 0 0 0 1px var(--color-primary);
+        }
+        
+        /* تنسيق زر الاختيار (Radio/Toggle) */
+        .option-toggle input[type="radio"]:checked + label {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+            font-weight: 600;
+        }
+        .option-toggle label {
+            transition: all 0.2s;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="w-full bg-white shadow-md">
+        <div class="max-w-screen-xl px-8 mx-auto flex items-center h-20">
+            <a href="../index.html" class="flex items-center space-x-2 flex-row-reverse">
+                <img src="../imgaes/شعار صناع (2).png" alt="شعار صُنّاع" class="h-12 w-auto">
+            </a>
+        </div>
+    </div>
+    
+    <section class="py-16 md:py-24">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-10">
+                <h1 class="text-4xl font-extrabold mb-2">انضم إلى فريق صُنّاع</h1>
+                <p class="text-gray-600 text-lg">املأ النموذج أدناه لبدء رحلتك المهنية أو التدريبية معنا.</p>
+            </div>
+            
+            <div class="bg-white p-6 md:p-10 rounded-xl shadow-2xl border border-gray-100" x-data="{ role: 'job' }">
+                
+                <div class="mb-8 text-center">
+                    <h3 class="text-xl font-semibold text-darken mb-4">اختر مسار التقديم:</h3>
+                    <div class="flex justify-center option-toggle border border-gray-300 rounded-full p-1 max-w-sm mx-auto">
+                        
+                        <input type="radio" id="job-role" name="application_type" value="وظيفة" class="hidden" x-model="role">
+                        <label for="job-role" 
+                               @click="role = 'job'"
+                               class="cursor-pointer px-6 py-2 rounded-full flex-1 text-center text-gray-700 hover:bg-gray-100">
+                            وظيفة (توظيف)
+                        </label>
+                        
+                        <input type="radio" id="internship-role" name="application_type" value="تدريب" class="hidden" x-model="role">
+                        <label for="internship-role" 
+                               @click="role = 'internship'"
+                               class="cursor-pointer px-6 py-2 rounded-full flex-1 text-center text-gray-700 hover:bg-gray-100">
+                            تدريب (تعاوني/صيفي)
+                        </label>
+                    </div>
+                </div>
+                
+                <form action="https://formspree.io/[YOUR_FORM_ID]" method="POST" enctype="multipart/form-data">
+                    
+                    <input type="hidden" name="نوع_التقديم" :value="role === 'job' ? 'طلب وظيفة' : 'طلب تدريب'">
+                    
+                    <div class="space-y-6">
+                        
+                        <h4 class="text-2xl font-bold text-darken border-b pb-2">معلوماتك</h4>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-1 text-gray-700">الاسم الثلاثي الكامل</label>
+                                <input type="text" id="name" name="الاسم_الكامل" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-1 text-gray-700">البريد الإلكتروني</label>
+                                <input type="email" id="email" name="_replyto" required>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="phone" class="block text-sm font-medium mb-1 text-gray-700">رقم الجوال (للتواصل)</label>
+                                <input type="tel" id="phone" name="رقم_الهاتف" required>
+                            </div>
+                            <div>
+                                <label for="major" class="block text-sm font-medium mb-1 text-gray-700">التخصص / المجال</label>
+                                <input type="text" id="major" name="التخصص" placeholder="مثال: التصميم الصناعي، الهندسة الميكانيكية">
+                            </div>
+                        </div>
+                        
+                        <h4 class="text-2xl font-bold text-darken border-b pb-2 pt-4">السيرة الذاتية والملاحظات</h4>
+                        
+                        <div x-show="role === 'job'" data-aos="fade-up">
+                            <label for="cv_job" class="block text-sm font-medium mb-1 text-gray-700">السيرة الذاتية (مطلوب للوظائف)</label>
+                            <input type="file" id="cv_job" name="السيرة_الذاتية_للوظيفة" accept=".pdf,.doc,.docx" class="p-2 border border-gray-300 rounded-lg">
+                        </div>
+                        
+                        <div x-show="role === 'internship'" data-aos="fade-up" style="display: none;">
+                            <label for="cv_internship" class="block text-sm font-medium mb-1 text-gray-700">السيرة الذاتية أو ملف الأعمال (مطلوب للتدريب)</label>
+                            <input type="file" id="cv_internship" name="السيرة_الذاتية_للتدريب" accept=".pdf,.zip,.doc,.docx" class="p-2 border border-gray-300 rounded-lg">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium mb-1 text-gray-700">رسالة تعريفية / ملاحظات إضافية</label>
+                            <textarea id="message" name="الرسالة" rows="4" placeholder="اكتب لنا عن شغفك وسبب رغبتك في الانضمام..."></textarea>
+                        </div>
+                        
+                        <div class="pt-4">
+                            <button type="submit" class="btn-primary w-full py-3 rounded-xl text-lg font-bold shadow-md hover:shadow-lg">
+                                أرسل طلب التقديم
+                            </button>
+                        </div>
+                        
+                    </div>
+                </form>
+                <p class="text-center text-xs text-gray-500 mt-6">
+                    بالضغط على "أرسل طلب التقديم"، فإنك توافق على <a href="privacy-policy.html" class="underline hover:text-darken">سياسة الخصوصية والاستخدام</a> الخاصة بنا.
+                </p>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <footer class="mt-16 text-right" style="background-color: var(--color-white);">
+        <div class="max-w-screen-xl mx-auto px-8">
+            <div class="grid md:grid-cols-4 gap-12 py-16 text-sm"> 
+                
+                <div class="md:col-span-1 flex flex-col justify-start items-start text-right">
+                    <div class="flex items-center space-x-3 flex-row-reverse mb-4">
+                         <img src="../imgaes/شعار صناع (2).png" alt="شعار صناع الجديد" class="w-20 h-auto"> 
+                    </div>
+                </div> 
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الروابط الأساسية</h4> 
+                    <ul class="space-y-3 text-gray-700">
+                        <li><a href="../index.html" class="hover:text-blue-600 transition duration-200">الرئيسية</a></li>
+                        <li><a href="./about.html" class="hover:text-blue-600 transition duration-200">عن صناع</a></li>
+                        <li><a href="./services.html" class="hover:text-blue-600 transition duration-200">خدماتنا</a></li>
+                        <li><a href="./products.html" class="hover:text-blue-600 transition duration-200">منتجاتنا</a></li>
+                        <li><a href="#partners-section" class="hover:text-blue-600 transition duration-200">شركاؤنا</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                     <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الدعم والتواصل</h4>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><a href="./contact.html" class="hover:text-blue-600 transition duration-200">تواصل معنا</a></li>
+                        <li><a href="./news.html" class="hover:text-blue-600 transition duration-200">أخبارنا ومستجداتنا</a></li>
+                        <li><a href="./register.html" class="hover:text-blue-600 transition duration-200">انضم كصانع</a></li>
+                        <li><a href="pages/privacy-policy.html" class="hover:text-blue-600 transition duration-200">سياسة الخصوصية و المستخدم</a></li>
+                    </ul>
+                </div>
+                
+                <div class="md:col-span-1">
+                    <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">تواصل معنا</h4>
+                    <ul class="space-y-4 text-gray-700 mt-2"> 
+                        
+                        <li class="flex items-center space-x-2 flex-row justify-start"> 
+                            <a href="mailto:info@sunnaasar.com" class="text-primary hover:text-primary-hover transition duration-300">
+                                <i class="fas fa-envelope fa-lg"></i>
+                            </a>
+                        </li>
+                        
+                        <li class="flex items-center space-x-2 flex-row justify-start">
+                            <a href="tel:+9660553881493" class="text-primary hover:text-primary-hover transition duration-300">
+                                <i class="fas fa-phone fa-lg"></i>
+                            </a>
+                        </li>
+                        
+                        <li class="flex items-center space-x-2 flex-row justify-start">
+                            <a href="https://maps.app.goo.gl/gRLStKRE25fQxw4L7" target="_blank" class="text-primary hover:text-primary-hover transition duration-300">
+                                <i class="fas fa-map-marker-alt fa-lg"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-300 py-4 text-center">
+                <p class="my-3 text-gray-500 text-xs">© <span id="current-year">2025</span> شركة صناع الرسالة القابضة. جميع الحقوق محفوظة. </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script> 
+
+    <script>
+        AOS.init({ duration: 1000, once: true });
+        AOS.init({
+              duration: 800,
+              once: true
+            });
+            
+        // كود JavaScript لتحديث السنة تلقائيًا في الـ Footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم - الشركة - شركة صناع الرسالة القابضة</title>
+    <title>لوحة تحكم المستخدم - صناع</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="../imgaes/الشعار الجديد .png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="../imgaes/الشعار الجديد .png">
+    <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
     
     <style>
-        /* -------------------------------------------------------------------
-           1. المتغيرات والتنسيقات الأساسية
-           ------------------------------------------------------------------- */
+        /* (تنسيقات CSS التي أرسلتها سابقاً - تم الحفاظ عليها بالكامل) */
         :root {
             --color-primary: #155FCF;
             --color-primary-hover: #124d9f;
@@ -41,9 +39,7 @@
             position: relative; 
         }
 
-        /* -------------------------------------------------------------------
-           2. الشريط الجانبي (Sidebar) - التجاوب الصحيح
-           ------------------------------------------------------------------- */
+        /* الشريط الجانبي (Sidebar) */
         .sidebar {
             width: 280px;
             background-color: var(--color-sidebar);
@@ -54,22 +50,20 @@
             box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* 💡 تنسيق الجوال: الشريط الجانبي يكون مخفيًا ويظهر كـ Overlay */
         @media (max-width: 1024px) {
             .sidebar {
                 position: fixed;
                 top: 0;
-                right: -280px; /* مخفي خارج الشاشة */
+                right: -280px;
                 height: 100%;
                 transition: right 0.3s ease-in-out;
                 z-index: 60;
                 width: 250px;
             }
             .sidebar.open {
-                right: 0; /* يظهر عند الفتح */
+                right: 0;
             }
         }
-        /* Overlay للخلفية عندما تكون القائمة مفتوحة */
         .overlay {
             position: fixed;
             top: 0;
@@ -111,10 +105,7 @@
         
         .logout-btn { display: block; width: 100%; text-align: center; background-color: #ef4444; color: var(--color-white); padding: 0.75rem; border-radius: 8px; text-decoration: none; }
         
-        /* -------------------------------------------------------------------
-           3. المحتوى الرئيسي (Main Content) - تعديلات للجوال
-           ------------------------------------------------------------------- */
-        /* زر الهامبرغر */
+        /* المحتوى الرئيسي (Main Content) */
         .hamburger-menu-button {
             display: none; 
             position: fixed;
@@ -151,26 +142,19 @@
             margin-bottom: 2rem;
             border-bottom: 1px solid #e5e7eb;
         }
-        @media (max-width: 768px) {
-            .dashboard-header h1 { font-size: 1.75rem; }
-            .dashboard-header p { font-size: 0.9rem; }
-        }
-
+        
         .dashboard-section { margin-bottom: 2.5rem; }
         .dashboard-section h2 { font-size: 1.5rem; font-weight: 600; color: var(--color-dark-text); margin-bottom: 1.5rem; }
 
-        /* -------------------------------------------------------------------
-           4. بطاقات المشاريع (Project Cards) - محسّنة للشبكة
-           ------------------------------------------------------------------- */
+        /* بطاقات الشبكة */
         .cards-grid {
-            /* 💡 عرض بطاقتين على الأقل في الصف في الشاشات المتوسطة والكبيرة */
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
         @media (max-width: 640px) {
             .cards-grid {
-                grid-template-columns: 1fr; /* عمود واحد على الجوال */
+                grid-template-columns: 1fr;
             }
         }
 
@@ -200,7 +184,7 @@
         .btn-secondary { background-color: var(--color-accent-blue); }
         .btn-secondary:hover { background-color: #2563eb; }
 
-        /* 5. تنسيق قائمة الطلبات */
+        /* تنسيق قائمة الطلبات */
         .sessions-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -209,7 +193,45 @@
         .session-card { background-color: var(--color-white); border-radius: 12px; padding: 1.5rem; border-left: 4px solid var(--color-warning); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
     </style>
 </head>
-<body class="dashboard-body" x-data="{ sidebarOpen: false }">
+<body class="dashboard-body" x-data="{ 
+    sidebarOpen: false, 
+    userType: 'company', // المتغير الأساسي: 'company' أو 'individual'
+    
+    // قائمة الشركة 
+    companyMenu: [
+        { icon: 'fas fa-chart-line', title: 'نظرة عامة', active: true },
+        { icon: 'fas fa-clipboard-list', title: 'إدارة المشاريع' },
+        { icon: 'fas fa-briefcase', title: 'العروض والطلبات' },
+        { icon: 'fas fa-users', title: 'إدارة الفريق' },
+        { icon: 'fas fa-file-invoice-dollar', title: 'الفواتير والمدفوعات' },
+        { icon: 'fas fa-cog', title: 'إعدادات الشركة' },
+    ],
+
+    // قائمة الفرد (المصمم/الخبير)
+    individualMenu: [
+        { icon: 'fas fa-chart-line', title: 'نظرة عامة', active: true },
+        { icon: 'fas fa-user-circle', title: 'ملفي الشخصي' },
+        { icon: 'fas fa-envelope-open-text', title: 'العروض المقدمة' },
+        { icon: 'fas fa-calendar-alt', title: 'جدول الجلسات' },
+        { icon: 'fas fa-money-bill-wave', title: 'سجل الدفعات' },
+        { icon: 'fas fa-cog', title: 'الإعدادات الشخصية' },
+    ],
+
+    // اختيار القائمة بناءً على userType
+    get currentMenu() {
+        return this.userType === 'company' ? this.companyMenu : this.individualMenu;
+    },
+
+    // النص الرئيسي في رأس الصفحة
+    get dashboardTitle() {
+        return this.userType === 'company' ? 'مرحباً بك، [اسم ممثل الشركة]' : 'مرحباً بك، [اسم المستخدم الفرد]';
+    },
+
+    // وصف الصفحة
+    get dashboardSubtitle() {
+        return this.userType === 'company' ? 'لوحة تحكم الشركة - متابعة مشاريعك والكوادر.' : 'لوحة تحكم الفرد - متابعة ملفك الشخصي وعروضك.';
+    }
+}">
     
     <button class="hamburger-menu-button" @click="sidebarOpen = true">
         <i class="fas fa-bars"></i>
@@ -220,103 +242,71 @@
     <div class="dashboard-container flex w-full">
         <aside class="sidebar lg:static lg:mr-0" :class="{ 'open': sidebarOpen }" @click.away="sidebarOpen = false">
             <div class="sidebar-header">
-                <img src="../imgaes/الشعار الجديد .png" alt="شعار صُنّاع" class="w-8 h-8" style="margin-left: 0.75rem;">
-                <span class="logo-text">صُنّاع</span>
+                <img src="../imgaes/شعار صناع (2).png" alt="شعار صناع" class="w-8 h-8" style="margin-left: 0.75rem;">
+                <span class="logo-text">صناع</span>
             </div>
             
             <nav class="sidebar-menu">
-                <a href="#" class="menu-item active">
-                    <i class="fas fa-building menu-icon"></i>
-                    <span>ملف الشركة</span>
-                </a>
-                <a href="#" class="menu-item">
-                    <i class="fas fa-clipboard-list menu-icon"></i>
-                    <span>مشاريعي</span>
-                </a>
-                <a href="#" class="menu-item">
-                    <i class="fas fa-users menu-icon"></i>
-                    <span>الفريق</span>
-                </a>
-                <a href="#" class="menu-item">
-                    <i class="fas fa-briefcase menu-icon"></i>
-                    <span>العروض المقدمة</span>
-                </a>
-                <a href="#" class="menu-item">
-                    <i class="fas fa-chart-bar menu-icon"></i>
-                    <span>التقارير</span>
-                </a>
-                <a href="#" class="menu-item">
-                    <i class="fas fa-cog menu-icon"></i>
-                    <span>الإعدادات</span>
-                </a>
+                <template x-for="item in currentMenu" :key="item.title">
+                    <a href="#" 
+                       class="menu-item" 
+                       :class="{ 'active': item.active }"
+                       @click="$magic('closeSidebar')()">
+                        <i :class="item.icon" class="menu-icon"></i>
+                        <span x-text="item.title"></span>
+                    </a>
+                </template>
             </nav>
             
-            <div class="sidebar-footer">
-                <a href="#" class="logout-btn">تسجيل الخروج</a>
+            <div class="mt-auto pt-4 border-t border-gray-700">
+                 <a href="#" class="logout-btn">تسجيل الخروج</a>
             </div>
         </aside>
 
         <main class="dashboard-main flex-grow">
             <header class="dashboard-header">
-                <h1>شركة التقنية المتقدمة</h1>
-                <p>لوحة تحكم الشركة - نظرة عامة على المشاريع والكوادر</p>
+                <h1 x-text="dashboardTitle"></h1>
+                <p x-text="dashboardSubtitle"></p>
+                
+                <div class="mt-4 p-2 bg-gray-100 rounded-lg max-w-sm">
+                    <p class="text-sm font-semibold mb-2 text-gray-700">وضع العرض الحالي (يحدد لوحة التحكم)</p>
+                    <button @click="userType = 'company'" 
+                            :class="{'bg-blue-600 text-white': userType === 'company', 'bg-gray-300 text-gray-800': userType !== 'company'}" 
+                            class="py-2 px-4 rounded-lg text-sm font-bold transition">
+                        عرض لوحة الشركة
+                    </button>
+                    <button @click="userType = 'individual'" 
+                            :class="{'bg-blue-600 text-white': userType === 'individual', 'bg-gray-300 text-gray-800': userType !== 'individual'}" 
+                            class="py-2 px-4 rounded-lg text-sm font-bold transition mr-2">
+                        عرض لوحة الفرد
+                    </button>
+                </div>
+                
             </header>
             
             <section class="dashboard-section">
-                <h2>📋 المشاريع الجارية</h2>
+                <h2 x-text="userType === 'company' ? '📋 المشاريع الجارية' : '🔍 مشاريع تناسب خبرتي'"></h2>
                 <div class="cards-grid">
-                    
-                    <div class="project-card">
-                        <div class="card-header">تطوير منصة تجارة إلكترونية</div>
-                        <p class="card-designer">المصممون: 3</p>
-                        <span class="card-status-pill status-in-progress">قيد الجلسات</span>
-                        <button class="btn-small">إدارة المشروع</button>
                     </div>
-                    
-                    <div class="project-card">
-                        <div class="card-header">تصميم تطبيق الجوال الجديد</div>
-                        <p class="card-designer">المصممون المطلوبون: 1 من 4</p>
-                        <span class="card-status-pill status-needs-designers">بحاجة لمصممين</span>
-                        <button class="btn-small btn-secondary">البحث عن مصممين</button>
-                    </div>
-                    
-                    <div class="project-card">
-                        <div class="card-header">استشارات التحول الرقمي</div>
-                        <p class="card-designer">الخبراء: 2</p>
-                        <span class="card-status-pill status-in-progress">جاري التنفيذ</span>
-                        <button class="btn-small">متابعة الجلسات</button>
-                    </div>
-                </div>
             </section>
             
             <section class="dashboard-section">
-                <h2>✉️ الطلبات الجديدة (العروض المقدمة)</h2>
+                <h2 x-text="userType === 'company' ? '✉️ الطلبات الجديدة (العروض المقدمة)' : '📧 العروض التي قدمتها'"></h2>
                 <div class="sessions-list">
-                    <div class="session-card">
-                        <h3>طلب تقديم عرض لتصميم الموقع</h3>
-                        <p><strong>من:</strong> محمد صالح - مصمم محترف</p>
-                        <p><strong>التاريخ:</strong> <span class="font-bold text-red-600">اليوم</span></p>
-                        <button class="btn-small btn-secondary">فحص العرض والموافقة</button>
                     </div>
-                    <div class="session-card">
-                        <h3>طلب تعاون على مشروع تصميم أثاث</h3>
-                        <p><strong>من:</strong> مصنع النجارة المتقدم</p>
-                        <p><strong>التاريخ:</strong> 2025/10/28</p>
-                        <button class="btn-small btn-secondary">فحص العرض والموافقة</button>
-                    </div>
-                </div>
             </section>
         </main>
     </div>
     
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/cdn.min.js"></script>
     <script>
-        // هذا السكريبت ضروري لإغلاق القائمة عند النقر على رابط داخلها في الجوال
+        // سكريبت إغلاق القائمة في الجوال (Alpine.js)
         document.addEventListener('alpine:init', () => {
             Alpine.magic('closeSidebar', () => () => {
                 const sidebar = document.querySelector('.sidebar');
+                // نتحقق من الحجم لضمان إغلاق القائمة فقط في وضع الجوال
                 if (window.innerWidth <= 1024 && sidebar.classList.contains('open')) {
-                    sidebar.dispatchEvent(new CustomEvent('click'));
+                    sidebar.classList.remove('open');
+                    document.querySelector('.overlay').classList.remove('active');
                 }
             });
         });
