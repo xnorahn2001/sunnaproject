@@ -140,7 +140,7 @@
         }
     </style>
 </head>
-<body class="antialiased font-cairo text-right">
+<body class="antialiased font-cairo text-right flex flex-col min-h-screen">
 
     <div x-data="{ open: false, dropdownOpen: false }" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
@@ -162,7 +162,7 @@
                 <div class="flex items-center md:space-x-8 md:space-x-reverse">
                     
                     <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-darken" href="../index.html">الرئيسية</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./services.html">الخدمات</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700 font-semibold" href="./services.html">الخدمات</a>
                     <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./about.html">عن صناع</a>
                     <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./news.html">أخبارنا</a>
                     
@@ -182,16 +182,7 @@
                 </div>
             </nav>
 
-            <div class="hidden md:flex items-center space-x-3 order-3">
-                 <a class="px-3 py-2 text-sm text-center bg-gray-100 text-darken rounded-lg hover:bg-gray-200 transition duration-300 font-semibold" 
-                   href="./english.html">English</a>
-                   
-                <a class="px-8 py-2 text-sm text-center bg-white text-gray-800 rounded-full shadow-md hover:shadow-lg transition duration-300 btn-login" href="login.html">تسجيل دخول</a>
-                <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-white rounded-full shadow-xl hover:shadow-2xl transition duration-300 font-bold btn-register" href="register.html">تسجيل</a>
-            </div>
-            
-        </div>
-
+           
         <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:hidden">
             <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200 font-semibold" href="../index.html">الرئيسية</a>
             <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./services.html">الخدمات</a>
@@ -213,7 +204,6 @@
         </nav>
         
     </div>
-    
     <div class="flex-grow flex items-center justify-center p-4">
         <div class="login-form-wrapper bg-white shadow-2xl rounded-xl p-8 w-full max-w-lg md:max-w-xl">
             <h1 class="text-3xl font-bold text-center text-darken mb-2">إنشاء حساب جديد</h1>
@@ -274,8 +264,7 @@
             </p>
         </div>
     </div>
-
-    <footer class="footer mt-auto">
+    <footer class="mt-16 text-right" style="background-color: var(--color-white);">
         <div class="max-w-screen-xl mx-auto px-8">
             <div class="grid md:grid-cols-4 gap-12 py-16 text-sm"> 
                 
@@ -292,7 +281,7 @@
                         <li><a href="./about.html" class="hover:text-blue-600 transition duration-200">عن صناع</a></li>
                         <li><a href="./services.html" class="hover:text-blue-600 transition duration-200">خدماتنا</a></li>
                         <li><a href="./products.html" class="hover:text-blue-600 transition duration-200">منتجاتنا</a></li>
-                        <li><a href="../index.html#partners-section" class="hover:text-blue-600 transition duration-200">شركاؤنا</a></li>
+                        <li><a href="#partners-section" class="hover:text-blue-600 transition duration-200">شركاؤنا</a></li>
                     </ul>
                 </div>
                 
@@ -302,7 +291,7 @@
                         <li><a href="./contact.html" class="hover:text-blue-600 transition duration-200">تواصل معنا</a></li>
                         <li><a href="./news.html" class="hover:text-blue-600 transition duration-200">أخبارنا ومستجداتنا</a></li>
                         <li><a href="./register.html" class="hover:text-blue-600 transition duration-200">انضم كصانع</a></li>
-                        <li><a href="privacy-policy.html" class="hover:text-blue-600 transition duration-200">سياسة الخصوصية و المستخدم</a></li>
+                        <li><a href="pages/privacy-policy.html" class="hover:text-blue-600 transition duration-200">سياسة الخصوصية و المستخدم</a></li>
                     </ul>
                 </div>
                 
@@ -333,31 +322,24 @@
             </div>
             
             <div class="border-t border-gray-300 py-4 text-center">
-                <p class="my-3 text-gray-500 text-xs">© 2025 شركة صناع الرسالة القابضة. جميع الحقوق محفوظة. </p>
+                <p class="my-3 text-gray-500 text-xs">© <span id="current-year">2025</span> شركة صناع الرسالة القابضة. جميع الحقوق محفوظة. </p>
             </div>
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const userTypeRadios = document.querySelectorAll('input[name="userType"]');
-            const additionalFields = document.getElementById('additionalFields');
+    <script src="../js/main.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script> 
 
-            userTypeRadios.forEach(radio => {
-                radio.addEventListener('change', () => {
-                    additionalFields.style.display = 'block';
-                });
-                
-                if(radio.checked) {
-                    additionalFields.style.display = 'block';
-                }
+    <script>
+        AOS.init({ duration: 1000, once: true });
+        AOS.init({
+              duration: 800,
+              once: true
             });
-        });
-        
-        function handleRegister(event) {
-             event.preventDefault();
-             alert('تم إرسال بيانات التسجيل بنجاح! (يحتاج إلى ربط بالـ Backend)');
-        }
+            
+        // كود JavaScript لتحديث السنة تلقائيًا في الـ Footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>

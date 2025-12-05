@@ -31,11 +31,9 @@
             font-family: 'Montserrat', sans-serif; 
             text-align: left; 
             color: var(--color-dark-text);
-            /* تطبيق الباترن كـ CSS Gradient (نقاط خفيفة متباينة) */
-            background-color: #ffffff !important; 
-            background-image: radial-gradient(#e0e0e0 0.5px, transparent 0.5px), radial-gradient(#e0e0e0 0.5px, #ffffff 0.5px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
+            /* الخلفية بيضاء سادة بالكامل */
+            background-color: var(--color-white) !important; 
+            background-image: none !important; 
         }
         
         .stat-number-large {
@@ -51,7 +49,7 @@
         .text-darken, h1, h2, h3, h4 {
             color: var(--color-primary) !important;
         }
-        .bg-yellow-500, .bg-accent, .btn-primary {
+        .btn-primary {
             background-color: var(--color-primary) !important; 
             color: var(--color-white) !important;            
         }
@@ -61,12 +59,26 @@
         .text-yellow-500, .text-accent {
             color: var(--color-primary) !important; 
         }
-        .bg-red-500, .bg-yellow-300, .bg-yellow-300 span, .step-number {
-            background-color: var(--color-primary) !important;
-            color: var(--color-white) !important; 
-        }
         .text-gray-500, .text-gray-700, .text-light, .section-subtitle {
             color: var(--color-gray-text) !important;
+        }
+
+        /* Navbar Buttons */
+        .btn-login { 
+            border: 1px solid var(--color-primary); 
+            background-color: var(--color-white);
+            color: var(--color-primary) !important; 
+        }
+        .btn-login:hover {
+            background-color: rgba(21, 95, 207, 0.1);
+        }
+        .btn-register { 
+            background-color: var(--color-primary) !important; 
+            color: var(--color-white) !important;         
+            border: 1px solid var(--color-primary);
+        }
+        .btn-register:hover {
+            background-color: var(--color-primary-hover) !important;
         }
 
         /* -------------------------------------------------------------------
@@ -99,7 +111,7 @@
         .whatsapp-arrows {
             position: absolute;
             top: 50%;
-            left: 2rem; /* تغيير right إلى left للغة الإنجليزية */
+            left: 2rem; 
             width: 60px;
             height: 60px;
         }
@@ -110,17 +122,17 @@
             width: 30px;
             height: 2px;
             background: var(--color-dark-text);
-            transform-origin: right; /* تغيير الأصل ليتناسب مع LTR */
+            transform-origin: right; 
         }
         .whatsapp-arrows::before {
-            transform: rotate(-30deg); /* عكس الدوران */
+            transform: rotate(-30deg); 
             top: 20px;
-            left: 20px; /* تعديل الموضع */
+            left: 20px; 
         }
         .whatsapp-arrows::after {
-            transform: rotate(30deg); /* عكس الدوران */
+            transform: rotate(30deg); 
             top: 40px;
-            left: 20px; /* تعديل الموضع */
+            left: 20px; 
         }
         .whatsapp-arrows .arrow-center {
             content: '';
@@ -129,18 +141,58 @@
             height: 2px;
             background: var(--color-dark-text);
             top: 30px;
-            left: 20px; /* تعديل الموضع */
+            left: 20px; 
+        }
+        
+        /* ------------------------------------------------------------------- */
+        /* تنسيقات تصميم البطاقات الجديدة (Gradient Border - Blue Theme) */
+        /* ------------------------------------------------------------------- */
+        .service-box-wrapper {
+            background: linear-gradient(135deg, #ffffff, var(--color-primary), #ffffff);
+            padding: 2px; 
+            border-radius: 1.2rem; 
+            box-shadow: 0px 8px 15px -5px rgba(21, 95, 207, 0.3); 
+            height: 100%; 
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-inner-card {
+            background: var(--color-white); 
+            color: var(--color-dark-text);
+            padding: 1.5rem;
+            border-radius: 1.2rem;
+            flex-grow: 1;
+            text-align: center;
+        }
+        
+        .service-box-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 15px 25px -8px rgba(21, 95, 207, 0.6);
+        }
+
+        .service-inner-card .service-icon {
+            color: var(--color-primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        .service-inner-card a {
+            color: var(--color-primary) !important;
+            font-weight: 600;
+            text-decoration: underline;
         }
         
     </style>
 </head>
 <body class="antialiased font-montserrat text-left">
 
-    <div x-data="{ open: false }" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
+    <div x-data="{ open: false, dropdownOpen: false }" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
             
             <div class="flex items-center space-x-2 order-1"> 
-                <a href="english.html" class="focus:outline-none focus:shadow-outline flex items-center">
+                <a href="./english.html" class="focus:outline-none focus:shadow-outline flex items-center">
                     <img src="../imgaes/شعار صناع (2).png" alt="Sunnaas Logo" class="h-12 w-auto"> 
                 </a>
                 
@@ -155,10 +207,10 @@
             <nav class="hidden md:flex flex-grow justify-center order-2">
                 <div class="flex items-center md:space-x-8">
                     
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline font-semibold text-darken" href="english.html">Home</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./pages/services.html">Services</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./pages/about.html">About Sunnaas</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./pages/news.html">News</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline font-semibold text-darken" href="./english.html">Home</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./services.html">Services</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./about.html">About Sunnaas</a>
+                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./news.html">News</a>
                     
                     <div class="relative group">
                         <button class="flex flex-row items-center w-full px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700 md:w-auto md:inline md:mt-0">
@@ -168,9 +220,9 @@
                         <div class="absolute w-full mt-2 origin-top-left rounded-md shadow-lg md:w-48 z-20 hidden group-hover:block" style="left: 0; min-width: 150px;">
                             <div class="px-2 py-2 bg-white rounded-md shadow-xl">
                                 <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" 
-                                   href="../pages/ jobs.html">Training</a>
+                                   href="forms.html">Training</a>
                                 <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" 
-                                   href="../pages/ jobs.html">Careers</a>
+                                   href="forms.html">Careers</a>
                             </div>
                         </div>
                     </div>
@@ -180,10 +232,10 @@
 
             <div class="hidden md:flex items-center space-x-3 order-3">
                  <a class="px-3 py-2 text-sm text-center bg-gray-100 text-darken rounded-lg hover:bg-gray-200 transition duration-300 font-semibold" 
-                   href="../index.html">العربية</a>
+                   href="index.html">العربية</a>
                    
-                <a class="px-8 py-2 text-sm text-center bg-white text-gray-800 rounded-full shadow-md hover:shadow-lg transition duration-300" href="./login.html">Login</a>
-                <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-white rounded-full shadow-xl hover:shadow-2xl transition duration-300" href="./register.html">Register</a>
+                <a class="px-8 py-2 text-sm text-center bg-white text-gray-800 rounded-full shadow-md hover:shadow-lg transition duration-300 btn-login" href="./login.html">Login</a>
+                <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-white rounded-full shadow-xl hover:shadow-2xl transition duration-300 btn-register" href="./register.html">Register</a>
             </div>
             
         </div>
@@ -200,13 +252,13 @@
                     <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': mobileDropdownOpen, 'rotate-0': !mobileDropdownOpen}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 </button>
                 <div x-show="mobileDropdownOpen" class="bg-gray-100 py-1 px-4 text-sm">
-                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./ jobs.html" @click="mobileDropdownOpen = false">Training</a>
-                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./ jobs.html" @click="mobileDropdownOpen = false">Careers</a>
+                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./forms.html" @click="mobileDropdownOpen = false">Training</a>
+                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./forms.html" @click="mobileDropdownOpen = false">Careers</a>
                 </div>
             </div>
             
             <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" 
-               href="../index.html">العربية</a>
+               href="index.html">العربية</a>
             
             <a class="px-4 py-2 text-sm bg-yellow-500 text-white rounded-lg text-center mt-3 mx-4" href="./register.html">Register</a>
             <a class="px-4 py-2 text-sm bg-gray-200 text-gray-800 rounded-lg text-center mt-2 mx-4" href="./login.html">Login</a>
@@ -226,10 +278,10 @@
             </p>
             
             <div data-aos="fade-up" data-aos-delay="400" class="flex flex-wrap gap-4 justify-center">
-                <a href="./ jobs.html" class="btn-primary px-10 py-3 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition duration-300">
+                <a href="./pages/training.html" class="btn-primary px-10 py-3 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition duration-300">
                     Start Your Learning Journey
                 </a>
-                <a href="./consultations.html" class="px-10 py-3 text-lg font-semibold rounded-full bg-gray-100 text-darken border border-gray-300 hover:bg-gray-200 transition duration-300">
+                <a href="./pages/consultations.html" class="px-10 py-3 text-lg font-semibold rounded-full bg-gray-100 text-darken border border-gray-300 hover:bg-gray-200 transition duration-300">
                     Get a Consultation
                 </a>
             </div>
@@ -299,67 +351,80 @@
         </div>
     </section>
 
-    <section class="py-20 bg-gray-100">
+    <section class="py-20 bg-white">
         <div class="max-w-screen-xl mx-auto px-8">
-            <div data-aos="flip-down" class="text-center max-w-screen-md mx-auto mb-16">
+            
+            <div data-aos="flip-down" class="max-w-6xl mx-auto text-center mb-16">
                 <h1 class="text-3xl font-bold mb-4">Sunna Company in <span class="text-yellow-500">Numbers</span> for 2025</h1>
-                <p class="text-gray-500 text-lg">Statistics reflecting the impact and growth achieved in the community of designers and industrialists.</p>
+                <p class="text-lg text-gray-600">Statistics reflecting the impact and growth achieved in the community of designers and industrialists.</p>
             </div>
         
-            <div class="max-w-6xl mx-auto">
-                <div class="grid md:grid-cols-3 gap-8 mt-10 text-center">
+            <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-start" style="direction: ltr;">
+                
+                <div data-aos="fade-right" class="order-1 md:order-1 space-y-6 text-center pt-8">
                     
-                    <div data-aos="zoom-in" data-aos-delay="50" class="p-8 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border-t-4 border-primary relative">
-                        
-                        <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-4">
-                             <i class="fas fa-bullseye fa-2x text-white"></i> 
-                        </div>
-
-                        <h3 class="stat-number-large font-montserrat text-5xl md:text-6xl text-primary">1219+</h3>
-                        <p class="text-gray-700 font-semibold text-lg font-cairo mt-2">Trainees and Participants</p>
-                        <p class="text-gray-500 text-sm">We impacted over a thousand trainees in the industrial field.</p>
-                    </div>
-    
-                    <div data-aos="zoom-in" data-aos-delay="150" class="p-8 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border-t-4 border-primary relative">
-                        
-                        <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-calendar-alt fa-2x text-white"></i> 
-                        </div>
-
-                        <h3 class="stat-number-large font-montserrat text-5xl md:text-6xl text-primary">39+</h3>
-                        <p class="text-gray-700 font-semibold text-lg font-cairo mt-2">Training Events</p>
-                        <p class="text-gray-500 text-sm">Total number of bootcamps and workshops delivered.</p>
-                    </div>
-    
-                    <div data-aos="zoom-in" data-aos-delay="250" class="p-8 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border-t-4 border-primary relative">
-                        
-                        <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-chart-line fa-2x text-white"></i> 
-                        </div>
-
-                        <h3 class="stat-number-large font-montserrat text-5xl md:text-6xl text-primary">9+</h3>
-                        <p class="text-gray-700 font-semibold text-lg font-cairo mt-2">Products & Partners</p>
-                        <p class="text-gray-500 text-sm">Launching our products and supporting strategic partners.</p>
-                    </div>
-    
+                     <img src="../imgaes/صاروخا.jpg" alt="Achievements Illustration" class="rounded-xl shadow-2xl w-full h-auto object-cover mx-auto">
                 </div>
                 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 text-center max-w-4xl mx-auto">
-                    <div data-aos="fade-up" class="p-4 rounded-lg bg-gray-50 border border-gray-200">
-                        <h3 class="font-bold text-3xl text-darken font-montserrat">5+</h3>
-                        <p class="text-gray-500 text-sm">Bootcamps</p>
+                <div data-aos="fade-left" class="order-2 md:order-2 space-y-8">
+                    
+                    <h2 class="text-4xl font-extrabold text-darken mb-6">
+                        Our Achievements and Impact
+                    </h2>
+    
+                    <div class="grid grid-cols-1 gap-6">
+                        
+                        <div data-aos="zoom-in" data-aos-delay="50" class="p-6 rounded-xl bg-gray-50 shadow-md border border-gray-200 flex items-center justify-between text-left">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center mr-4">
+                                    <i class="fas fa-bullseye fa-lg text-white"></i> 
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-darken">Trainees & Participants</h3>
+                                    <p class="text-gray-500 text-sm">Impacted over a thousand industry professionals.</p>
+                                </div>
+                            </div>
+                            <h3 class="stat-number-large font-montserrat text-4xl text-primary">1219+</h3>
+                        </div>
+            
+                        <div data-aos="zoom-in" data-aos-delay="150" class="p-6 rounded-xl bg-gray-50 shadow-md border border-gray-200 flex items-center justify-between text-left">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center mr-4">
+                                    <i class="fas fa-calendar-alt fa-lg text-white"></i> 
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-darken">Training Events</h3>
+                                    <p class="text-gray-500 text-sm">Total bootcamps and workshops delivered.</p>
+                                </div>
+                            </div>
+                            <h3 class="stat-number-large font-montserrat text-4xl text-primary">39+</h3>
+                        </div>
+            
+                        <div data-aos="zoom-in" data-aos-delay="250" class="p-6 rounded-xl bg-gray-50 shadow-md border border-gray-200 flex items-center justify-between text-left">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center mr-4">
+                                    <i class="fas fa-chart-line fa-lg text-white"></i> 
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-darken">Products & Partners</h3>
+                                    <p class="text-gray-500 text-sm">Growth in partnerships and product launches.</p>
+                                </div>
+                            </div>
+                            <h3 class="stat-number-large font-montserrat text-4xl text-primary">9+</h3>
+                        </div>
+                            
                     </div>
-                     <div data-aos="fade-up" data-aos-delay="50" class="p-4 rounded-lg bg-gray-50 border border-gray-200">
-                        <h3 class="font-bold text-3xl text-darken font-montserrat">34+</h3>
-                        <p class="text-gray-500 text-sm">Workshops</p>
-                    </div>
-                     <div data-aos="fade-up" data-aos-delay="100" class="p-4 rounded-lg bg-gray-50 border border-gray-200">
-                        <h3 class="font-bold text-3xl text-darken font-montserrat">22+</h3>
-                        <p class="text-gray-500 text-sm">Experts & Consultants</p>
-                    </div>
-                     <div data-aos="fade-up" data-aos-delay="150" class="p-4 rounded-lg bg-gray-50 border border-gray-200">
-                        <h3 class="font-bold text-3xl text-darken font-montserrat">4+</h3>
-                        <p class="text-gray-500 text-sm">Proprietary Company Products</p>
+                    
+                    <h3 class="text-2xl font-bold text-darken pt-4 mb-2">Additional Metrics</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div data-aos="fade-up" class="p-4 rounded-lg bg-gray-50 border border-gray-200 shadow-sm text-center">
+                            <h3 class="font-bold text-3xl text-darken font-montserrat">22+</h3>
+                            <p class="text-gray-500 text-sm">Experts & Consultants</p>
+                        </div>
+                         <div data-aos="fade-up" data-aos-delay="50" class="p-4 rounded-lg bg-gray-50 border border-gray-200 shadow-sm text-center">
+                            <h3 class="font-bold text-3xl text-darken font-montserrat">4+</h3>
+                            <p class="text-gray-500 text-sm">Proprietary Company Products</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -395,7 +460,7 @@
                </div>
             </a>
             
-            <a href="https://open.spotify.com/show/54xNgBfPfSlvfsc1iUL0x8?si=2a8264cf38564e88" class="block group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 h-40">
+            <a href="../pages/podcasts.html" class="block group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 h-40">
                <img src="../imgaes/podcast.jpg" alt="Sunnaas Podcast Image" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 absolute inset-0">
                <div class="absolute inset-0 bg-gradient-to-t from-green-900/80 via-green-900/50 to-transparent p-6 flex flex-col justify-end text-left">
                   <h3 class="font-bold text-xl text-white">Sunna Podcast</h3>
@@ -533,56 +598,48 @@
           </h1>
         </div>
         
+         
         <div class="scrolling-wrapper">
             <div class="scrolling-content">
                 
                 <div class="partner-logo-container">
-                     <img src="./imgaes/SIDF.png" alt="SIDF" class="w-full h-auto object-contain">
+                     <img src="../imgaes/معلقه.png" alt="شريك 1" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
                 <div class="partner-logo-container">
-                     <img src="./imgaes/بنت سلمان.png" alt="Princess Muhammad College" class="w-full h-auto object-contain">
+                     <img src="../imgaes/ذا شوب فلور .png" alt="The Shop Floor" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
                 <div class="partner-logo-container">
-                     <img src="./imgaes/TGA.png" alt="Transport General Authority" class="w-full h-auto object-contain">
+                     <img src="../imgaes/ام القرى شراكه.png" alt="جامعة أم القرى" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
                 <div class="partner-logo-container">
-                     <img src="./imgaes/SVC.png" alt="Saudi Venture Capital Company" class="w-full h-auto object-contain">
+                     <img src="../imgaes/جامعة حلوان شراكه.png" alt="جامعة حلوان" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
                 <div class="partner-logo-container">
-                     <img src="./imgaes/الهيئة الملكية.png" alt="Royal Commission for Jubail and Yanbu" class="w-full h-auto object-contain">
+                     <img src="../imgaes/بي دي.png" alt="شريك 5" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
                 <div class="partner-logo-container">
-                     <img src="./imgaes/Industrial Center.png" alt="Industrial Center" class="w-full h-auto object-contain">
+                     <img src="../imgaes/الفضاء الرقمي .png" alt="الفضاء الرقمي" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
                 <div class="partner-logo-container">
-                     <img src="./imgaes/الكراج.png" alt="The Garage" class="w-full h-auto object-contain">
-                </div>
-                
-                <div class="partner-logo-container">
-                     <img src="./imgaes/SIDF.png" alt="SIDF" class="w-full h-auto object-contain">
+                     <img src="../imgaes/معلقه.png" alt="شريك 1" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
                 <div class="partner-logo-container">
-                     <img src="./imgaes/بنت سلمان.png" alt="Princess Muhammad College" class="w-full h-auto object-contain">
+                     <img src="../imgaes/ذا شوب فلور .png" alt="The Shop Floor" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
                 <div class="partner-logo-container">
-                     <img src="./imgaes/TGA.png" alt="Transport General Authority" class="w-full h-auto object-contain">
+                     <img src="../imgaes/ام القرى شراكه.png" alt="جامعة أم القرى" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
                 <div class="partner-logo-container">
-                     <img src="./imgaes/SVC.png" alt="Saudi Venture Capital Company" class="w-full h-auto object-contain">
+                     <img src="../imgaes/جامعة حلوان شراكه.png" alt="جامعة حلوان" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
                 <div class="partner-logo-container">
-                     <img src="./imgaes/الهيئة الملكية.png" alt="Royal Commission for Jubail and Yanbu" class="w-full h-auto object-contain">
+                     <img src="../imgaes/بي دي.png" alt="شريك 5" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
                 <div class="partner-logo-container">
-                     <img src="./imgaes/Industrial Center.png" alt="Industrial Center" class="w-full h-auto object-contain">
+                     <img src="../imgaes/الفضاء الرقمي .png" alt="الفضاء الرقمي" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
                 </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/الكراج.png" alt="The Garage" class="w-full h-auto object-contain">
                 </div>
-                
-            </div>
         </div>
-        
 
     <section class="py-20 bg-white">
         <div data-aos="fade-in" class="max-w-4xl mx-auto px-6 relative">
@@ -635,7 +692,7 @@
                         <li><a href="./contact.html" class="hover:text-blue-600 transition duration-200">Contact Us</a></li>
                         <li><a href="./news.html" class="hover:text-blue-600 transition duration-200">News & Updates</a></li>
                         <li><a href="./register.html" class="hover:text-blue-600 transition duration-200">Join as a Maker</a></li>
-                        <li><a href="pages/privacy-policy.html" class="hover:text-blue-600 transition duration-200">Privacy & User Policy</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-blue-600 transition duration-200">Privacy & User Policy</a></li>
                     </ul>
                 </div>
                 
@@ -666,7 +723,7 @@
             </div>
             
             <div class="border-t border-gray-300 py-4 text-center">
-                <p class="my-3 text-gray-500 text-xs">© <span id="current-year-en">2025</span> Sunnaas Holding Company. All rights reserved. </p>
+                <p class="my-3 text-gray-500 text-xs">© <span id="current-year-en">2025</span> Sunna Holding Company. All rights reserved. </p>
             </div>
         </div>
     </footer>
