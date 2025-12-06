@@ -34,15 +34,14 @@
             font-family: 'IBM Plex Sans Arabic', sans-serif;
             text-align: right;
             color: var(--color-dark-text);
-            background-color: var(--color-white); 
-            background-image: radial-gradient(rgba(12, 12, 12, 0.05) 2px, transparent 0);
-            background-size: 30px 30px;
-            background-position: -5px -5px;
+            /* التعديل: إزالة النقاط وخلفية بيضاء صلبة */
+            background-color: var(--color-white) !important; 
+            background-image: none !important;
         }
         .text-darken, h1, h2, h3, h4 { color: var(--color-primary) !important; }
 
-        /* تطبيق الشفافية على الخلفيات لتظهر النقاط */
-        .bg-cream, .bg-gray-100, .bg-gray-50, .bg-white { background-color: transparent !important; }
+        /* التعديل: إزالة الشفافية لضمان أن جميع الخلفيات البيضاء تبقى بيضاء صلبة */
+        .bg-cream, .bg-gray-100, .bg-gray-50, .bg-white { background-color: var(--color-white) !important; }
         
         /* تنسيق الهيدر الافتتاحي (Page Header) */
         .page-header {
