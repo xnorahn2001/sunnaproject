@@ -16,179 +16,165 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"> 
     
     <style>
-        :root {
-         --color-primary: #155FCF;           
-         --color-light-secondary: #ffffff; 
-         --color-accent: #155FCF;            
-         --color-footer-dark: #ffffff; 
-         --color-dark-text: #111827;             
-         --color-gray-text: #6b7280;             
-         --color-white: #ffffff;                 
-         --color-primary-hover: #124d9f;         
-     }
-     
-     body {
-         font-family: 'Montserrat', sans-serif; 
-         text-align: left; 
-         color: var(--color-dark-text);
-         /* الخلفية بيضاء سادة بالكامل */
-         background-color: var(--color-white) !important; 
-         background-image: none !important; 
-     }
-     
-     .stat-number-large {
-         font-size: 3rem; 
-         font-weight: 800; 
-         color: var(--color-primary) !important; 
-         line-height: 1;
-     }
-     
-     .bg-cream, .bg-gray-100, .bg-gray-50, .bg-white {
-         background-color: var(--color-white) !important;
-     }
-     .text-darken, h1, h2, h3, h4 {
-         color: var(--color-primary) !important;
-     }
-     .btn-primary {
-         background-color: var(--color-primary) !important; 
-         color: var(--color-white) !important;            
-     }
-     .btn-primary:hover {
-         background-color: var(--color-primary-hover) !important;
-     }
-     .text-yellow-500, .text-accent {
-         color: var(--color-primary) !important; 
-     }
-     .bg-red-500, .bg-yellow-300, .bg-yellow-300 span, .step-number {
-         background-color: var(--color-primary) !important;
-         color: var(--color-white) !important; 
-     }
-     .text-gray-500, .text-gray-700, .text-light, .section-subtitle {
-         color: var(--color-gray-text) !important;
-     }
+           :root {
+            --color-primary: #155FCF;           
+            --color-light-secondary: #ffffff; 
+            --color-accent: #155FCF;            
+            --color-footer-dark: #ffffff; 
+            --color-dark-text: #111827;             
+            --color-gray-text: #6b7280;             
+            --color-white: #ffffff;                 
+            --color-primary-hover: #124d9f;         
+        }
+        
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            text-align: right;
+            color: var(--color-dark-text);
+            /* تطبيق الباترن كـ CSS Gradient (نقاط خفيفة متباينة) */
+            background-color: #ffffff !important; 
+            background-image: radial-gradient(#ffffff 0.5px, transparent 0.5px), radial-gradient(#e0e0e0 0.5px, #ffffff 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        
+        .stat-number, .navbar a {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+        
+        .stat-number-large {
+            font-size: 3rem; 
+            font-weight: 800; 
+            color: var(--color-primary) !important; 
+            line-height: 1;
+        }
+        
+        .bg-cream, .bg-gray-100, .bg-gray-50, .bg-white {
+            background-color: var(--color-white) !important;
+        }
+        .text-darken, h1, h2, h3, h4 {
+            color: var(--color-primary) !important;
+        }
+        .bg-yellow-500, .bg-accent, .btn-primary {
+            background-color: var(--color-primary) !important; 
+            color: var(--color-white) !important;            
+        }
+        .btn-primary:hover {
+            background-color: var(--color-primary-hover) !important;
+        }
+        .text-yellow-500, .text-accent {
+            color: var(--color-primary) !important; 
+        }
+        .bg-red-500, .bg-yellow-300, .bg-yellow-300 span, .step-number {
+            background-color: var(--color-primary) !important;
+            color: var(--color-white) !important; 
+        }
+        .text-gray-500, .text-gray-700, .text-light, .section-subtitle {
+            color: var(--color-gray-text) !important;
+        }
 
-     /* Navbar Buttons */
-     .btn-login { 
-         border: 1px solid var(--color-primary); 
-         background-color: var(--color-white);
-         color: var(--color-primary) !important; 
-     }
-     .btn-login:hover {
-         background-color: rgba(21, 95, 207, 0.1);
-     }
-     .btn-register { 
-         background-color: var(--color-primary) !important; 
-         color: var(--color-white) !important;         
-         border: 1px solid var(--color-primary);
-     }
-     .btn-register:hover {
-         background-color: var(--color-primary-hover) !important;
-     }
+        /* -------------------------------------------------------------------
+           تنسيقات حركة تمرير الشركاء (Partners Scrolling Animation) - RTL
+           ------------------------------------------------------------------- */
+        .scrolling-wrapper {
+            white-space: nowrap;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            direction: ltr; 
+        }
+        .scrolling-content {
+            display: flex;
+            animation: scroll-rtl 40s linear infinite; 
+        }
+        .partner-logo-container {
+            flex: 0 0 auto;
+            width: 150px; 
+            margin: 0 1.5rem;
+            display: inline-block;
+            direction: rtl; 
+        }
+        @keyframes scroll-rtl {
+            from { transform: translateX(0%); }
+            to { transform: translateX(calc(-150px * 14 * 2)); } 
+        }
 
-     /* -------------------------------------------------------------------
-        تنسيقات حركة تمرير الشركاء (Partners Scrolling Animation) - LTR
-        ------------------------------------------------------------------- */
-     .scrolling-wrapper {
-         white-space: nowrap;
-         overflow: hidden;
-         display: flex;
-         align-items: center;
-     }
-     .scrolling-content {
-         display: flex;
-         animation: scroll-ltr 40s linear infinite; /* سرعة الحركة */
-     }
-     .partner-logo-container {
-         flex: 0 0 auto;
-         width: 150px; 
-         margin: 0 1.5rem;
-         display: inline-block;
-     }
-     @keyframes scroll-ltr {
-         from { transform: translateX(0%); }
-         to { transform: translateX(calc(-150px * 14 * 2)); } 
-     }
+        /* -------------------------------------------------------------------
+           تنسيقات الأسهم لقسم الواتساب (WhatsApp Arrows)
+           ------------------------------------------------------------------- */
+        .whatsapp-arrows {
+            position: absolute;
+            top: 50%;
+            right: 2rem; 
+            width: 60px;
+            height: 60px;
+        }
+        .whatsapp-arrows::before,
+        .whatsapp-arrows::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: var(--color-dark-text);
+            transform-origin: left;
+            transform: scaleX(-1);
+        }
+        .whatsapp-arrows::before {
+            transform: rotate(30deg) scaleX(-1);
+            top: 20px;
+            right: 20px;
+        }
+        .whatsapp-arrows::after {
+            transform: rotate(-30deg) scaleX(-1);
+            top: 40px;
+            right: 20px;
+        }
+        .whatsapp-arrows .arrow-center {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: var(--color-dark-text);
+            top: 30px;
+            right: 20px;
+        }
 
-     /* -------------------------------------------------------------------
-        تنسيقات الأسهم لقسم الواتساب (WhatsApp Arrows)
-        ------------------------------------------------------------------- */
-     .whatsapp-arrows {
-         position: absolute;
-         top: 50%;
-         left: 2rem; 
-         width: 60px;
-         height: 60px;
-     }
-     .whatsapp-arrows::before,
-     .whatsapp-arrows::after {
-         content: '';
-         position: absolute;
-         width: 30px;
-         height: 2px;
-         background: var(--color-dark-text);
-         transform-origin: right; 
-     }
-     .whatsapp-arrows::before {
-         transform: rotate(-30deg); 
-         top: 20px;
-         left: 20px; 
-     }
-     .whatsapp-arrows::after {
-         transform: rotate(30deg); 
-         top: 40px;
-         left: 20px; 
-     }
-     .whatsapp-arrows .arrow-center {
-         content: '';
-         position: absolute;
-         width: 30px;
-         height: 2px;
-         background: var(--color-dark-text);
-         top: 30px;
-         left: 20px; 
-     }
-     
-     /* ------------------------------------------------------------------- */
-     /* تنسيقات تصميم البطاقات الجديدة (Gradient Border - Blue Theme) */
-     /* ------------------------------------------------------------------- */
-     .service-box-wrapper {
-         background: linear-gradient(135deg, #ffffff, var(--color-primary), #ffffff);
-         padding: 2px; 
-         border-radius: 1.2rem; 
-         box-shadow: 0px 8px 15px -5px rgba(21, 95, 207, 0.3); 
-         height: 100%; 
-         display: flex;
-         flex-direction: column;
-         transition: transform 0.3s, box-shadow 0.3s;
-     }
+        /* -------------------------------------------------------------------
+           تنسيقات كروت الخدمات المحدثة (Service Cards)
+           ------------------------------------------------------------------- */
+        .service-card {
+            background-color: var(--color-white);
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            border-radius: 1.5rem; /* rounded-2xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            padding: 1.5rem; /* p-6 */
+            text-align: right;
+            position: relative;
+            overflow: hidden;
+        }
 
-     .service-inner-card {
-         background: var(--color-white); 
-         color: var(--color-dark-text);
-         padding: 1.5rem;
-         border-radius: 1.2rem;
-         flex-grow: 1;
-         text-align: center;
-     }
-     
-     .service-box-wrapper:hover {
-         transform: translateY(-5px);
-         box-shadow: 0px 15px 25px -8px rgba(21, 95, 207, 0.6);
-     }
-
-     .service-inner-card .service-icon {
-         color: var(--color-primary);
-         font-size: 2.5rem;
-         margin-bottom: 0.75rem;
-         display: block;
-     }
-     .service-inner-card a {
-         color: var(--color-primary) !important;
-         font-weight: 600;
-         text-decoration: underline;
-     }
-     
- </style>
+        .service-card:hover {
+            transform: translateY(-8px); /* رفع الكارت قليلًا */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-2xl */
+        }
+        
+        .service-icon-wrapper {
+            width: 48px; 
+            height: 48px;
+            border-radius: 50%; /* rounded-full */
+            background-color: var(--color-primary); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        
+        .service-icon-wrapper i {
+            color: var(--color-white);
+        }
+        
+    </style>
 </head>
 <body class="antialiased font-cairo text-right">
 
@@ -224,9 +210,9 @@
                         <div class="absolute w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48 z-20 hidden group-hover:block" style="right: 0; min-width: 150px;">
                             <div class="px-2 py-2 bg-white rounded-md shadow-xl">
                                 <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" 
-                                   href="./pages/training.html">تدريب</a>
+                                   href="./pages/forms.html">تدريب</a>
                                 <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" 
-                                   href="./pages/jobs.html">توظيف</a>
+                                   href="./pages/forms.html">توظيف</a>
                             </div>
                         </div>
                     </div>
@@ -255,8 +241,8 @@
                     <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': mobileDropdownOpen, 'rotate-0': !mobileDropdownOpen}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 </button>
                 <div x-show="mobileDropdownOpen" class="bg-gray-100 py-1 px-4 text-sm">
-                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./pages/training.html" @click="mobileDropdownOpen = false">تدريب</a>
-                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./pages/jobs.html" @click="mobileDropdownOpen = false">توظيف</a>
+                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./pages/forms.html" @click="mobileDropdownOpen = false">تدريب</a>
+                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./pages/forms.html" @click="mobileDropdownOpen = false">توظيف</a>
                 </div>
             </div>
             
@@ -475,65 +461,66 @@
     </section>
 
     <section class="bg-gray-50 py-20">
-        <div class="max-w-6xl mx-auto px-4">
+        <div class="max-w-6xl mx-auto px-8">
             <div data-aos="flip-down" class="text-center max-w-screen-md mx-auto mb-16">
                 <h2 class="text-3xl font-bold mb-4 text-darken">خدمات <span class="text-yellow-500">الشركة</span></h2>
                 <p class="text-gray-500 text-lg">دعم متكامل ومحاور رئيسية لتمكينك من الفكرة وحتى التسويق والإنتاج.</p>
             </div>
         
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div data-aos="fade-up" class="service-box-wrapper">
-                    <div class="service-inner-card">
-                        <i class="fas fa-gift fa-lg service-icon"></i>
-                        <h3 class="font-bold text-xl mb-3 text-darken">هدايا حجاج</h3>
-                        <p class="text-gray-700 text-sm">منتجات إبداعية مصممة خصيصاً لخدمة ضيوف الرحمن في المواسم.</p>
-                        <a href="./pages/gifts.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
+                
+                <div data-aos="fade-up" class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-gift fa-lg"></i>
                     </div>
+                    <h3 class="font-bold text-xl mb-3 text-darken">هدايا حجاج</h3>
+                    <p class="text-gray-700 text-sm">منتجات إبداعية مصممة خصيصاً لخدمة ضيوف الرحمن في المواسم.</p>
+                    <a href="./pages/gifts.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
                 </div>
         
-                <div data-aos="fade-up" data-aos-delay="100" class="service-box-wrapper">
-                    <div class="service-inner-card">
-                        <i class="fas fa-drafting-compass fa-lg service-icon"></i>
-                        <h3 class="font-bold text-xl mb-3 text-darken">استديو تصميم منتجات</h3>
-                        <p class="text-gray-700 text-sm">خدمات تصميم احترافية للمنتجات وتطوير الهوية البصرية الصناعية.</p>
-                        <a href="./pages/design-studio.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
+                <div data-aos="fade-up" data-aos-delay="100" class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-drafting-compass fa-lg"></i>
                     </div>
+                    <h3 class="font-bold text-xl mb-3 text-darken">استديو تصميم منتجات</h3>
+                    <p class="text-gray-700 text-sm">خدمات تصميم احترافية للمنتجات وتطوير الهوية البصرية الصناعية.</p>
+                    <a href="./pages/design-studio.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
                 </div>
         
-                <div data-aos="fade-up" data-aos-delay="200" class="service-box-wrapper">
-                    <div class="service-inner-card">
-                        <i class="fas fa-link fa-lg service-icon"></i>
-                        <h3 class="font-bold text-xl mb-3 text-darken">ربط بالمصانع</h3>
-                        <p class="text-gray-700 text-sm">تسهيل وتأمين الاتصال مع أفضل المصانع المحلية لضمان جودة الإنتاج.</p>
-                        <a href="./pages/factories.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
+                <div data-aos="fade-up" data-aos-delay="200" class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-link fa-lg"></i>
                     </div>
+                    <h3 class="font-bold text-xl mb-3 text-darken">ربط بالمصانع</h3>
+                    <p class="text-gray-700 text-sm">تسهيل وتأمين الاتصال مع أفضل المصانع المحلية لضمان جودة الإنتاج.</p>
+                    <a href="./pages/factories.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
                 </div>
         
-                <div data-aos="fade-up" data-aos-delay="300" class="service-box-wrapper">
-                    <div class="service-inner-card">
-                        <i class="fas fa-user-tie fa-lg service-icon"></i>
-                        <h3 class="font-bold text-xl mb-3 text-darken">استشارات صناعية وتصميمية</h3>
-                        <p class="text-gray-700 text-sm">جلسات توجيه لتقييم المشاريع، ودراسات الجدوى التقنية، ووضع خطط التسويق الصناعي.</p>
-                        <a href="./pages/consultations.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
+                <div data-aos="fade-up" data-aos-delay="300" class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-user-tie fa-lg"></i>
                     </div>
+                    <h3 class="font-bold text-xl mb-3 text-darken">استشارات صناعية وتصميمية</h3>
+                    <p class="text-gray-700 text-sm">جلسات توجيه لتقييم المشاريع، ودراسات الجدوى التقنية، ووضع خطط التسويق الصناعي.</p>
+                    <a href="./pages/consultations.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
                 </div>
         
-                <div data-aos="fade-up" data-aos-delay="400" class="service-box-wrapper">
-                    <div class="service-inner-card">
-                        <i class="fas fa-graduation-cap fa-lg service-icon"></i>
-                        <h3 class="font-bold text-xl mb-3 text-darken">هاكثونات ومعسكرات</h3>
-                        <p class="text-gray-700 text-sm">برامج تدريب مكثفة لتطوير مهارات المصممين والمهندسين، وتهيئتهم لسوق العمل الصناعي.</p>
-                        <a href="./pages/training.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
+                <div data-aos="fade-up" data-aos-delay="400" class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-graduation-cap fa-lg"></i>
                     </div>
+                    <h3 class="font-bold text-xl mb-3 text-darken">هاكثونات ومعسكرات</h3>
+                    <p class="text-gray-700 text-sm">برامج تدريب مكثفة لتطوير مهارات المصممين والمهندسين، وتهيئتهم لسوق العمل الصناعي.</p>
+                    <a href="https://sunnaasar.com/%D9%85%D8%B9%D8%B3%D9%83%D8%B1%D8%A7%D8%AA-%D8%B5%D9%86%D8%A7%D8%B9%D9%8A%D8%A9/c1344699739" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
                 </div>
         
-                <div data-aos="fade-up" data-aos-delay="500" class="service-box-wrapper">
-                    <div class="service-inner-card">
-                        <i class="fas fa-user-plus fa-lg service-icon"></i>
-                        <h3 class="font-bold text-xl mb-3 text-darken">فرص تدريب وتوظيف</h3>
-                        <p class="text-gray-700 text-sm">ربط الكوادر المؤهلة بفرص عمل نوعية لدى الشركات والشركاء.</p>
-                        <a href="./pages/jobs.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
+                <div data-aos="fade-up" data-aos-delay="500" class="service-card">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-user-plus fa-lg"></i>
                     </div>
+                    <h3 class="font-bold text-xl mb-3 text-darken">فرص تدريب وتوظيف</h3>
+                    <p class="text-gray-700 text-sm">ربط الكوادر المؤهلة بفرص عمل نوعية لدى الشركات والشركاء.</p>
+                    <a href="./pages/forms.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
                 </div>
             </div>
         </div>
@@ -683,20 +670,20 @@
                     <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الروابط الأساسية</h4> 
                     <ul class="space-y-3 text-gray-700">
                         <li><a href="index.html" class="hover:text-blue-600 transition duration-200">الرئيسية</a></li>
-                        <li><a href="pages/about.html" class="hover:text-blue-600 transition duration-200">عن صناع</a></li>
-                        <li><a href="pages/services.html" class="hover:text-blue-600 transition duration-200">خدماتنا</a></li>
-                        <li><a href="pages/products.html" class="hover:text-blue-600 transition duration-200">منتجاتنا</a></li>
-                        <li><a href="#partners-section" class="hover:text-blue-600 transition duration-200">شركاؤنا</a></li>
+                        <li><a href="../pages/about.html" class="hover:text-blue-600 transition duration-200">عن صناع</a></li>
+                        <li><a href="../pages/services.html" class="hover:text-blue-600 transition duration-200">خدماتنا</a></li>
+                        <li><a href="../pages/products.html" class="hover:text-blue-600 transition duration-200">منتجاتنا</a></li>
+                        <li><a href="../pages/privacy-policy.html" class="hover:text-blue-600 transition duration-200">شركاؤنا</a></li>
                     </ul>
                 </div>
                 
                 <div>
                      <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الدعم والتواصل</h4>
                     <ul class="space-y-3 text-gray-700">
-                        <li><a href="pages/contact.html" class="hover:text-blue-600 transition duration-200">تواصل معنا</a></li>
-                        <li><a href="pages/news.html" class="hover:text-blue-600 transition duration-200">أخبارنا ومستجداتنا</a></li>
-                        <li><a href="pages/register.html" class="hover:text-blue-600 transition duration-200">انضم كصانع</a></li>
-                        <li><a href="pages/privacy-policy.html" class="hover:text-blue-600 transition duration-200">سياسة الخصوصية و المستخدم</a></li>
+                        <li><a href="../pages/contact.html" class="hover:text-blue-600 transition duration-200">تواصل معنا</a></li>
+                        <li><a href="../pages/news.html" class="hover:text-blue-600 transition duration-200">أخبارنا ومستجداتنا</a></li>
+                        <li><a href="../pages/register.html" class="hover:text-blue-600 transition duration-200">انضم كصانع</a></li>
+                        <li><a href="../pages/privacy-policy.html" class="hover:text-blue-600 transition duration-200">سياسة الخصوصية و المستخدم</a></li>
                     </ul>
                 </div>
                 
