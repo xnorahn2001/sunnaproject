@@ -3,312 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم المستخدم - صناع</title>
+    <title>لوحة التحكم - شركة صناع الرسالة القابضة</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+    
     <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
     
     <style>
-        /* (تنسيقات CSS التي أرسلتها سابقاً - تم الحفاظ عليها بالكامل) */
         :root {
             --color-primary: #155FCF;
-            --color-primary-hover: #124d9f;
-            --color-dark-text: #111827;
-            --color-gray-text: #6b7280;
-            --color-white: #ffffff;
-            --color-bg-light: #f9fafb;
-            --color-sidebar: #1f2937;
-            --color-sidebar-hover: #374151;
-            --color-accent-blue: #3b82f6;
-            --color-success: #10b981;
-            --color-warning: #f59e0b;
+            --color-sidebar: #111827;
+            --color-bg-light: #f8fafc;
         }
-
-        .dashboard-body {
+        
+        body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
-            text-align: right;
             background-color: var(--color-bg-light);
-            display: flex;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-            position: relative; 
         }
 
-        /* الشريط الجانبي (Sidebar) */
+        /* توحيد الظلال للسواد الغامق المتناسق مع الموقع */
+        .custom-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        /* Sidebar Styling */
         .sidebar {
-            width: 280px;
             background-color: var(--color-sidebar);
-            color: var(--color-white);
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem 1rem;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .menu-item {
+            transition: all 0.2s ease;
+            color: #9ca3af;
+        }
+        
+        .menu-item:hover {
+            background-color: #1f2937;
+            color: white;
+        }
+        
+        .menu-item.active {
+            background-color: var(--color-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(21, 95, 207, 0.3);
         }
 
+        /* Responsive Sidebar for Mobile */
         @media (max-width: 1024px) {
             .sidebar {
                 position: fixed;
-                top: 0;
-                right: -280px;
-                height: 100%;
-                transition: right 0.3s ease-in-out;
-                z-index: 60;
-                width: 250px;
+                right: -100%;
+                z-index: 100;
+                height: 100vh;
             }
             .sidebar.open {
                 right: 0;
             }
         }
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 55;
-            display: none;
-        }
-        .overlay.active {
-            display: block;
-        }
-        
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #374151;
-            margin-bottom: 1rem;
-        }
-        
-        .sidebar-header .logo-text { font-size: 1.5rem; font-weight: 700; }
-        
-        .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
-            border-radius: 8px;
-            color: #d1d5db;
-            text-decoration: none;
-            transition: background-color 0.2s;
-            font-weight: 500;
-        }
-        .menu-item:hover { background-color: var(--color-sidebar-hover); color: var(--color-white); }
-        .menu-item.active { background-color: var(--color-primary); color: var(--color-white); font-weight: 600; }
-        .menu-item .menu-icon { margin-left: 1rem; font-size: 1.25rem; width: 24px; text-align: center; }
-        
-        .logout-btn { display: block; width: 100%; text-align: center; background-color: #ef4444; color: var(--color-white); padding: 0.75rem; border-radius: 8px; text-decoration: none; }
-        
-        /* المحتوى الرئيسي (Main Content) */
-        .hamburger-menu-button {
-            display: none; 
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 70;
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            border-radius: 8px;
-            padding: 0.5rem 0.75rem;
-            font-size: 1.25rem;
-            border: none;
-        }
-        @media (max-width: 1024px) {
-             .hamburger-menu-button {
-                display: block;
-            }
-        }
-        
-        .dashboard-main {
-            flex-grow: 1;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-        @media (max-width: 1024px) {
-            .dashboard-main {
-                width: 100%;
-                padding: 1rem;
-            }
-        }
-
-        .dashboard-header {
-            padding-bottom: 1.5rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .dashboard-section { margin-bottom: 2.5rem; }
-        .dashboard-section h2 { font-size: 1.5rem; font-weight: 600; color: var(--color-dark-text); margin-bottom: 1.5rem; }
-
-        /* بطاقات الشبكة */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        @media (max-width: 640px) {
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .project-card {
-            background-color: var(--color-white);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            transition: box-shadow 0.3s, transform 0.3s;
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between;
-        }
-        .project-card:hover { box-shadow: 0 10px 20px rgba(21, 95, 207, 0.1); transform: translateY(-2px); }
-        .card-header { font-size: 1.25rem; font-weight: 700; color: var(--color-dark-text); margin-bottom: 0.5rem; }
-        .card-designer { font-size: 0.9rem; color: var(--color-gray-text); margin-bottom: 0.5rem; }
-        .card-status-pill { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; margin-top: 0.5rem; margin-bottom: 0.5rem; }
-        
-        /* حالات المشاريع */
-        .status-in-progress { background-color: #bfdbfe; color: var(--color-accent-blue); }
-        .status-needs-designers { background-color: #fef3c7; color: var(--color-warning); }
-        .status-on-hold { background-color: #fecaca; color: #ef4444; }
-
-
-        .btn-small { margin-top: 1rem; background-color: var(--color-primary); color: var(--color-white); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.875rem; font-weight: 600; transition: background-color 0.2s; cursor: pointer; border: none; width: fit-content; text-align: center; align-self: flex-start; }
-        .btn-small:hover { background-color: var(--color-primary-hover); }
-        .btn-secondary { background-color: var(--color-accent-blue); }
-        .btn-secondary:hover { background-color: #2563eb; }
-
-        /* تنسيق قائمة الطلبات */
-        .sessions-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-        .session-card { background-color: var(--color-white); border-radius: 12px; padding: 1.5rem; border-left: 4px solid var(--color-warning); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
     </style>
 </head>
-<body class="dashboard-body" x-data="{ 
+
+<body class="antialiased" x-data="{ 
     sidebarOpen: false, 
-    userType: 'company', // المتغير الأساسي: 'company' أو 'individual'
-    
-    // قائمة الشركة 
+    userType: 'company', 
     companyMenu: [
         { icon: 'fas fa-chart-line', title: 'نظرة عامة', active: true },
-        { icon: 'fas fa-clipboard-list', title: 'إدارة المشاريع' },
-        { icon: 'fas fa-briefcase', title: 'العروض والطلبات' },
-        { icon: 'fas fa-users', title: 'إدارة الفريق' },
-        { icon: 'fas fa-file-invoice-dollar', title: 'الفواتير والمدفوعات' },
-        { icon: 'fas fa-cog', title: 'إعدادات الشركة' },
+        { icon: 'fas fa-clipboard-list', title: 'إدارة المشاريع', active: false },
+        { icon: 'fas fa-users', title: 'إدارة الفريق', active: false },
+        { icon: 'fas fa-file-invoice-dollar', title: 'المدفوعات', active: false },
+        { icon: 'fas fa-cog', title: 'الإعدادات', active: false },
     ],
-
-    // قائمة الفرد (المصمم/الخبير)
     individualMenu: [
-        { icon: 'fas fa-chart-line', title: 'نظرة عامة', active: true },
-        { icon: 'fas fa-user-circle', title: 'ملفي الشخصي' },
-        { icon: 'fas fa-envelope-open-text', title: 'العروض المقدمة' },
-        { icon: 'fas fa-calendar-alt', title: 'جدول الجلسات' },
-        { icon: 'fas fa-money-bill-wave', title: 'سجل الدفعات' },
-        { icon: 'fas fa-cog', title: 'الإعدادات الشخصية' },
-    ],
-
-    // اختيار القائمة بناءً على userType
-    get currentMenu() {
-        return this.userType === 'company' ? this.companyMenu : this.individualMenu;
-    },
-
-    // النص الرئيسي في رأس الصفحة
-    get dashboardTitle() {
-        return this.userType === 'company' ? 'مرحباً بك، [اسم ممثل الشركة]' : 'مرحباً بك، [اسم المستخدم الفرد]';
-    },
-
-    // وصف الصفحة
-    get dashboardSubtitle() {
-        return this.userType === 'company' ? 'لوحة تحكم الشركة - متابعة مشاريعك والكوادر.' : 'لوحة تحكم الفرد - متابعة ملفك الشخصي وعروضك.';
-    }
+        { icon: 'fas fa-user-circle', title: 'ملفي الشخصي', active: true },
+        { icon: 'fas fa-briefcase', title: 'عروضي المقدمة', active: false },
+        { icon: 'fas fa-calendar-alt', title: 'جدول المواعيد', active: false },
+        { icon: 'fas fa-money-bill-wave', title: 'المستحقات', active: false },
+        { icon: 'fas fa-cog', title: 'الإعدادات', active: false },
+    ]
 }">
-    
-    <button class="hamburger-menu-button" @click="sidebarOpen = true">
-        <i class="fas fa-bars"></i>
-    </button>
-    
-    <div class="overlay" :class="{ 'active': sidebarOpen }" @click="sidebarOpen = false" x-show="sidebarOpen" x-transition.opacity.duration.300ms style="display: none;"></div>
 
-    <div class="dashboard-container flex w-full">
-        <aside class="sidebar lg:static lg:mr-0" :class="{ 'open': sidebarOpen }" @click.away="sidebarOpen = false">
-            <div class="sidebar-header">
-                <img src="../imgaes/شعار صناع (2).png" alt="شعار صناع" class="w-8 h-8" style="margin-left: 0.75rem;">
-                <span class="logo-text">صناع</span>
+    <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+
+    <div class="flex min-h-screen">
+        
+        <aside :class="sidebarOpen ? 'open' : ''" class="sidebar w-72 flex-shrink-0 lg:static fixed flex flex-col p-6 text-white overflow-y-auto h-screen">
+            <div class="flex items-center gap-3 mb-10 border-b border-gray-800 pb-6">
+                <img src="../imgaes/شعار صناع (2).png" class="w-10 h-auto" alt="Logo">
+                <span class="text-xl font-bold tracking-tight">منصة صناع</span>
             </div>
-            
-            <nav class="sidebar-menu">
-                <template x-for="item in currentMenu" :key="item.title">
-                    <a href="#" 
-                       class="menu-item" 
-                       :class="{ 'active': item.active }"
-                       @click="$magic('closeSidebar')()">
-                        <i :class="item.icon" class="menu-icon"></i>
+
+            <nav class="space-y-2 flex-grow">
+                <template x-for="item in (userType === 'company' ? companyMenu : individualMenu)" :key="item.title">
+                    <a href="#" :class="item.active ? 'active' : ''" class="menu-item flex items-center gap-4 p-3 rounded-xl font-medium">
+                        <i :class="item.icon" class="w-6 text-center"></i>
                         <span x-text="item.title"></span>
                     </a>
                 </template>
             </nav>
-            
-            <div class="mt-auto pt-4 border-t border-gray-700">
-                 <a href="#" class="logout-btn">تسجيل الخروج</a>
+
+            <div class="mt-auto pt-6 border-t border-gray-800">
+                <a href="#" class="flex items-center gap-4 p-3 rounded-xl text-red-400 hover:bg-red-500/10 transition">
+                    <i class="fas fa-sign-out-alt w-6 text-center"></i>
+                    <span>تسجيل الخروج</span>
+                </a>
             </div>
         </aside>
 
-        <main class="dashboard-main flex-grow">
-            <header class="dashboard-header">
-                <h1 x-text="dashboardTitle"></h1>
-                <p x-text="dashboardSubtitle"></p>
-                
-                <div class="mt-4 p-2 bg-gray-100 rounded-lg max-w-sm">
-                    <p class="text-sm font-semibold mb-2 text-gray-700">وضع العرض الحالي (يحدد لوحة التحكم)</p>
-                    <button @click="userType = 'company'" 
-                            :class="{'bg-blue-600 text-white': userType === 'company', 'bg-gray-300 text-gray-800': userType !== 'company'}" 
-                            class="py-2 px-4 rounded-lg text-sm font-bold transition">
-                        عرض لوحة الشركة
+        <main class="flex-grow flex flex-col min-w-0 bg-gray-50">
+            
+            <header class="bg-white h-20 flex items-center justify-between px-8 border-b border-gray-200 sticky top-0 z-30">
+                <div class="flex items-center gap-4">
+                    <button @click="sidebarOpen = true" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <button @click="userType = 'individual'" 
-                            :class="{'bg-blue-600 text-white': userType === 'individual', 'bg-gray-300 text-gray-800': userType !== 'individual'}" 
-                            class="py-2 px-4 rounded-lg text-sm font-bold transition mr-2">
-                        عرض لوحة الفرد
-                    </button>
+                    <h2 class="text-xl font-bold text-gray-800 hidden md:block" x-text="userType === 'company' ? 'لوحة تحكم الشركات' : 'لوحة تحكم الأفراد'"></h2>
                 </div>
-                
+
+                <div class="flex items-center bg-gray-100 p-1 rounded-full border border-gray-200">
+                    <button @click="userType = 'company'" :class="userType === 'company' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'" class="px-6 py-2 rounded-full text-xs font-bold transition-all">شركة</button>
+                    <button @click="userType = 'individual'" :class="userType === 'individual' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'" class="px-6 py-2 rounded-full text-xs font-bold transition-all">فرد</button>
+                </div>
             </header>
-            
-            <section class="dashboard-section">
-                <h2 x-text="userType === 'company' ? '📋 المشاريع الجارية' : '🔍 مشاريع تناسب خبرتي'"></h2>
-                <div class="cards-grid">
+
+            <div class="p-8 space-y-8">
+                
+                <div class="bg-white p-8 rounded-3xl custom-shadow border border-gray-100">
+                    <h1 class="text-3xl font-extrabold text-gray-900 mb-2">مرحباً بك مجدداً 👋</h1>
+                    <p class="text-gray-500" x-text="userType === 'company' ? 'إليك آخر مستجدات مشاريع شركتك والكوادر المتاحة.' : 'إليك نظرة سريعة على عروضك ومواعيد الجلسات القادمة.'"></p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-2xl custom-shadow border-r-4 border-blue-600">
+                        <p class="text-gray-500 text-sm font-bold mb-1" x-text="userType === 'company' ? 'المشاريع الجارية' : 'عروض نشطة'"></p>
+                        <h3 class="text-2xl font-black font-montserrat">12</h3>
                     </div>
-            </section>
-            
-            <section class="dashboard-section">
-                <h2 x-text="userType === 'company' ? '✉️ الطلبات الجديدة (العروض المقدمة)' : '📧 العروض التي قدمتها'"></h2>
-                <div class="sessions-list">
+                    <div class="bg-white p-6 rounded-2xl custom-shadow border-r-4 border-yellow-500">
+                        <p class="text-gray-500 text-sm font-bold mb-1" x-text="userType === 'company' ? 'طلبات بانتظار الرد' : 'مواعيد اليوم'"></p>
+                        <h3 class="text-2xl font-black font-montserrat">04</h3>
                     </div>
-            </section>
+                    <div class="bg-white p-6 rounded-2xl custom-shadow border-r-4 border-green-500">
+                        <p class="text-gray-500 text-sm font-bold mb-1">إجمالي المحفظة</p>
+                        <h3 class="text-2xl font-black font-montserrat">2,450 ريال</h3>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl custom-shadow border-r-4 border-purple-500">
+                        <p class="text-gray-500 text-sm font-bold mb-1">التقييم العام</p>
+                        <h3 class="text-2xl font-black font-montserrat">4.9 / 5</h3>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-gray-800" x-text="userType === 'company' ? '📋 متابعة المشاريع' : '🔍 مشاريع مقترحة لك'"></h3>
+                        <div class="bg-white p-6 rounded-2xl custom-shadow space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-blue-50 transition border border-transparent hover:border-blue-200 cursor-pointer">
+                                <div>
+                                    <h4 class="font-bold text-gray-900">تصميم منتج ملموس (كرسي ذكي)</h4>
+                                    <p class="text-xs text-gray-400 mt-1">آخر تحديث: منذ ساعتين</p>
+                                </div>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-bold rounded-lg">قيد التنفيذ</span>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-yellow-50 transition border border-transparent hover:border-yellow-200 cursor-pointer">
+                                <div>
+                                    <h4 class="font-bold text-gray-900">تطوير واجهة تطبيق مقدار</h4>
+                                    <p class="text-xs text-gray-400 mt-1">آخر تحديث: يوم أمس</p>
+                                </div>
+                                <span class="px-3 py-1 bg-yellow-100 text-yellow-600 text-xs font-bold rounded-lg">مراجعة</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-gray-800">🔔 آخر التنبيهات</h3>
+                        <div class="bg-white p-6 rounded-2xl custom-shadow space-y-6">
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 bg-green-100 text-green-600 rounded-full flex-shrink-0 flex items-center justify-center"><i class="fas fa-check"></i></div>
+                                <div>
+                                    <p class="text-sm text-gray-700">تم اعتماد دفعة مالية للمشروع <strong>رقم #4432</strong></p>
+                                    <span class="text-xs text-gray-400">منذ 5 دقائق</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex-shrink-0 flex items-center justify-center"><i class="fas fa-envelope"></i></div>
+                                <div>
+                                    <p class="text-sm text-gray-700">رسالة جديدة من المصمم <strong>أحمد محمد</strong></p>
+                                    <span class="text-xs text-gray-400">منذ ساعة</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </main>
     </div>
-    
+
     <script>
-        // سكريبت إغلاق القائمة في الجوال (Alpine.js)
-        document.addEventListener('alpine:init', () => {
-            Alpine.magic('closeSidebar', () => () => {
-                const sidebar = document.querySelector('.sidebar');
-                // نتحقق من الحجم لضمان إغلاق القائمة فقط في وضع الجوال
-                if (window.innerWidth <= 1024 && sidebar.classList.contains('open')) {
-                    sidebar.classList.remove('open');
-                    document.querySelector('.overlay').classList.remove('active');
-                }
-            });
+        // إغلاق القائمة عند تغيير الشاشة لضمان عدم حدوث أخطاء
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) Alpine.store('sidebarOpen', false);
         });
     </script>
 </body>

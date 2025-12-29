@@ -4,313 +4,242 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أخبارنا - شركة صناع الرسالة القابضة</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
     
     <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
     <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
     
     <style>
-        /* -------------------------------------------------------------------
-           التنسيقات الموحدة لشركة صُنّاع الرسالة القابضة (CSS Global Styles)
-           ------------------------------------------------------------------- */
         :root {
             --color-primary: #155FCF;           
-            --color-light-secondary: #ffffff; 
-            --color-accent: #155FCF;            
-            --color-footer-dark: #ffffff; 
-            --color-dark-text: #111827;             
-            --color-gray-text: #6b7280;             
-            --color-white: #ffffff;                 
             --color-primary-hover: #124d9f;         
+            --color-dark-text: #111827;             
+            --color-white: #ffffff;                 
         }
         body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
             text-align: right;
             color: var(--color-dark-text);
-            /* الخلفية بيضاء سادة بالكامل */
-            background-color: var(--color-white) !important; 
-            background-image: none !important; 
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            background-color: var(--color-white);
         }
-        .text-darken, h1, h2, h3, h4 { color: var(--color-primary) !important; }
 
-        .bg-cream, .bg-gray-100, .bg-gray-50, .bg-white { background-color: var(--color-white) !important; }
-        
-        /* تنسيق الهيدر الافتتاحي (Page Header) */
-        .page-header {
-            height: 250px;
-            background-color: var(--color-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            border-radius: 0 0 16px 16px;
+        /* توحيد الظلال للأسود الغامق */
+        .custom-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
         }
-        .page-header h1 { color: var(--color-white) !important; font-size: 3rem; font-weight: 700; }
-        .page-header p { color: #d1d8e0 !important; font-size: 1.25rem; }
 
-        /* تنسيق الأزرار الرئيسية */
-        .btn-primary { background-color: var(--color-primary) !important; color: var(--color-white) !important; transition: background-color 0.3s; }
-        .btn-primary:hover { background-color: var(--color-primary-hover) !important; }
-
-        /* تنسيق شريط التنقل (Navbar) - أبيض صلب */
-        .navbar { background-color: var(--color-white) !important; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); position: sticky; top: 0; z-index: 50; }
-        .navbar a:hover { color: var(--color-primary) !important; }
-        .btn-login { border: 1px solid var(--color-primary); color: var(--color-primary) !important; }
-        .btn-register { background-color: var(--color-primary) !important; border: 1px solid var(--color-primary); }
-
-        /* تنسيقات خاصة بصفحة الأخبار */
         .news-card {
             background-color: var(--color-white); 
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
+            border-radius: 1.5rem;
+            border: 1px solid #f3f4f6;
             overflow: hidden;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(21, 95, 207, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important;
         }
+        
         .news-image {
-            height: 200px;
+            height: 220px;
             object-fit: cover;
             width: 100%;
         }
-        .news-date {
-            color: var(--color-primary);
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
 
-        /* تنسيق الفوتر */
-        .footer { background-color: var(--color-white) !important; width: 100%; margin-top: auto; }
-        .footer h4, .footer p, .footer a { color: var(--color-dark-text) !important; }
-        .footer a:hover { color: var(--color-primary) !important; text-decoration: underline; }
+        .news-date-badge {
+            background-color: #eff6ff;
+            color: var(--color-primary);
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+        }
     </style>
 </head>
-<body class="antialiased font-cairo text-right flex flex-col min-h-screen">
+<body class="antialiased" x-data="{ mobileMenu: false, dropdownOpen: false }">
 
-    <div x-data="{ open: false, dropdownOpen: false }" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
+    <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
             
             <div class="flex items-center space-x-2 flex-row-reverse order-1">
-                <a href="../index.html" class="focus:outline-none focus:shadow-outline flex items-center">
-                    <img src="../imgaes/شعار صناع (2).png" alt="شعار صناع" class="h-12 w-auto"> 
+                <a href="../index.html" class="focus:outline-none flex items-center">
+                    <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-12 w-auto"> 
                 </a>
-                
-                <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline mr-4" @click="open = !open">
+                <button @click="mobileMenu = !mobileMenu" class="rounded-lg md:hidden focus:outline-none mr-4">
                     <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
-                        <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                        <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        <path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"></path>
+                        <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2"></path>
                     </svg>
                 </button>
             </div>
 
             <nav class="hidden md:flex flex-grow justify-center order-2">
                 <div class="flex items-center md:space-x-8 md:space-x-reverse">
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="../index.html">الرئيسية</a>
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./services.html">الخدمات</a>
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./about.html">عن صناع</a>
+                    <a class="px-4 py-2 text-sm font-bold text-blue-600 border-b-2 border-blue-600" href="./news.html">أخبارنا</a>
                     
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-darken" href="../index.html">الرئيسية</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700 font-semibold" href="./services.html">الخدمات</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./about.html">عن صناع</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./news.html">أخبارنا</a>
-                    
-                    <div @click.away="dropdownOpen = false" class="relative">
-                        <button @click="dropdownOpen = !dropdownOpen" class="flex flex-row items-center w-full px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700 md:w-auto md:inline md:mt-0 md:mr-4">
+                    <div class="relative">
+                        <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none transition">
                             <span>انضم لنا</span>
-                            <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': dropdownOpen, 'rotate-0': !dropdownOpen}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': dropdownOpen}" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
                         </button>
-                        <div x-show="dropdownOpen" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48 z-20" style="right: 0; min-width: 150px;">
-                            <div class="px-2 py-2 bg-white rounded-md shadow-xl">
-                                <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./forms.html" @click="dropdownOpen = false">تدريب</a>
-                                <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./forms.html" @click="dropdownOpen = false">توظيف</a>
-                            </div>
+                        <div x-show="dropdownOpen" x-transition class="absolute right-0 w-40 mt-2 bg-white border border-gray-200 rounded-md shadow-xl z-50">
+                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">تدريب</a>
+                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">توظيف</a>
                         </div>
                     </div>
-                    
                 </div>
             </nav>
 
-            <div class="hidden md:flex items-center space-x-3 order-3">
-                
-                   
-                <a class="px-8 py-2 text-sm text-center bg-white text-gray-800 rounded-full shadow-md hover:shadow-lg transition duration-300 btn-login" href="./login.html">تسجيل دخول</a>
-                <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-white rounded-full shadow-xl hover:shadow-2xl transition duration-300 font-bold btn-register" href="./register.html">تسجيل</a>
+            <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
+                <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold" href="./english.html">EN</a>
+                <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold transition hover:bg-blue-50" href="./login.html">تسجيل دخول</a>
+                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow transition hover:bg-blue-700" href="./register.html">تسجيل</a>
             </div>
-            
         </div>
 
-        <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:hidden">
-            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200 font-semibold" href="../index.html">الرئيسية</a>
-            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./services.html">الخدمات</a>
-            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./about.html">عن صناع</a>
-            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./news.html">أخبارنا</a>
-            <div class="relative" x-data="{ mobileDropdownOpen: false }">
-                 <button @click="mobileDropdownOpen = !mobileDropdownOpen" class="flex flex-row items-center w-full px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200 focus:outline-none focus:shadow-outline text-gray-700">
-                    <span>انضم لنا</span>
-                    <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': mobileDropdownOpen, 'rotate-0': !mobileDropdownOpen}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </button>
-                <div x-show="mobileDropdownOpen" class="bg-gray-100 py-1 px-4 text-sm">
-                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./forms.html" @click="mobileDropdownOpen = false">تدريب</a>
-                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./forms.html" @click="mobileDropdownOpen = false">توظيف</a>
+        <div x-show="mobileMenu" x-transition class="md:hidden bg-white border-t border-gray-100 pb-4 shadow-inner">
+            <div class="flex flex-col p-4 space-y-2">
+                <a class="block px-6 py-3 text-sm" href="../index.html">الرئيسية</a>
+                <a class="block px-6 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-lg" href="./services.html">الخدمات</a>
+                <a class="block px-6 py-3 text-sm" href="./about.html">عن صناع</a>
+                <div x-data="{ subOpen: false }">
+                    <button @click="subOpen = !subOpen" class="flex justify-between w-full px-6 py-3 text-sm">انضم لنا <span>+</span></button>
+                    <div x-show="subOpen" class="bg-gray-50 px-10 py-2 rounded-lg"><a class="block py-2 text-sm" href="./forms.html">تدريب</a><a class="block py-2 text-sm" href="./forms.html">توظيف</a></div>
+                </div>
+                <div class="px-6 mt-4 space-y-2 text-center">
+                    <a class="block bg-blue-600 text-white py-3 rounded-xl font-bold" href="./register.html">تسجيل</a>
+                    <a class="block border border-blue-600 text-blue-600 py-3 rounded-xl font-bold" href="./login.html">دخول</a>
                 </div>
             </div>
-            
-            <a class="px-4 py-2 text-sm bg-yellow-500 text-white rounded-lg text-center mt-3 mx-4 btn-register" href="./register.html">تسجيل</a>
-            <a class="px-4 py-2 text-sm bg-white text-darken rounded-lg text-center mt-2 mx-4 btn-login" href="./login.html">تسجيل دخول</a>
-        </nav>
-        
+        </div>
     </div>
     
-    <section class="page-header">
-        <h1>آخر مستجداتنا وأخبارنا</h1>
-        <p>تابع معنا أحدث المشاريع، الإطلاقات، والشراكات لشركة صناع الرسالة القابضة.</p>
-    </section>
-    
-    <section class="py-16 flex-grow">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-extrabold text-center mb-12">مكتبة الأخبار</h2>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <a href="#" data-aos="fade-up" class="news-card rounded-xl shadow-lg">
-                    <img src="../imgaes/مقداار.png" alt="صورة الخبر الأول" class="news-image rounded-t-xl">
-                    <div class="p-6">
-                        <span class="news-date">🗓️ 28 أكتوبر 2025</span>
-                        <h3 class="text-xl font-bold mt-2 mb-3 text-darken">صُنّاع تطلق منصة "مقدار" لخدمات التصميم الصناعي</h3>
-                        <p class="text-gray-700 text-sm">أعلنت الشركة عن إطلاق ذراعها الخدمي الجديد، منصة مقدار، لتوفير حلول تصميم المنتجات وربطها بالمصانع بشكل مباشر.</p>
-                        <span class="mt-4 inline-block underline hover:text-blue-600 text-sm font-semibold transition duration-200">اقرأ المزيد →</span>
-                    </div>
-                </a>
-                
-                <a href="#" data-aos="fade-up" data-aos-delay="100" class="news-card rounded-xl shadow-lg">
-                    <img src="../imgaes/اكاديمية طويق .png" alt="صورة الخبر الثاني" class="news-image rounded-t-xl">
-                    <div class="p-6">
-                        <span class="news-date">🗓️ 15 سبتمبر 2025</span>
-                        <h3 class="text-xl font-bold mt-2 mb-3 text-darken">شراكة استراتيجية مع أكاديمية "طويق" لتمكين 500 مصمم</h3>
-                        <p class="text-gray-700 text-sm">تم توقيع اتفاقية تعاون لتقديم معسكرات متخصصة في التصميم والهندسة الصناعية بهدف رفد السوق بكوادر مؤهلة.</p>
-                        <span class="mt-4 inline-block underline hover:text-blue-600 text-sm font-semibold transition duration-200">اقرأ المزيد →</span>
-                    </div>
-                </a>
-                
-                <a href="#" data-aos="fade-up" data-aos-delay="200" class="news-card rounded-xl shadow-lg">
-                    <img src="../imgaes/blue.png" alt="صورة الخبر الثالث" class="news-image rounded-t-xl">
-                    <div class="p-6">
-                        <span class="news-date">🗓️ 01 أغسطس 2025</span>
-                        <h3 class="text-xl font-bold mt-2 mb-3 text-darken">نجاح معسكر "صناع المستقبل" بمشاركة 150 متدرباً</h3>
-                        <p class="text-gray-700 text-sm">اختتام فعاليات المعسكر الصيفي الذي ركز على أساسيات الطباعة ثلاثية الأبعاد ونمذجة المنتجات الإبداعية.</p>
-                        <span class="mt-4 inline-block underline hover:text-blue-600 text-sm font-semibold transition duration-200">اقرأ المزيد →</span>
-                    </div>
-                </a>
-                
-                <a href="#" data-aos="fade-up" data-aos-delay="300" class="news-card rounded-xl shadow-lg">
-                    <img src="../imgaes/هدايا.jpg" alt="صورة الخبر الرابع" class="news-image rounded-t-xl">
-                    <div class="p-6">
-                        <span class="news-date">🗓️ 05 يوليو 2025</span>
-                        <h3 class="text-xl font-bold mt-2 mb-3 text-darken">تطوير منتج "هدية الحاج الذكية" بالشراكة مع وزارة الحج</h3>
-                        <p class="text-gray-700 text-sm">إطلاق نسخة تجريبية لمنتج مبتكر يهدف لرفع جودة تجربة ضيوف الرحمن في مواسم الحج والعمرة.</p>
-                        <span class="mt-4 inline-block underline hover:text-blue-600 text-sm font-semibold transition duration-200">اقرأ المزيد →</span>
-                    </div>
-                </a>
-
+    <section class="py-16 bg-white text-center">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-6 text-blue-700 font-bold text-sm">
+                <i class="fas fa-bullhorn ml-2"></i> آخر المستجدات
             </div>
-            
-            <div class="mt-16 flex justify-center">
-                <nav class="flex items-center space-x-2 space-x-reverse">
-                    <a href="#" class="px-4 py-2 text-sm font-medium border rounded-lg text-gray-500 hover:bg-gray-100">السابق</a>
-                    <a href="#" class="px-4 py-2 text-sm font-medium border rounded-lg bg-blue-500 text-white hover:bg-blue-600">1</a>
-                    <a href="#" class="px-4 py-2 text-sm font-medium border rounded-lg text-gray-700 hover:bg-gray-100">2</a>
-                    <a href="#" class="px-4 py-2 text-sm font-medium border rounded-lg text-gray-700 hover:bg-gray-100">3</a>
-                    <a href="#" class="px-4 py-2 text-sm font-medium border rounded-lg text-gray-500 hover:bg-gray-100">التالي</a>
-                </nav>
-            </div>
-
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">آخر <span class="text-blue-600">مستجداتنا</span> وأخبارنا</h1>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">تابع معنا أحدث المشاريع، الإطلاقات، والحراكات لشركة صناع الرسالة القابضة</p>
         </div>
     </section>
 
-    <footer class="mt-16 text-right" style="background-color: var(--color-white);">
+    <section class="pb-24 bg-white flex-grow">
         <div class="max-w-screen-xl mx-auto px-8">
-            <div class="grid md:grid-cols-4 gap-12 py-16 text-sm"> 
-                
-                <div class="md:col-span-1 flex flex-col justify-start items-start text-right">
-                    <div class="flex items-center space-x-3 flex-row-reverse mb-4">
-                         <img src="../imgaes/شعار صناع (2).png" alt="شعار صناع الجديد" class="w-20 h-auto"> 
-                    </div>
-                </div> 
-                
-                <div>
-                    <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الروابط الأساسية</h4> 
-                    <ul class="space-y-3 text-gray-700">
-                        <li><a href="../index.html" class="hover:text-blue-600 transition duration-200">الرئيسية</a></li>
-                        <li><a href="./about.html" class="hover:text-blue-600 transition duration-200">عن صناع</a></li>
-                        <li><a href="./services.html" class="hover:text-blue-600 transition duration-200">خدماتنا</a></li>
-                        <li><a href="./products.html" class="hover:text-blue-600 transition duration-200">منتجاتنا</a></li>
-                        <li><a href="#partners-section" class="hover:text-blue-600 transition duration-200">شركاؤنا</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                     <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الدعم والتواصل</h4>
-                    <ul class="space-y-3 text-gray-700">
-                        <li><a href="./contact.html" class="hover:text-blue-600 transition duration-200">تواصل معنا</a></li>
-                        <li><a href="./news.html" class="hover:text-blue-600 transition duration-200">أخبارنا ومستجداتنا</a></li>
-                        <li><a href="./register.html" class="hover:text-blue-600 transition duration-200">انضم كصانع</a></li>
-                        <li><a href="pages/privacy-policy.html" class="hover:text-blue-600 transition duration-200">سياسة الخصوصية و المستخدم</a></li>
-                    </ul>
-                </div>
-                
-                <div class="md:col-span-1">
-                    <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">تواصل معنا</h4>
-                    <ul class="space-y-4 text-gray-700 mt-2"> 
-                        
-                        <li class="flex items-center space-x-2 flex-row justify-start"> 
-                            <a href="mailto:info@sunnaasar.com" class="text-primary hover:text-primary-hover transition duration-300">
-                                <i class="fas fa-envelope fa-lg"></i>
-                            </a>
-                        </li>
-                        
-                        <li class="flex items-center space-x-2 flex-row justify-start">
-                            <a href="tel:+9660553881493" class="text-primary hover:text-primary-hover transition duration-300">
-                                <i class="fas fa-phone fa-lg"></i>
-                            </a>
-                        </li>
-                        
-                        <li class="flex items-center space-x-2 flex-row justify-start">
-                            <a href="https://maps.app.goo.gl/gRLStKRE25fQxw4L7" target="_blank" class="text-primary hover:text-primary-hover transition duration-300">
-                                <i class="fas fa-map-marker-alt fa-lg"></i>
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </div>
+            <div class="flex items-center gap-4 mb-10">
+                <div class="h-8 w-2 bg-blue-600 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900">مكتبة الأخبار</h2>
             </div>
             
-            <div class="border-t border-gray-300 py-4 text-center">
-                <p class="my-3 text-gray-500 text-xs">© <span id="current-year">2025</span> شركة صناع الرسالة القابضة. جميع الحقوق محفوظة. </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <div data-aos="fade-up" class="news-card custom-shadow">
+                    <img src="../imgaes/مقداار.png" alt="News 1" class="news-image">
+                    <div class="p-8 flex-grow">
+                        <span class="news-date-badge mb-4 inline-block tracking-wider">🗓️ 28 أكتوبر 2025</span>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">صُنّاع تطلق منصة "مقدار" لخدمات التصميم الصناعي</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">أعلنت الشركة عن إطلاق ذراعها الخدمي الجديد لتوفير حلول تصميم المنتجات وربطها بالمصانع.</p>
+                        <a href="#" class="text-blue-600 font-bold text-sm hover:underline">اقرأ الخبر كاملاً ←</a>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-up" data-aos-delay="100" class="news-card custom-shadow">
+                    <img src="../imgaes/اكاديمية طويق .png" alt="News 2" class="news-image">
+                    <div class="p-8 flex-grow">
+                        <span class="news-date-badge mb-4 inline-block tracking-wider">🗓️ 15 سبتمبر 2025</span>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">شراكة استراتيجية مع أكاديمية "طويق" لتمكين المصممين</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">اتفاقية تعاون لتقديم معسكرات متخصصة في التصميم والهندسة الصناعية.</p>
+                        <a href="#" class="text-blue-600 font-bold text-sm hover:underline">اقرأ الخبر كاملاً ←</a>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-up" data-aos-delay="200" class="news-card custom-shadow">
+                    <img src="../imgaes/هدايا.jpg" alt="News 3" class="news-image">
+                    <div class="p-8 flex-grow">
+                        <span class="news-date-badge mb-4 inline-block tracking-wider">🗓️ 05 يوليو 2025</span>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">تطوير منتج "هدية الحاج الذكية" المبتكر</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">إطلاق نسخة تجريبية لمنتج يهدف لرفع جودة تجربة ضيوف الرحمن.</p>
+                        <a href="#" class="text-blue-600 font-bold text-sm hover:underline">اقرأ الخبر كاملاً ←</a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-20 flex justify-center">
+                <nav class="flex items-center gap-2">
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-gray-400 hover:bg-gray-50"><i class="fas fa-chevron-right"></i></a>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-600 text-white font-bold">1</a>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50">2</a>
+                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50"><i class="fas fa-chevron-left"></i></a>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-gray-200 pt-16 pb-8 text-right">
+        <div class="max-w-screen-xl mx-auto px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="w-24 h-auto mb-6">
+                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكّن رواد الأعمال من تحويل أفكارهم إلى منتجات.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-blue-600 mb-6 font-montserrat">الروابط الأساسية</h4>
+                    <ul class="space-y-3 text-gray-700 text-sm">
+                        <li><a href="../index.html" class="hover:text-blue-600">الرئيسية</a></li>
+                        <li><a href="./about.html" class="hover:text-blue-600">عن صناع</a></li>
+                        <li><a href="./services.html" class="hover:text-blue-600">خدماتنا</a></li>
+                        <li><a href="./products.html" class="hover:text-blue-600">منتجاتنا</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-blue-600 mb-6">الدعم والتواصل</h4>
+                    <ul class="space-y-3 text-gray-700 text-sm">
+                        <li><a href="./contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
+                        <li><a href="./news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
+                        <li><a href="./register.html" class="hover:text-blue-600">انضم كصانع</a></li>
+                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-blue-600 mb-6">تواصل معنا</h4>
+    <ul class="space-y-4 text-gray-700 text-sm">
+        <li class="flex items-center gap-3 justify-end">
+            <span>info@sunnaasar.com</span>
+            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
+        </li>
+        <li class="flex items-center gap-3 justify-end">
+            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
+            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
+        </li>
+        <li class="flex items-center gap-3 justify-end">
+            <span>المملكة العربية السعودية</span>
+            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
+        </li>
+    </ul>
+                </div>
+            </div>
+            <div class="border-t pt-8 text-center text-gray-400 text-xs font-montserrat">
+                © <span id="current-year"></span> SUNNA ALL RIGHTS RESERVED
             </div>
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script> 
-
     <script>
         AOS.init({ duration: 1000, once: true });
-        AOS.init({
-              duration: 800,
-              once: true
-            });
-            
-        // كود JavaScript لتحديث السنة تلقائيًا في الـ Footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>

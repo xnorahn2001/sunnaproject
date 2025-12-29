@@ -1,737 +1,385 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شركة صناع الرسالة القابضة</title>
     <link rel="icon" href="./imgaes/شعار صناع (2).png" type="image/x-icon">
     <link rel="apple-touch-icon" href="./imgaes/شعار صناع (2).png">
-    
+
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/cdn.min.js"></script> 
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"> 
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <style>
-           :root {
-            --color-primary: #155FCF;           
-            --color-light-secondary: #ffffff; 
-            --color-accent: #155FCF;            
-            --color-footer-dark: #ffffff; 
-            --color-dark-text: #111827;             
-            --color-gray-text: #6b7280;             
-            --color-white: #ffffff;                 
-            --color-primary-hover: #124d9f;         
+        :root {
+            --color-primary: #155FCF;
+            --color-primary-hover: #124d9f;
+            --color-dark-text: #111827;
+            --color-gray-text: #6b7280;
+            --color-white: #ffffff;
         }
-        
+
         body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
             text-align: right;
             color: var(--color-dark-text);
-            /* تطبيق الباترن كـ CSS Gradient (نقاط خفيفة متباينة) */
-            background-color: #ffffff !important; 
-            background-image: radial-gradient(#ffffff 0.5px, transparent 0.5px), radial-gradient(#e0e0e0 0.5px, #ffffff 0.5px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-        }
-        
-        .stat-number, .navbar a {
-            font-family: 'Montserrat', sans-serif !important;
-        }
-        
-        .stat-number-large {
-            font-size: 3rem; 
-            font-weight: 800; 
-            color: var(--color-primary) !important; 
-            line-height: 1;
-        }
-        
-        .bg-cream, .bg-gray-100, .bg-gray-50, .bg-white {
-            background-color: var(--color-white) !important;
-        }
-        .text-darken, h1, h2, h3, h4 {
-            color: var(--color-primary) !important;
-        }
-        .bg-yellow-500, .bg-accent, .btn-primary {
-            background-color: var(--color-primary) !important; 
-            color: var(--color-white) !important;            
-        }
-        .btn-primary:hover {
-            background-color: var(--color-primary-hover) !important;
-        }
-        .text-yellow-500, .text-accent {
-            color: var(--color-primary) !important; 
-        }
-        .bg-red-500, .bg-yellow-300, .bg-yellow-300 span, .step-number {
-            background-color: var(--color-primary) !important;
-            color: var(--color-white) !important; 
-        }
-        .text-gray-500, .text-gray-700, .text-light, .section-subtitle {
-            color: var(--color-gray-text) !important;
+            background-color: var(--color-white);
         }
 
-        /* -------------------------------------------------------------------
-           تنسيقات حركة تمرير الشركاء (Partners Scrolling Animation) - RTL
-           ------------------------------------------------------------------- */
+        /* توحيد الظلال للأسود الغامق */
+        .custom-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .service-card:hover, .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important;
+            transition: all 0.3s ease;
+        }
+
+        /* تنسيق الشعارات الموحد */
+        .partner-logo-container {
+            flex: 0 0 auto;
+            width: 150px;
+            margin: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .partner-logo-container img {
+            max-height: 55px; /* مقاس موحد */
+            width: auto;
+            object-fit: contain;
+            opacity: 0.7;
+        }
+
         .scrolling-wrapper {
             white-space: nowrap;
             overflow: hidden;
             display: flex;
             align-items: center;
-            direction: ltr; 
+            direction: ltr;
         }
+
         .scrolling-content {
             display: flex;
-            animation: scroll-rtl 40s linear infinite; 
+            animation: scroll-rtl 40s linear infinite;
         }
-        .partner-logo-container {
-            flex: 0 0 auto;
-            width: 150px; 
-            margin: 0 1.5rem;
-            display: inline-block;
-            direction: rtl; 
-        }
+
         @keyframes scroll-rtl {
             from { transform: translateX(0%); }
-            to { transform: translateX(calc(-150px * 14 * 2)); } 
+            to { transform: translateX(calc(-150px * 12)); }
         }
 
-        /* -------------------------------------------------------------------
-           تنسيقات الأسهم لقسم الواتساب (WhatsApp Arrows)
-           ------------------------------------------------------------------- */
-        .whatsapp-arrows {
-            position: absolute;
-            top: 50%;
-            right: 2rem; 
-            width: 60px;
-            height: 60px;
+        .stat-number-large {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--color-primary);
         }
-        .whatsapp-arrows::before,
-        .whatsapp-arrows::after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 2px;
-            background: var(--color-dark-text);
-            transform-origin: left;
-            transform: scaleX(-1);
-        }
-        .whatsapp-arrows::before {
-            transform: rotate(30deg) scaleX(-1);
-            top: 20px;
-            right: 20px;
-        }
-        .whatsapp-arrows::after {
-            transform: rotate(-30deg) scaleX(-1);
-            top: 40px;
-            right: 20px;
-        }
-        .whatsapp-arrows .arrow-center {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 2px;
-            background: var(--color-dark-text);
-            top: 30px;
-            right: 20px;
-        }
-
-        /* -------------------------------------------------------------------
-           تنسيقات كروت الخدمات المحدثة (Service Cards)
-           ------------------------------------------------------------------- */
-        .service-card {
-            background-color: var(--color-white);
-            border: 1px solid #e5e7eb; /* border-gray-200 */
-            border-radius: 1.5rem; /* rounded-2xl */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            padding: 1.5rem; /* p-6 */
-            text-align: right;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px); /* رفع الكارت قليلًا */
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-2xl */
-        }
-        
-        .service-icon-wrapper {
-            width: 48px; 
-            height: 48px;
-            border-radius: 50%; /* rounded-full */
-            background-color: var(--color-primary); 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem; /* mb-6 */
-        }
-        
-        .service-icon-wrapper i {
-            color: var(--color-white);
-        }
-        
     </style>
 </head>
-<body class="antialiased font-cairo text-right">
 
-    <div x-data="{ open: false }" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
+<body class="antialiased" x-data="{ mobileMenu: false }">
+
+    <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
-            
+
             <div class="flex items-center space-x-2 flex-row-reverse order-1">
-                <a href="./index.html" class="focus:outline-none focus:shadow-outline flex items-center">
-                    <img src="./imgaes/شعار صناع (2).png" alt="شعار صناع" class="h-12 w-auto"> 
+                <a href="./index.html" class="focus:outline-none flex items-center">
+                    <img src="./imgaes/شعار صناع (2).png" alt="شعار صناع" class="h-12 w-auto">
                 </a>
-                
-                <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline mr-4" @click="open = !open">
-                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
-                        <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-                        <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
+                <button @click="mobileMenu = !mobileMenu" class="rounded-lg md:hidden focus:outline-none mr-4">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6"><path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"></path><path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2"></path></svg>
                 </button>
             </div>
 
             <nav class="hidden md:flex flex-grow justify-center order-2">
                 <div class="flex items-center md:space-x-8 md:space-x-reverse">
-                    
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline font-semibold text-darken" href="index.html">الرئيسية</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./pages/services.html">الخدمات</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./pages/about.html">عن صناع</a>
-                    <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700" href="./pages/news.html">أخبارنا</a>
-                    
-                    <div class="relative group">
-                        <button class="flex flex-row items-center w-full px-4 py-2 text-sm bg-transparent rounded-lg hover:text-yellow-500 focus:outline-none focus:shadow-outline text-gray-700 md:w-auto md:inline md:mt-0 md:mr-4">
+                    <a class="px-4 py-2 text-sm font-bold text-blue-600" href="./index.html">الرئيسية</a>
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600" href="./pages/services.html">الخدمات</a>
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600" href="./pages/about.html">عن صناع</a>
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600" href="./pages/news.html">أخبارنا</a>
+
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" @click.away="open = false" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none">
                             <span>انضم لنا</span>
-                            <svg fill="currentColor" viewBox="0 0 20 20" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': open}" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
                         </button>
-                        <div class="absolute w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48 z-20 hidden group-hover:block" style="right: 0; min-width: 150px;">
-                            <div class="px-2 py-2 bg-white rounded-md shadow-xl">
-                                <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" 
-                                   href="./pages/forms.html">تدريب</a>
-                                <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" 
-                                   href="./pages/forms.html">توظيف</a>
-                            </div>
+                        <div x-show="open" x-transition class="absolute right-0 w-40 mt-2 origin-top-right bg-white border border-gray-200 rounded-md shadow-xl z-50">
+                            <a class="block px-4 py-2 text-sm hover:bg-blue-50" href="./pages/forms.html">تدريب</a>
+                            <a class="block px-4 py-2 text-sm hover:bg-blue-50" href="./pages/forms.html">توظيف</a>
                         </div>
                     </div>
-                    
                 </div>
             </nav>
 
-            <div class="hidden md:flex items-center space-x-3 order-3">
-                <a class="px-3 py-2 text-sm text-center bg-gray-100 text-darken rounded-lg hover:bg-gray-200 transition duration-300 font-semibold" 
-                   href="./pages/english.html">English</a>
-                   
-                <a class="px-8 py-2 text-sm text-center bg-white text-gray-800 rounded-full shadow-md hover:shadow-lg transition duration-300" href="pages/login.html">تسجيل دخول</a>
-                <a class="px-8 py-2 text-sm text-center bg-yellow-500 text-white rounded-full shadow-xl hover:shadow-2xl transition duration-300" href="pages/register.html">تسجيل</a>
+            <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
+                <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold" href="./pages/english.html">EN</a>
+                <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold" href="./pages/login.html">تسجيل دخول</a>
+                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow" href="./pages/register.html">تسجيل</a>
             </div>
-            
         </div>
 
-        <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:hidden">
-            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200 font-semibold" href="index.html">الرئيسية</a>
-            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./pages/services.html">الخدمات</a>
-            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./pages/about.html">عن صناع</a>
-            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" href="./pages/news.html">أخبارنا</a>
-            <div class="relative" x-data="{ mobileDropdownOpen: false }">
-                 <button @click="mobileDropdownOpen = !mobileDropdownOpen" class="flex flex-row items-center w-full px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200 focus:outline-none focus:shadow-outline text-gray-700">
-                    <span>انضم لنا</span>
-                    <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': mobileDropdownOpen, 'rotate-0': !mobileDropdownOpen}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </button>
-                <div x-show="mobileDropdownOpen" class="bg-gray-100 py-1 px-4 text-sm">
-                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./pages/forms.html" @click="mobileDropdownOpen = false">تدريب</a>
-                    <a class="block px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-300" href="./pages/forms.html" @click="mobileDropdownOpen = false">توظيف</a>
+        <div x-show="mobileMenu" class="md:hidden bg-white border-t border-gray-100 pb-4">
+            <a class="block px-6 py-3 text-sm font-bold text-blue-600" href="./index.html">الرئيسية</a>
+            <a class="block px-6 py-3 text-sm" href="./pages/services.html">الخدمات</a>
+            <a class="block px-6 py-3 text-sm" href="./pages/about.html">عن صناع</a>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="flex justify-between w-full px-6 py-3 text-sm">انضم لنا <span>+</span></button>
+                <div x-show="open" class="bg-gray-50 px-10 py-2">
+                    <a class="block py-2 text-sm" href="./pages/forms.html">تدريب</a>
+                    <a class="block py-2 text-sm" href="./pages/forms.html">توظيف</a>
                 </div>
             </div>
-            
-            <a class="px-4 py-2 text-sm bg-transparent rounded-lg hover:bg-gray-200" 
-               href="./pages/english.html">English</a>
-            
-            <a class="px-4 py-2 text-sm bg-yellow-500 text-white rounded-lg text-center mt-3 mx-4" href="./pages/register.html">تسجيل</a>
-            <a class="px-4 py-2 text-sm bg-gray-200 text-gray-800 rounded-lg text-center mt-2 mx-4" href="./pages/login.html">تسجيل دخول</a>
-        </nav>
-        
-    </div>
-    
-    <div class="bg-cream py-20">
-        <div class="max-w-screen-xl px-8 mx-auto flex flex-col items-center justify-center pt-20 pb-16 lg:pt-32 lg:pb-24 text-center">
-            
-            <h1 data-aos="fade-up" class="my-4 text-6xl font-extrabold leading-snug text-darken max-w-4xl mx-auto">
-                طريقك نحو <span class="text-yellow-500">الابتكار والريادة</span> في تصميم المنتجات
-            </h1>
-            
-            <p data-aos="fade-up" data-aos-delay="200" class="leading-relaxed text-xl mb-12 text-gray-700 max-w-3xl mx-auto">
-                تمكن رواد الأعمال بالأدوات والإرشاد والموارد اللازمة للوصول إلى أعلى المستويات وتحقيق المزيد في اقتصاد اليوم.
-            </p>
-            
-            <div data-aos="fade-up" data-aos-delay="400" class="flex flex-wrap gap-4 justify-center">
-                <a href="https://sunnaasar.com/" class="btn-primary px-10 py-3 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transition duration-300">
-                    ابدأ رحلة التعلم
-                </a>
-                <a href="./pages/consultations.html" class="px-10 py-3 text-lg font-semibold rounded-full bg-gray-100 text-darken border border-gray-300 hover:bg-gray-200 transition duration-300">
-                    اطلب استشارة
-                </a>
+            <div class="px-6 mt-4 space-y-2">
+                <a class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold" href="./pages/register.html">تسجيل</a>
+                <a class="block text-center border border-blue-600 text-blue-600 py-3 rounded-xl font-bold" href="./pages/login.html">تسجيل دخول</a>
             </div>
         </div>
     </div>
 
-    <section class="py-20 bg-gray-50">
+    <div class="bg-white py-16 md:py-24 text-center">
+        <div class="max-w-screen-xl px-8 mx-auto">
+            <h1 data-aos="fade-up" class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-8">
+                <span class="text-blue-600">منصة</span> صناع 
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="200" class="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+               صناع معمل لأفكارك
+            </p>
+            <div data-aos="fade-up" data-aos-delay="400" class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="https://sunnaasar.com/" class="bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg custom-shadow">ابدأ رحلة التعلم</a>
+                <a href="./pages/consultations.html" class="bg-gray-100 text-gray-900 px-10 py-4 rounded-full font-bold text-lg border border-gray-300">اطلب استشارة</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-20 bg-gray-50 overflow-hidden">
         <div class="max-w-screen-xl mx-auto px-8">
-            <div data-aos="flip-up" class="text-center max-w-2xl mx-auto mb-16">
-                <h1 class="font-bold text-darken text-3xl md:text-4xl mb-4">
-                    أبرز <span class="text-yellow-500">فعالياتنا</span> القادمة
-                </h1>
-                <p class="text-gray-600 leading-relaxed text-lg">
-                    انضم إلينا في أهم الهاكثونات والمعسكرات وورش العمل المتخصصة في التصميم والصناعة.
+            
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">خدمات الشركة</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+                    فريق متكامل ومحاور رئيسية تصاحبك من الفكرة وحتى التسويق والإنتاج.
                 </p>
             </div>
-            
-            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div data-aos="fade-up" class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden">
-                    <img src="./imgaes/التسويق.png" alt="صورة معسكر التسويق" class="w-full h-40 object-cover">
-                    <div class="p-6">
-                        <span class="text-sm font-semibold text-yellow-500 mb-2 block">معسكر </span>
-                        <h3 class="font-bold text-xl text-darken mb-3">معسكر التسويق </h3>
-                        <p class="text-gray-700 text-sm mb-4">مع الاستاذه / لجين العطريز</p>
-                        <ul class="text-sm text-gray-600 space-y-1 mb-4">
-                            <li class="flex items-center"><i class="fas fa-calendar-alt w-4 h-4 ml-2 text-primary"></i> ....</li>
-                            <li class="flex items-center"><i class="fas fa-map-marker-alt w-4 h-4 ml-2 text-primary"></i> عن بعد </li>
-                        </ul>
-                        <a href="https://sunnaasar.com/%D9%85%D8%B9%D8%B3%D9%83%D8%B1-%D8%A7%D9%84%D8%AA%D8%B3%D9%88%D9%8A%D9%82/p1236488199" class="bg-[#155FCF] text-white px-6 py-2 rounded-full font-medium transition duration-300 hover:bg-[#124d9f] hover:text-white inline-block">
-                            سجل الآن
-                        </a>
-                    </div>
-                </div>
-
-                 <div data-aos="fade-up" data-aos-delay="150" class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden">
-                    <img src="./imgaes/ورشة عمل.png" alt="صورة ورشة عمل" class="w-full h-40 object-cover">
-                    <div class="p-6">
-                        <span class="text-sm font-semibold text-yellow-500 mb-2 block"> ورشة عمل </span>
-                        <h3 class="font-bold text-xl text-darken mb-3"> كيف تسوي مودبورد لملف اعمالك ليوم الوطني </h3>
-                        <p class="text-gray-700 text-sm mb-4">مع الخبيرة / فاطمه آل ضيف </p>
-                        <ul class="text-sm text-gray-600 space-y-1 mb-4">
-                            <li class="flex items-center"><i class="fas fa-calendar-alt w-4 h-4 ml-2 text-primary"></i> الاحد 14 سبتمبر</li>
-                            <li class="flex items-center"><i class="fas fa-map-marker-alt w-4 h-4 ml-2 text-primary"></i> 8 مساء بتوقيت السعودية ، عن بعد</li>
-                        </ul>
-                        <a href="https://sunnaasar.com/%D9%88%D8%B1%D8%B4%D8%A9-%D9%85%D8%AC%D8%A7%D9%86%D9%8A%D8%A9-%D8%B9%D9%86-%D9%83%D9%8A%D9%81-%D8%AA%D8%B3%D9%88%D9%8A-%D9%85%D9%88%D8%AF%D8%A8%D9%88%D8%B1%D8%AF-%D9%84%D9%85%D9%84%D9%81-%D8%A3%D8%B9%D9%85%D8%A7%D9%84%D9%83-%D9%84%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D9%87/p1332264034" class="bg-gray-200 text-darken px-6 py-2 rounded-full font-medium transition duration-300 hover:bg-gray-300 inline-block">
-                            عرض التفاصيل
-                        </a>
-                    </div>
-                </div>
+    
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                 <div data-aos="fade-up" data-aos-delay="300" class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden">
-                    <img src="./imgaes/الطباعه.png" alt="صورة معسكر الطباعة" class="w-full h-40 object-cover">
-                    <div class="p-6">
-                        <span class="text-sm font-semibold text-yellow-500 mb-2 block">معكسر </span>
-                        <h3 class="font-bold text-xl text-darken mb-3"> الطباعة ثلاثية الأبعاد</h3>
-                        <p class="text-gray-700 text-sm mb-4">تعلم كيفية تحويل النماذج الرقمية إلى نماذج مادية باستخدام أحدث التقنيات.</p>
-                        <ul class="text-sm text-gray-600 space-y-1 mb-4">
-                            <li class="flex items-center"><i class="fas fa-calendar-alt w-4 h-4 ml-2 text-primary"></i> 23-24 ديسمبر </li>
-                            <li class="flex items-center"><i class="fas fa-map-marker-alt w-4 h-4 ml-2 text-primary"></i> عبر منصة تييمز </li>
-                        </ul>
-                        <a href="https://sunnaasar.com/%D9%85%D8%B9%D8%B3%D9%83%D8%B1-%D8%A7%D9%84%D8%B7%D8%A8%D8%A7%D8%B9%D8%A9-%D8%AB%D9%84%D8%A7%D8%AB%D9%8A%D8%A9-%D8%A7%D9%84%D8%A3%D8%A8%D8%B9%D8%A7%D8%AF/p1370820414" class="bg-gray-200 text-darken px-6 py-2 rounded-full font-medium transition duration-300 hover:bg-gray-300 inline-block">
-                            عرض التفاصيل
-                        </a>
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 custom-shadow service-card group" data-aos="fade-up">
+                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-12">
+                        <i class="fas fa-pencil-ruler text-2xl"></i>
                     </div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900">استديو تصميم المنتجات الملموسة</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">نصمم منتجك من مرحلة الفكرة إلى مرحلة التنفيذ.</p>
                 </div>
+    
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 custom-shadow service-card group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-12">
+                        <i class="fas fa-mobile-alt text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900">استديو تصميم المنتجات الرقمية UI & UX</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">نصمم منتجات رقمية، وواجهات UI & UX.</p>
+                </div>
+    
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 custom-shadow service-card group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-12">
+                        <i class="fas fa-user-tie text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900">استشارات تصميمية متخصصة</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">نقدم استشارة متخصصة في مجال تصميم المنتجات من مرحلة الفكرة إلى الإنتاج والتصنيع إلى مرحلة النزول في الأسواق.</p>
+                </div>
+    
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 custom-shadow service-card group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-12">
+                        <i class="fas fa-shopping-bag text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900">متجر صناع</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">نصمم هدايا مبتكرة لخدمة ضيوف الرحمن.</p>
+                </div>
+    
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 custom-shadow service-card group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-12">
+                        <i class="fas fa-users text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900">فعاليات صناع</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">معسكرات وورش ولقاءات تفاعلية.</p>
+                </div>
+    
             </div>
         </div>
     </section>
 
     <section class="py-20 bg-white">
         <div class="max-w-screen-xl mx-auto px-8">
-            
-            <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <h2 class="text-3xl font-bold text-center mb-12">منتجات شركة صناع</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl overflow-hidden border custom-shadow" data-aos="fade-up">
+                    <img src="./imgaes/المنجات.png" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-blue-600 font-bold text-xs">متجر صناع</span>
+                        <h3 class="font-bold text-xl my-2">منتجات حجاج متميزة</h3>
+                        <p class="text-gray-600 text-sm mb-4">اكتشف منتجاتنا المبتكرة المتاحة الآن للشراء المباشر.</p>
+                        <a href="https://sunnaasar.com/" class="block text-center bg-gray-900 text-white py-3 rounded-xl font-bold">شراء المنتج</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl overflow-hidden border custom-shadow" data-aos="fade-up" data-aos-delay="100">
+                    <img src="./imgaes/التسويق.png" class="w-full h-48 object-cover">
+                    <div class="p-6 text-right">
+                        <span class="text-yellow-600 font-bold text-xs">معسكر تدريبي</span>
+                        <h3 class="font-bold text-xl my-2">معسكر التسويق الرقمي</h3>
+                        <p class="text-gray-600 text-sm mb-4">تعلم استراتيجيات التسويق الحديثة للمنتجات.</p>
+                        <a href="#" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">سجل الآن</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white overflow-hidden">
+        <div class="max-w-screen-xl mx-auto px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
                 
-                <div data-aos="fade-left" class="order-2 md:order-1 space-y-4">
-                    
-                    <h2 class="text-4xl font-extrabold text-darken mb-8">
-                        إنجازاتنا في <span class="text-yellow-500">أرقام</span>
+                <div class="w-full lg:w-1/2 text-right" data-aos="fade-left">
+                    <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-6 text-blue-600 font-bold text-sm">
+                        <i class="fas fa-chart-line ml-2"></i> إنجازاتنا 2025
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 leading-tight">
+                        إنجازاتنا في <span class="text-blue-600">أرقام</span>
                     </h2>
-                    <p class="text-lg text-gray-600 mb-8">
-                        إحصائيات تعكس حجم الأثر والنمو الذي حققته الشركة في مجتمع المصممين والصناعيين لعام 2025.
+                    <p class="text-gray-600 text-lg mb-10 leading-relaxed">
+                        إحصائيات تعكس حجم الأثر والسمو الذي حققته الشركة في مجتمع المصممين والصناعيين لعام 2025 ، نعتز بثقتكم الغالية التي تمثل حجر الزاوية في مسيرتنا نحو التطوير والابتكار. 
                     </p>
     
-                    <div class="grid grid-cols-1 gap-6">
+                    <div class="grid grid-cols-2 gap-8">
+                        <div class="border-r-4 border-blue-600 pr-4">
+                            <span class="stat-number-large block text-blue-600 font-montserrat">+1219</span>
+                            <p class="text-gray-500 font-bold">متدرب ومشارك</p>
+                        </div>
+                        <div class="border-r-4 border-blue-600 pr-4">
+                            <span class="stat-number-large block text-blue-600 font-montserrat">+39</span>
+                            <p class="text-gray-500 font-bold">فعالية تدريبية</p>
+                        </div>
+                        <div class="border-r-4 border-blue-600 pr-4">
+                            <span class="stat-number-large block text-blue-600 font-montserrat">+22</span>
+                            <p class="text-gray-500 font-bold">شركاء النجاح</p>
+                        </div>
+                        <div class="border-r-4 border-blue-600 pr-4">
+                            <span class="stat-number-large block text-blue-600 font-montserrat">+9</span>
+                            <p class="text-gray-500 font-bold">منتجات خاصة</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="w-full lg:w-1/2" data-aos="fade-right">
+                    <div class="relative">
+                        <div class="absolute -top-4 -right-4 w-full h-full bg-blue-600 rounded-3xl opacity-10"></div>
+                        <img src="./imgaes/Line chart.png" alt="إنجازات صناع" class="relative z-10 w-full h-auto rounded-3xl custom-shadow object-cover aspect-video lg:aspect-square">
                         
-                        <div data-aos="zoom-in" data-aos-delay="50" class="p-6 rounded-xl bg-gray-50 shadow-md border border-gray-200 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center ml-4">
-                                    <i class="fas fa-bullseye fa-lg text-white"></i> 
+                        <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-2xl z-20 hidden md:block border border-gray-100">
+                            <div class="flex items-center gap-4 text-right">
+                                <div class="bg-yellow-400 p-3 rounded-lg">
+                                    <i class="fas fa-rocket text-white"></i>
                                 </div>
                                 <div>
-                                    <h3 class="font-bold text-xl text-darken">متدرب ومشارك</h3>
-                                    <p class="text-gray-500 text-sm">أثرنا في أكثر من ألف متدرب.</p>
+                                    <p class="text-xs text-gray-400">نمو </p>
+                                    <p class="font-bold text-gray-900">نفخر بثقتكم التي تدفعنا دائماً للابتكار</p>
                                 </div>
                             </div>
-                            <h3 class="stat-number-large font-montserrat text-4xl text-primary">1219+</h3>
-                        </div>
-        
-                        <div data-aos="zoom-in" data-aos-delay="150" class="p-6 rounded-xl bg-gray-50 shadow-md border border-gray-200 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center ml-4">
-                                    <i class="fas fa-calendar-alt fa-lg text-white"></i> 
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-xl text-darken">فعالية تدريبية</h3>
-                                    <p class="text-gray-500 text-sm">مجموع المعسكرات والورش.</p>
-                                </div>
-                            </div>
-                            <h3 class="stat-number-large font-montserrat text-4xl text-primary">39+</h3>
-                        </div>
-        
-                        <div data-aos="zoom-in" data-aos-delay="250" class="p-6 rounded-xl bg-gray-50 shadow-md border border-gray-200 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center ml-4">
-                                    <i class="fas fa-chart-line fa-lg text-white"></i> 
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-xl text-darken">منتجات وشركات شريكة</h3>
-                                    <p class="text-gray-500 text-sm">نمو الشراكات والإطلاقات.</p>
-                                </div>
-                            </div>
-                            <h3 class="stat-number-large font-montserrat text-4xl text-primary">9+</h3>
-                        </div>
-                        
-                    </div>
-                </div>
-                
-                <div data-aos="fade-right" class="order-1 md:order-2 space-y-6 text-center">
-                    
-                     <img src="./imgaes/صاروخا.jpg" alt="صورة توضيحية للإنجازات" class="rounded-xl shadow-2xl w-full h-auto object-cover mx-auto">
-                    
-                    <div class="grid grid-cols-2 gap-4 pt-4">
-                        <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 shadow-sm">
-                            <h3 class="font-bold text-3xl text-darken font-montserrat">22+</h3>
-                            <p class="text-gray-500 text-sm">خبير ومستشار</p>
-                        </div>
-                         <div class="p-4 rounded-lg bg-gray-50 border border-gray-200 shadow-sm">
-                            <h3 class="font-bold text-3xl text-darken font-montserrat">4+</h3>
-                            <p class="text-gray-500 text-sm">منتجات الشركة الخاصة</p>
                         </div>
                     </div>
                 </div>
+    
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-white"> 
-        <div data-aos="zoom-in" class="text-center max-w-screen-md mx-auto mb-16">
-          <h1 class="text-darken text-3xl font-bold">اكتشف <span class="text-yellow-500">منتجاتنا</span></h1>
-          <p class="text-gray-500 my-5">منتجات ذات قيمة مضافة تُصنع بروح عربية وإبداع عالمي.</p>
-           <blockquote class="text-sm italic text-gray-500 mt-4">
-              ملاحظة الربط بسلة:** هذه المنصة مصممة لتكون قابلة للربط بمتاجر مثل سلة، يرجى استخدام الروابط المباشرة للمنتجات والمعسكرات هنا.
-            </blockquote>
-        </div>
-      
-        <div data-aos="zoom-in-up" class="my-14 grid md:grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          
-          <a href="https://sunnaasar.com/%D9%85%D8%B9%D8%B3%D9%83%D8%B1%D8%A7%D8%AA-%D8%B5%D9%86%D8%A7%D8%B9%D9%8A%D8%A9/c1344699739" class="block group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition duration-300">
-            <img src="./imgaes/المنجات.png" alt="صورة منتج متجر صناع" class="w-full h-80 object-cover transform group-hover:scale-105 transition duration-500">
-            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent p-6 flex flex-col justify-end text-right">
-              <h3 class="font-bold text-3xl text-white mb-1">متجر صناع</h3>
-              <p class="text-gray-200 text-sm mb-3">تسوق منتجات حجاج مبتكرة ومصممة بعناية فائقة.</p>
-              <span class="text-yellow-400 font-semibold text-sm underline">اكتشف المتجر →</span>
-            </div>
-          </a>
-          
-          <div class="grid grid-cols-1 gap-8">
-            <a href="https://www.miqdarsa.com/" class="block group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 h-40">
-               <img src="./imgaes/موقع مقدار.png" alt="صورة منصة مقدار" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 absolute inset-0">
-               <div class="absolute inset-0 bg-gradient-to-t from-indigo-900/80 via-indigo-900/50 to-transparent p-6 flex flex-col justify-end text-right">
-                  <h3 class="font-bold text-xl text-white">منصة مقدار</h3>
-                  <span class="text-indigo-200 font-semibold text-sm underline">عرض التفاصيل →</span>
-               </div>
-            </a>
-            
-            <a href="https://open.spotify.com/show/54xNgBfPfSlvfsc1iUL0x8?si=2a8264cf38564e88" class="block group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 h-40">
-               <img src="./imgaes/podcast.jpg" alt="صورة بودكاست صناع" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500 absolute inset-0">
-               <div class="absolute inset-0 bg-gradient-to-t from-green-900/80 via-green-900/50 to-transparent p-6 flex flex-col justify-end text-right">
-                  <h3 class="font-bold text-xl text-white">بودكاست صناع</h3>
-                  <span class="text-green-200 font-semibold text-sm underline">عرض التفاصيل →</span>
-               </div>
-            </a>
-          </div>
-          
-        </div>
-      
-        <a href="./pages/products.html" data-aos="flip-up" class="px-5 py-3 border border-yellow-500 text-yellow-500 font-medium my-14 focus:outline-none transform transition hover:scale-105 duration-300 ease-in-out rounded-full mx-auto block w-max">عرض جميع المنتجات</a>
-    </section>
-
-    <section class="bg-gray-50 py-20">
-        <div class="max-w-6xl mx-auto px-8">
-            <div data-aos="flip-down" class="text-center max-w-screen-md mx-auto mb-16">
-                <h2 class="text-3xl font-bold mb-4 text-darken">خدمات <span class="text-yellow-500">الشركة</span></h2>
-                <p class="text-gray-500 text-lg">دعم متكامل ومحاور رئيسية لتمكينك من الفكرة وحتى التسويق والإنتاج.</p>
-            </div>
-        
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                
-                <div data-aos="fade-up" class="service-card">
-                    <div class="service-icon-wrapper">
-                        <i class="fas fa-gift fa-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3 text-darken">هدايا حجاج</h3>
-                    <p class="text-gray-700 text-sm">منتجات إبداعية مصممة خصيصاً لخدمة ضيوف الرحمن في المواسم.</p>
-                    <a href="./pages/gifts.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
-                </div>
-        
-                <div data-aos="fade-up" data-aos-delay="100" class="service-card">
-                    <div class="service-icon-wrapper">
-                        <i class="fas fa-drafting-compass fa-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3 text-darken">استديو تصميم منتجات</h3>
-                    <p class="text-gray-700 text-sm">خدمات تصميم احترافية للمنتجات وتطوير الهوية البصرية الصناعية.</p>
-                    <a href="./pages/design-studio.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
-                </div>
-        
-                <div data-aos="fade-up" data-aos-delay="200" class="service-card">
-                    <div class="service-icon-wrapper">
-                        <i class="fas fa-link fa-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3 text-darken">ربط بالمصانع</h3>
-                    <p class="text-gray-700 text-sm">تسهيل وتأمين الاتصال مع أفضل المصانع المحلية لضمان جودة الإنتاج.</p>
-                    <a href="./pages/factories.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
-                </div>
-        
-                <div data-aos="fade-up" data-aos-delay="300" class="service-card">
-                    <div class="service-icon-wrapper">
-                        <i class="fas fa-user-tie fa-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3 text-darken">استشارات صناعية وتصميمية</h3>
-                    <p class="text-gray-700 text-sm">جلسات توجيه لتقييم المشاريع، ودراسات الجدوى التقنية، ووضع خطط التسويق الصناعي.</p>
-                    <a href="./pages/consultations.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
-                </div>
-        
-                <div data-aos="fade-up" data-aos-delay="400" class="service-card">
-                    <div class="service-icon-wrapper">
-                        <i class="fas fa-graduation-cap fa-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3 text-darken">هاكثونات ومعسكرات</h3>
-                    <p class="text-gray-700 text-sm">برامج تدريب مكثفة لتطوير مهارات المصممين والمهندسين، وتهيئتهم لسوق العمل الصناعي.</p>
-                    <a href="https://sunnaasar.com/%D9%85%D8%B9%D8%B3%D9%83%D8%B1%D8%A7%D8%AA-%D8%B5%D9%86%D8%A7%D8%B9%D9%8A%D8%A9/c1344699739" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
-                </div>
-        
-                <div data-aos="fade-up" data-aos-delay="500" class="service-card">
-                    <div class="service-icon-wrapper">
-                        <i class="fas fa-user-plus fa-lg"></i>
-                    </div>
-                    <h3 class="font-bold text-xl mb-3 text-darken">فرص تدريب وتوظيف</h3>
-                    <p class="text-gray-700 text-sm">ربط الكوادر المؤهلة بفرص عمل نوعية لدى الشركات والشركاء.</p>
-                    <a href="./pages/forms.html" class="mt-4 inline-block underline text-primary font-semibold text-sm hover:text-primary-hover">اكتشف أكثر →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 bg-white">
-        <div data-aos="flip-up" class="max-w-2xl mx-auto text-center">
-            <h1 class="font-bold text-darken text-3xl md:text-4xl mb-4">
-                من قصتنا تشكلت <span class="text-yellow-500">أذرعنا.</span>
-            </h1>
-            <p class="text-gray-600 leading-relaxed text-lg">
-                ثلاثة أذرع تعمل معاً لتمكين الابتكار والإبداع وقيادة صناع نحو الريادة.
-            </p>
-        </div>
-      
-        <div class="grid md:grid-cols-3 gap-10 mt-20 max-w-6xl mx-auto px-6">
-          
-            <div data-aos="zoom-in" class="bg-gray-50 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-center p-8 relative">
-                <div style="background:#155FCF;" 
-                     class="rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                    <span class="text-white font-bold text-2xl">1</span>
-                </div>
-                <h2 class="font-semibold text-xl text-darken mb-3">الذراع المعرفي</h2>
-                <p class="text-gray-500 leading-relaxed mb-6">
-                    يقدم برامج ومعسكرات متخصصة بالتصميم والهندسة والصناعة.
-                </p>
-                <a href="./pages/register.html" class="bg-[#155FCF] text-white px-6 py-2 rounded-full font-medium transition duration-300 hover:bg-[#124d9f] hover:text-white inline-block">
-                    انضم
-                </a>
-            </div>
-        
-            <div data-aos="zoom-in" data-aos-delay="150" class="bg-gray-50 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-center p-8 relative">
-                <div style="background:#155FCF;" 
-                     class="rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                    <span class="text-white font-bold text-2xl">2</span>
-                </div>
-                <h2 class="font-semibold text-xl text-darken mb-3">الذراع الخدمي</h2>
-                <p class="text-gray-500 leading-relaxed mb-6">
-                    يحول الأفكار إلى منتجات وخدمات استشارية وصناعية متكاملة.
-                </p>
-                <a href="./pages/register.html" class="bg-[#155FCF] text-white px-6 py-2 rounded-full font-medium transition duration-300 hover:bg-[#124d9f] hover:text-white inline-block">
-                    انضم
-                </a>
-            </div>
-        
-            <div data-aos="zoom-in" data-aos-delay="300" class="bg-gray-50 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 text-center p-8 relative">
-                <div style="background:#155FCF;" 
-                     class="rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                    <span class="text-white font-bold text-2xl">3</span>
-                </div>
-                <h2 class="font-semibold text-xl text-darken mb-3">الذراع الاستثماري</h2>
-                <p class="text-gray-500 leading-relaxed mb-6">
-                    يحتضن المشاريع الإبداعية ويمول الأفكار الواعدة لتصبح كيانات إنتاجية حقيقية.
-                </p>
-                <a href="./pages/register.html" class="bg-[#155FCF] text-white px-6 py-2 rounded-full font-medium transition duration-300 hover:bg-[#124d9f] hover:text-white inline-block">
-                    انضم
-                </a>
-            </div>
-        
-        </div>
-    </section>
-
-    <section class="container px-4 lg:px-8 mx-auto max-w-screen-xl text-gray-700 overflow-x-hidden py-20 bg-white" id="partners-section">
-        <div data-aos="flip-up" class="max-w-6xl mx-auto text-center mb-16">
-          <h1 class="text-3xl font-extrabold text-darken mb-10">
-            شركاؤنا في <span class="text-yellow-500">النجاح</span>
-          </h1>
-        </div>
-        
+    <section class="py-20 bg-gray-50 overflow-hidden">
+        <h2 class="text-3xl font-bold text-center mb-12">شركاؤنا في النجاح</h2>
         <div class="scrolling-wrapper">
             <div class="scrolling-content">
-                
-                <div class="partner-logo-container">
-                     <img src="./imgaes/معلقه.png" alt="شريك 1" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/ذا شوب فلور .png" alt="The Shop Floor" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/ام القرى شراكه.png" alt="جامعة أم القرى" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/جامعة حلوان شراكه.png" alt="جامعة حلوان" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/بي دي.png" alt="شريك 5" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/الفضاء الرقمي .png" alt="الفضاء الرقمي" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/معلقه.png" alt="شريك 1" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/ذا شوب فلور .png" alt="The Shop Floor" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/ام القرى شراكه.png" alt="جامعة أم القرى" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/جامعة حلوان شراكه.png" alt="جامعة حلوان" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/بي دي.png" alt="شريك 5" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                <div class="partner-logo-container">
-                     <img src="./imgaes/الفضاء الرقمي .png" alt="الفضاء الرقمي" class="w-full h-auto object-contain opacity-75 hover:opacity-100 transition duration-300">
-                </div>
-                </div>
+                <div class="partner-logo-container"><img src="./imgaes/الفضاء الرقمي .png"></div>
+                <div class="partner-logo-container"><img src="./imgaes/ام القرى شراكه.png"></div>
+                <div class="partner-logo-container"><img src="./imgaes/ذا شوب فلور .png"></div>
+                <div class="partner-logo-container"><img src="./imgaes/جامعة حلوان شراكه.png"></div>
+                <div class="partner-logo-container"><img src="./imgaes/بي دي.png"></div>
+                <div class="partner-logo-container"><img src="./imgaes/معلقه.png"></div>
+                <div class="partner-logo-container"><img src="./imgaes/الفضاء الرقمي .png"></div>
+                <div class="partner-logo-container"><img src="./imgaes/ام القرى شراكه.png"></div>
+            </div>
         </div>
     </section>
 
     <section class="py-20 bg-white">
-        <div data-aos="fade-in" class="max-w-4xl mx-auto px-6 relative">
-            <div class="bg-gray-100 p-10 rounded-2xl shadow-xl border border-gray-200 text-center relative overflow-hidden">
-                
-                <h2 class="text-5xl font-extrabold text-darken mb-6 relative z-10">
-                    <span class="text-gray-400 opacity-60 block text-2xl font-cairo mb-2">
-                    </span>
-                    تابع كل جديد في <span class="text-primary">مجتمع ريادة الأعمال</span>
-                </h2>
-
-                <p class="text-gray-600 leading-relaxed mb-8 relative z-10">
-                    كن جزءاً من شبكة المصممين والصناعيين المبتكرين. تبادل الخبرات، واكتشف الفرص.
-                </p>
-                
-                <a href="https://chat.whatsapp.com/HzbAg6zf6kn8e64RSnbz9l" target="_blank" class="bg-green-600 text-white px-10 py-3 rounded-full font-bold text-lg transition duration-300 hover:bg-green-700 hover:shadow-lg inline-flex items-center relative z-10">
-                    انضم عبر الواتساب الآن
-                    <i class="fab fa-whatsapp mr-3"></i>
+        <div class="max-w-4xl mx-auto px-8">
+            <div class="bg-gray-50 p-12 rounded-3xl text-center custom-shadow border border-gray-100">
+                <h2 class="text-3xl font-bold mb-4">انضم لمجتمع صناع</h2>
+                <p class="text-blue-600 font-bold mb-4 text-xl">تابع كل جديد في مجتمع ريادة الأعمال</p>
+                <a href="https://chat.whatsapp.com/HzbAg6zf6kn8e64RSnbz9l" target="_blank" class="inline-flex items-center gap-3 bg-green-600 text-white px-10 py-4 rounded-full font-bold text-lg custom-shadow">
+                    <i class="fab fa-whatsapp text-2xl"></i> انضم عبر الواتساب الآن
                 </a>
-                
             </div>
         </div>
     </section>
 
-    <footer class="mt-16 text-right" style="background-color: var(--color-white);">
+    <footer class="bg-white border-t border-gray-200 pt-16 pb-8 text-right">
         <div class="max-w-screen-xl mx-auto px-8">
-            <div class="grid md:grid-cols-4 gap-12 py-16 text-sm"> 
-                
-                <div class="md:col-span-1 flex flex-col justify-start items-start text-right">
-                    <div class="flex items-center space-x-3 flex-row-reverse mb-4">
-                         <img src="./imgaes/شعار صناع (2).png" alt="شعار صناع الجديد" class="w-20 h-auto"> 
-                    </div>
-                </div> 
-                
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <div>
-                    <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الروابط الأساسية</h4> 
-                    <ul class="space-y-3 text-gray-700">
-                        <li><a href="index.html" class="hover:text-blue-600 transition duration-200">الرئيسية</a></li>
-                        <li><a href="../pages/about.html" class="hover:text-blue-600 transition duration-200">عن صناع</a></li>
-                        <li><a href="../pages/services.html" class="hover:text-blue-600 transition duration-200">خدماتنا</a></li>
-                        <li><a href="../pages/products.html" class="hover:text-blue-600 transition duration-200">منتجاتنا</a></li>
-                        <li><a href="../pages/privacy-policy.html" class="hover:text-blue-600 transition duration-200">شركاؤنا</a></li>
+                    <img src="./imgaes/شعار صناع (2).png" alt="Logo" class="w-24 h-auto mb-6">
+                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكّن رواد الأعمال من تحويل أفكارهم إلى منتجات.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-blue-600 mb-6 font-montserrat">الروابط الأساسية</h4>
+                    <ul class="space-y-3 text-gray-700 text-sm">
+                        <li><a href="index.html" class="hover:text-blue-600">الرئيسية</a></li>
+                        <li><a href="./pages/about.html" class="hover:text-blue-600">عن صناع</a></li>
+                        <li><a href="./pages/services.html" class="hover:text-blue-600">خدماتنا</a></li>
+                        <li><a href="./pages/products.html" class="hover:text-blue-600">منتجاتنا</a></li>
                     </ul>
                 </div>
-                
                 <div>
-                     <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">الدعم والتواصل</h4>
-                    <ul class="space-y-3 text-gray-700">
-                        <li><a href="../pages/contact.html" class="hover:text-blue-600 transition duration-200">تواصل معنا</a></li>
-                        <li><a href="../pages/news.html" class="hover:text-blue-600 transition duration-200">أخبارنا ومستجداتنا</a></li>
-                        <li><a href="../pages/register.html" class="hover:text-blue-600 transition duration-200">انضم كصانع</a></li>
-                        <li><a href="../pages/privacy-policy.html" class="hover:text-blue-600 transition duration-200">سياسة الخصوصية و المستخدم</a></li>
+                    <h4 class="font-bold text-blue-600 mb-6">الدعم والتواصل</h4>
+                    <ul class="space-y-3 text-gray-700 text-sm">
+                        <li><a href="./pages/contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
+                        <li><a href="./pages/news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
+                        <li><a href="./pages/register.html" class="hover:text-blue-600">انضم كصانع</a></li>
+                        <li><a href="./pages/privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية</a></li>
                     </ul>
                 </div>
-                
-                <div class="md:col-span-1">
-                    <h4 class="font-bold text-lg mb-4" style="color: var(--color-primary);">تواصل معنا</h4>
-                    <ul class="space-y-4 text-gray-700 mt-2"> 
-                        
-                        <li class="flex items-center space-x-2 flex-row justify-start"> 
-                            <a href="mailto:info@sunnaasar.com" class="text-primary hover:text-primary-hover transition duration-300">
-                                <i class="fas fa-envelope fa-lg"></i>
-                            </a>
-                        </li>
-                        
-                        <li class="flex items-center space-x-2 flex-row justify-start">
-                            <a href="tel:+9660553881493" class="text-primary hover:text-primary-hover transition duration-300">
-                                <i class="fas fa-phone fa-lg"></i>
-                            </a>
-                        </li>
-                        
-                        <li class="flex items-center space-x-2 flex-row justify-start">
-                            <a href="https://maps.app.goo.gl/gRLStKRE25fQxw4L7" target="_blank" class="text-primary hover:text-primary-hover transition duration-300">
-                                <i class="fas fa-map-marker-alt fa-lg"></i>
-                            </a>
-                        </li>
-                        
-                    </ul>
+                <div>
+                    <h4 class="font-bold text-blue-600 mb-6">تواصل معنا</h4>
+    <ul class="space-y-4 text-gray-700 text-sm">
+        <li class="flex items-center gap-3 justify-end">
+            <span>info@sunnaasar.com</span>
+            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
+        </li>
+        <li class="flex items-center gap-3 justify-end">
+            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
+            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
+        </li>
+        <li class="flex items-center gap-3 justify-end">
+            <span>المملكة العربية السعودية</span>
+            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
+        </li>
+    </ul>
                 </div>
             </div>
-            
-            <div class="border-t border-gray-300 py-4 text-center">
-                <p class="my-3 text-gray-500 text-xs">© <span id="current-year">2025</span> شركة صناع الرسالة القابضة. جميع الحقوق محفوظة. </p>
+            <div class="border-t pt-8 text-center text-gray-400 text-xs font-montserrat">
+                © <span id="current-year"></span> SUNNA ALL RIGHTS RESERVED
             </div>
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script> 
-
     <script>
         AOS.init({ duration: 1000, once: true });
-        AOS.init({
-              duration: 800,
-              once: true
-            });
-            
-        // كود JavaScript لتحديث السنة تلقائيًا في الـ Footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
-</html>
+</html> 

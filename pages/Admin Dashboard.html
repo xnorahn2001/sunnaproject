@@ -4,244 +4,241 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة تحكم الإدارة - صناع</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+    
     <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
     
     <style>
-        /* -------------------------------------------------------------------
-           1. التنسيقات الأساسية والمُتغيرات (الموحدة مع الموقع الخارجي)
-           ------------------------------------------------------------------- */
         :root {
             --color-primary: #155FCF;
             --color-primary-hover: #124d9f;
-            --color-dark-text: #111827;
-            --color-gray-text: #6b7280;
-            --color-white: #ffffff;
-            --color-bg-light: #f9fafb; /* خلفية خفيفة للوحة */
-            --color-sidebar: var(--color-primary); /* الشريط الجانبي باللون الأساسي */
-            --color-sidebar-hover: #000000; 
+            --color-sidebar: #111827;
         }
-
-        .dashboard-body {
+        
+        body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
-            text-align: right;
-            background-color: var(--color-bg-light);
-            display: flex;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-            position: relative; 
+            background-color: #f8fafc;
         }
 
-        /* -------------------------------------------------------------------
-           2. تنسيقات الشريط الجانبي (Sidebar) - أزرق موحد
-           ------------------------------------------------------------------- */
+        /* توحيد الظلال للسواد الغامق */
+        .custom-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        /* Sidebar Styling */
         .sidebar {
-            width: 280px;
-            background-color: var(--color-white);
-            color: var(--color-white);
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem 1rem;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            height: 100%;
-            top: 0;
-            right: 0;
-            z-index: 50;
+            background-color: var(--color-sidebar);
+            transition: all 0.3s ease-in-out;
         }
-
-        @media (max-width: 1024px) {
-            .sidebar { right: -280px; transition: right 0.3s ease-in-out; }
-            .sidebar.open { right: 0; }
-        }
-        
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--color-primary-hover);
-            margin-bottom: 1rem;
-        }
-        
-        .sidebar-header .logo-text { font-size: 1.5rem; font-weight: 700; color: var(--color-white); }
         
         .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
-            border-radius: 8px;
-            color: #000000; 
-            text-decoration: none;
-            transition: background-color 0.2s;
-            font-weight: 500;
+            transition: all 0.2s ease;
+            color: #9ca3af;
         }
-        .menu-item:hover { background-color: var(--color-primary-hover); color: var(--color-white); }
-        .menu-item.active { background-color: var(--color-primary-hover); color: var(--color-white); font-weight: 600; }
-        .menu-item .menu-icon { margin-left: 1rem; font-size: 1.25rem; width: 24px; text-align: center; }
         
-        .logout-btn { display: block; width: 100%; text-align: center; background-color: #ef4444; color: var(--color-white); padding: 0.75rem; border-radius: 8px; text-decoration: none; transition: background-color 0.2s; }
-        .logout-btn:hover { background-color: #dc2626; }
+        .menu-item:hover {
+            background-color: #1f2937;
+            color: white;
+        }
+        
+        .menu-item.active {
+            background-color: var(--color-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(21, 95, 207, 0.3);
+        }
 
-        /* -------------------------------------------------------------------
-           3. تنسيق المحتوى الرئيسي (Main Content)
-           ------------------------------------------------------------------- */
-        .dashboard-main {
-            margin-right: 280px;
-            flex-grow: 1;
-            padding: 2rem;
-            overflow-y: auto;
+        /* Stat Cards Border Accent */
+        .stat-card {
+            border-top: 4px solid var(--color-primary);
         }
-        
+
         @media (max-width: 1024px) {
-            .dashboard-main { margin-right: 0; width: 100%; padding: 1rem; }
+            .sidebar {
+                position: fixed;
+                right: -100%;
+                z-index: 100;
+                height: 100vh;
+            }
+            .sidebar.open {
+                right: 0;
+            }
         }
-        
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 40; display: none;
-        }
-        .overlay.active { display: block; }
-        
-        .hamburger-menu-button {
-            display: none; 
-            position: fixed; top: 1rem; right: 1rem; z-index: 60;
-            background-color: var(--color-primary); color: var(--color-white);
-            border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 1.25rem;
-            border: none; cursor: pointer;
-        }
-        @media (max-width: 1024px) { .hamburger-menu-button { display: block; } }
-        
-        .dashboard-header {
-            padding-bottom: 1.5rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .dashboard-header h1 { font-size: 2rem; font-weight: 700; color: var(--color-dark-text); }
-        .dashboard-header p { color: var(--color-gray-text); }
-        
-        img.w-8 {
-            width: 8rem;
-        }
-        
     </style>
 </head>
-<body class="dashboard-body" x-data="{ sidebarOpen: false }">
-    
-    <button class="hamburger-menu-button" @click="sidebarOpen = true">
-        <i class="fas fa-bars"></i>
-    </button>
-    
-    <div class="overlay" :class="{ 'active': sidebarOpen }" @click="sidebarOpen = false" x-show="sidebarOpen" x-transition.opacity.duration.300ms style="display: none;"></div>
 
-    <div class="dashboard-container flex w-full">
+<body class="antialiased" x-data="{ sidebarOpen: false }">
+
+    <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
+
+    <div class="flex min-h-screen">
         
-        <aside class="sidebar lg:static lg:mr-0" 
-               :class="{ 'open': sidebarOpen }" 
-               @click.away="sidebarOpen = false">
-            
-               <div class="sidebar-header">
-                <img src="../imgaes/شعار صناع (2).png" alt="شعار صناع" class="w-8 h-auto" style="margin-left: 0.75rem;">            </div>
-            
-            <nav class="sidebar-menu">
-                
-                <a href="#" class="menu-item active">
-                    <i class="fas fa-chart-line menu-icon"></i>
-                    <span>نظرة عامة وإحصائيات</span>
-                </a>
-                
-                <h3 class="text-xs uppercase font-semibold text-gray-400 mt-4 mb-2 pr-2">إدارة الموقع والمحتوى</h3>
-                
-                <a href="#" class="menu-item">
-                    <i class="fas fa-edit menu-icon"></i>
-                    <span>تعديل تفاصيل وأقسام الموقع</span> 
-                </a>
-                
-                <a href="#" class="menu-item">
-                    <i class="fas fa-newspaper menu-icon"></i>
-                    <span>إدارة ونشر الأخبار</span> 
-                </a>
-                
-                <a href="#" class="menu-item">
-                    <i class="fas fa-bullhorn menu-icon"></i>
-                    <span>إدارة إعلانات التدريب والتوظيف</span>
+        <aside :class="sidebarOpen ? 'open' : ''" class="sidebar w-72 flex-shrink-0 lg:static fixed flex flex-col p-6 text-white h-screen z-50">
+            <div class="flex items-center gap-3 mb-10 border-b border-gray-800 pb-6">
+                <img src="../imgaes/شعار صناع (2).png" class="w-10 h-auto" alt="Logo">
+                <span class="text-xl font-bold tracking-tight">إدارة صناع</span>
+            </div>
+
+            <nav class="space-y-1 flex-grow overflow-y-auto">
+                <p class="text-gray-500 text-xs font-bold mb-4 uppercase tracking-widest px-3">الرئيسية</p>
+                <a href="#" class="menu-item active flex items-center gap-4 p-3 rounded-xl font-medium">
+                    <i class="fas fa-chart-line w-6 text-center text-lg"></i>
+                    <span>الإحصائيات</span>
                 </a>
 
-                <h3 class="text-xs uppercase font-semibold text-gray-400 mt-4 mb-2 pr-2">إدارة المستخدمين والعمليات</h3>
-                
-                <a href="#" class="menu-item">
-                    <i class="fas fa-users-cog menu-icon"></i>
-                    <span>إدارة المستخدمين (شركات/أفراد)</span>
+                <p class="text-gray-500 text-xs font-bold mt-8 mb-4 uppercase tracking-widest px-3">المحتوى</p>
+                <a href="#" class="menu-item flex items-center gap-4 p-3 rounded-xl font-medium">
+                    <i class="fas fa-edit w-6 text-center text-lg"></i>
+                    <span>تعديل الموقع</span>
                 </a>
-                
-                <a href="#" class="menu-item">
-                    <i class="fas fa-tasks menu-icon"></i>
-                    <span>متابعة المشاريع والطلبات</span>
+                <a href="#" class="menu-item flex items-center gap-4 p-3 rounded-xl font-medium">
+                    <i class="fas fa-newspaper w-6 text-center text-lg"></i>
+                    <span>إدارة الأخبار</span>
                 </a>
-                
-                <a href="#" class="menu-item">
-                    <i class="fas fa-cog menu-icon"></i>
-                    <span>إعدادات النظام</span>
+                <a href="#" class="menu-item flex items-center gap-4 p-3 rounded-xl font-medium">
+                    <i class="fas fa-graduation-cap w-6 text-center text-lg"></i>
+                    <span>المعسكرات</span>
                 </a>
-                
+
+                <p class="text-gray-500 text-xs font-bold mt-8 mb-4 uppercase tracking-widest px-3">المستخدمين</p>
+                <a href="#" class="menu-item flex items-center gap-4 p-3 rounded-xl font-medium">
+                    <i class="fas fa-users-cog w-6 text-center text-lg"></i>
+                    <span>إدارة الأعضاء</span>
+                </a>
             </nav>
-            
-            <div class="mt-auto pt-4 border-t border-gray-700">
-                 <a href="#" class="logout-btn">تسجيل الخروج</a>
+
+            <div class="mt-auto pt-6 border-t border-gray-800">
+                <a href="#" class="flex items-center gap-4 p-3 rounded-xl text-red-400 hover:bg-red-500/10 transition">
+                    <i class="fas fa-sign-out-alt w-6 text-center"></i>
+                    <span>خروج النظام</span>
+                </a>
             </div>
         </aside>
 
-        <main class="dashboard-main flex-grow">
-            <header class="dashboard-header">
-                <h1>لوحة تحكم الإدارة (صناع)</h1>
-                <p class="text-gray-600">إدارة شاملة للموقع، المستخدمين، والمحتوى.</p>
-            </header>
+        <main class="flex-grow flex flex-col min-w-0">
             
-            <section>
-                 <h2 class="text-xl font-semibold mb-4 text-gray-700">محتوى لوحة القياس (Dashboard)</h2>
-                 <div class="p-6 bg-white rounded-xl shadow-md">
-                     <p class="text-gray-500">هنا سيتم عرض الإحصائيات الرئيسية، مثل عدد المستخدمين الجدد، عدد المشاريع النشطة، وأحدث الأخبار التي تحتاج إلى مراجعة.</p>
-                 </div>
-            </section>
+            <header class="bg-white h-20 flex items-center justify-between px-8 border-b border-gray-200 sticky top-0 z-30 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <button @click="sidebarOpen = true" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <h2 class="text-xl font-bold text-gray-800">لوحة التحكم الإدارية</h2>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <span class="text-sm font-bold text-gray-500 hidden sm:block">مدير النظام</span>
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">A</div>
+                </div>
+            </header>
+
+            <div class="p-8 space-y-10">
+                
+                <div class="bg-white p-8 rounded-3xl custom-shadow border border-gray-100">
+                    <h1 class="text-3xl font-extrabold text-gray-900 mb-2">نظرة عامة على النظام ⚙️</h1>
+                    <p class="text-gray-500">مرحباً بك في مركز التحكم. تابع الأرقام والعمليات الجارية في المنصة.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-2xl custom-shadow border-t-4 border-blue-600">
+                        <div class="flex items-center justify-between mb-2">
+                            <i class="fas fa-users text-blue-600 text-xl"></i>
+                            <span class="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-lg">+12%</span>
+                        </div>
+                        <h3 class="text-2xl font-black font-montserrat">1,219</h3>
+                        <p class="text-gray-500 text-xs font-bold uppercase mt-1">إجمالي المستخدمين</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl custom-shadow border-t-4 border-yellow-500">
+                        <div class="flex items-center justify-between mb-2">
+                            <i class="fas fa-calendar-alt text-yellow-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-black font-montserrat">39</h3>
+                        <p class="text-gray-500 text-xs font-bold uppercase mt-1">فعالية نشطة</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl custom-shadow border-t-4 border-green-500">
+                        <div class="flex items-center justify-between mb-2">
+                            <i class="fas fa-handshake text-green-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-black font-montserrat">09</h3>
+                        <p class="text-gray-500 text-xs font-bold uppercase mt-1">شركاء جدد</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl custom-shadow border-t-4 border-purple-500">
+                        <div class="flex items-center justify-between mb-2">
+                            <i class="fas fa-newspaper text-purple-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-black font-montserrat">12</h3>
+                        <p class="text-gray-500 text-xs font-bold uppercase mt-1">أخبار معلقة</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-gray-800">🛠️ إدارة المحتوى السريعة</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button class="bg-white p-6 rounded-2xl custom-shadow hover:border-blue-600 border border-transparent transition-all text-right group">
+                                <i class="fas fa-edit text-blue-600 mb-4 text-2xl group-hover:scale-110 transition"></i>
+                                <p class="font-bold text-gray-900">تعديل الموقع</p>
+                                <p class="text-xs text-gray-400">تحديث العناوين والنصوص</p>
+                            </button>
+                            <button class="bg-white p-6 rounded-2xl custom-shadow hover:border-green-600 border border-transparent transition-all text-right group">
+                                <i class="fas fa-newspaper text-green-600 mb-4 text-2xl group-hover:scale-110 transition"></i>
+                                <p class="font-bold text-gray-900">إضافة خبر</p>
+                                <p class="text-xs text-gray-400">نشر تحديث جديد للشركة</p>
+                            </button>
+                            <button class="bg-white p-6 rounded-2xl custom-shadow hover:border-purple-600 border border-transparent transition-all text-right group">
+                                <i class="fas fa-images text-purple-600 mb-4 text-2xl group-hover:scale-110 transition"></i>
+                                <p class="font-bold text-gray-900">معرض الصور</p>
+                                <p class="text-xs text-gray-400">تنظيم أصول الموقع</p>
+                            </button>
+                            <button class="bg-white p-6 rounded-2xl custom-shadow hover:border-yellow-600 border border-transparent transition-all text-right group">
+                                <i class="fas fa-box text-yellow-600 mb-4 text-2xl group-hover:scale-110 transition"></i>
+                                <p class="font-bold text-gray-900">إدارة المنتجات</p>
+                                <p class="text-xs text-gray-400">تحديث متجر صناع</p>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-gray-800">⏱️ آخر النشاطات</h3>
+                        <div class="bg-white p-6 rounded-3xl custom-shadow space-y-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0"><i class="fas fa-user-plus"></i></div>
+                                <div class="flex-grow">
+                                    <p class="text-sm text-gray-800">تم تسجيل مستخدم جديد (أحمد علي)</p>
+                                    <p class="text-xs text-gray-400">منذ 5 دقائق</p>
+                                </div>
+                                <span class="text-[10px] font-bold bg-green-100 text-green-600 px-2 py-1 rounded">جديد</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center flex-shrink-0"><i class="fas fa-calendar-check"></i></div>
+                                <div class="flex-grow">
+                                    <p class="text-sm text-gray-800">إنشاء فعالية جديدة: معسكر التصميم</p>
+                                    <p class="text-xs text-gray-400">منذ ساعة</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center flex-shrink-0"><i class="fas fa-check-double"></i></div>
+                                <div class="flex-grow">
+                                    <p class="text-sm text-gray-800">تم نشر خبر: إطلاق منصة مقدار</p>
+                                    <p class="text-xs text-gray-400">منذ 3 ساعات</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </main>
     </div>
-    
+
     <script>
-        // سكريبت Alpine.js لإغلاق القائمة في الجوال
-        document.addEventListener('alpine:init', () => {
-            Alpine.magic('closeSidebar', () => () => {
-                const sidebar = document.querySelector('.sidebar');
-                const overlay = document.querySelector('.overlay');
-                if (window.innerWidth <= 1024 && sidebar.classList.contains('open')) {
-                    sidebar.classList.remove('open');
-                    overlay.classList.remove('active');
-                }
-            });
-            
-            // إضافة خاصية إغلاق القائمة عند النقر خارجها في الجوال
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.querySelector('.overlay');
-            sidebar.addEventListener('click', (e) => {
-                if (e.target.tagName === 'A') { // إذا نقر على رابط داخل القائمة
-                     if (window.innerWidth <= 1024) {
-                        sidebar.classList.remove('open');
-                        overlay.classList.remove('active');
-                    }
-                }
-            });
-            // لتشغيل الـ overlay عند الفتح في الجوال
-            sidebar.addEventListener('transitionend', () => {
-                if (sidebar.classList.contains('open')) {
-                    overlay.classList.add('active');
-                } else {
-                    overlay.classList.remove('active');
-                }
-            });
+        // إغلاق الشريط الجانبي تلقائياً عند تغيير حجم الشاشة
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) Alpine.store('sidebarOpen', false);
         });
     </script>
 </body>
