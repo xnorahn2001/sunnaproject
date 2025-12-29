@@ -1,3 +1,12 @@
+// ابحثي عن أي سطر فيه http://localhost:5000 واستبدليه بهذا:
+const API_BASE_URL = "https://sunnaapp.onrender.com/api";
+
+// مثال لعملية تسجيل أو جلب بيانات:
+fetch(`${API_BASE_URL}/Auth/social-links`)
+  .then(response => response.json())
+  .then(data => console.log(data));
+
+
 // ==================== SPLASH SCREEN HANDLER ==================== 
 document.addEventListener('DOMContentLoaded', function() {
     handleSplashScreen(); 
