@@ -33,7 +33,6 @@
             flex-direction: column;
         }
 
-        /* توحيد الظلال للسواد */
         .custom-shadow {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
         }
@@ -62,22 +61,21 @@
             transform: translateY(-2px);
         }
 
-        .social-btn {
-            transition: all 0.2s;
-            border: 1px solid #e5e7eb;
+        /* تنسيق أزرار التبديل */
+        .type-switcher button {
+            transition: all 0.3s ease;
         }
-        .social-btn:hover {
-            background-color: #f9fafb;
-            border-color: #d1d5db;
+        .active-type {
+            background-color: var(--color-primary) !important;
+            color: white !important;
         }
     </style>
 </head>
 
-<body class="antialiased" x-data="{ mobileMenu: false, dropdownOpen: false }">
+<body class="antialiased" x-data="{ mobileMenu: false, dropdownOpen: false, userType: 'individual' }">
 
     <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
-
             <div class="flex items-center space-x-2 flex-row-reverse order-1">
                 <a href="../index.html" class="focus:outline-none flex items-center">
                     <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-12 w-auto">
@@ -93,7 +91,6 @@
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./services.html">الخدمات</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./about.html">عن صناع</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./news.html">أخبارنا</a>
-
                     <div class="relative">
                         <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none transition">
                             <span>انضم لنا</span>
@@ -112,17 +109,6 @@
                 <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow transition hover:bg-blue-700" href="./register.html">تسجيل جديد</a>
             </div>
         </div>
-
-        <div x-show="mobileMenu" x-transition class="md:hidden bg-white border-t border-gray-100 pb-6 shadow-inner">
-            <div class="flex flex-col p-6 space-y-3">
-                <a class="block px-4 py-3 text-sm" href="../index.html">الرئيسية</a>
-                <a class="block px-4 py-3 text-sm" href="./services.html">الخدمات</a>
-                <a class="block px-4 py-3 text-sm" href="./about.html">عن صناع</a>
-                <div class="px-4 mt-4 space-y-2 text-center">
-                    <a class="block bg-blue-600 text-white py-4 rounded-xl font-bold" href="./register.html">إنشاء حساب</a>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="flex-grow flex items-center justify-center p-6 bg-gray-50 relative overflow-hidden">
@@ -130,23 +116,45 @@
         <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-100 rounded-full blur-3xl opacity-50"></div>
         
         <div class="w-full max-w-md bg-white/90 backdrop-blur-md rounded-3xl p-8 md:p-12 custom-shadow border border-white/20 relative z-10">
-            <div class="text-center mb-10">
-                <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-6 text-blue-700 font-bold text-xs uppercase tracking-widest">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-6 text-blue-700 font-bold text-xs uppercase">
                     <i class="fas fa-lock ml-2"></i> دخول آمن
                 </div>
                 <h1 class="text-3xl font-extrabold text-gray-900 mb-2">تسجيل الدخول</h1>
-                <p class="text-gray-500">مرحباً بك مجدداً في منصة صناع</p>
+                
+                <div class="type-switcher flex bg-gray-100 p-1 rounded-xl mt-6 border border-gray-200">
+                    <button @click="userType = 'individual'" :class="userType === 'individual' ? 'active-type shadow-md' : 'text-gray-500'" class="flex-1 py-2 rounded-lg font-bold text-sm transition-all">
+                        <i class="fas fa-user ml-2"></i> فرد
+                    </button>
+                    <button @click="userType = 'company'" :class="userType === 'company' ? 'active-type shadow-md' : 'text-gray-500'" class="flex-1 py-2 rounded-lg font-bold text-sm transition-all">
+                        <i class="fas fa-building ml-2"></i> شركة
+                    </button>
+                </div>
             </div>
             
             <form class="login-form space-y-6">
-                <div>
-                    <label class="block text-sm font-bold mb-2 text-gray-700">البريد الإلكتروني</label>
-                    <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+                <div x-show="userType === 'individual'" x-transition:enter="transition ease-out duration-300">
+                    <label class="block text-sm font-bold mb-2 text-gray-700">رقم الجوال</label>
+                    <div class="relative">
+                        <input type="tel" placeholder="05XXXXXXXX" required class="pr-10">
+                        <i class="fas fa-phone absolute top-4 right-4 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <div x-show="userType === 'company'" x-transition:enter="transition ease-out duration-300" style="display: none;">
+                    <label class="block text-sm font-bold mb-2 text-gray-700">رقم السجل التجاري</label>
+                    <div class="relative">
+                        <input type="text" placeholder="10XXXXXXXX" required class="pr-10">
+                        <i class="fas fa-file-contract absolute top-4 right-4 text-gray-400"></i>
+                    </div>
                 </div>
                 
                 <div>
                     <label class="block text-sm font-bold mb-2 text-gray-700">كلمة المرور</label>
-                    <input type="password" placeholder="••••••••" required>
+                    <div class="relative">
+                        <input type="password" placeholder="••••••••" required class="pr-10">
+                        <i class="fas fa-key absolute top-4 right-4 text-gray-400"></i>
+                    </div>
                 </div>
                 
                 <div class="flex justify-between items-center text-sm">
@@ -182,7 +190,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <div>
                     <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="w-24 h-auto mb-6">
-                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكّن رواد الأعمال من تحويل أفكارهم إلى منتجات.</p>
+                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكن اصحاب الافكار ورواد الاعمال من تحويل أفكارهم إلى منتجات.</p>
                 </div>
                 <div>
                     <h4 class="font-bold text-blue-600 mb-6 font-montserrat">الروابط الأساسية</h4>
@@ -199,7 +207,7 @@
                         <li><a href="./contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
                         <li><a href="./news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
                         <li><a href="./register.html" class="hover:text-blue-600">انضم كصانع</a></li>
-                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية</a></li>
+                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية والمستخدم</a></li>
                     </ul>
                 </div>
                 <div>
@@ -225,7 +233,6 @@
             </div>
         </div>
     </footer>
-
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>

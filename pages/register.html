@@ -9,61 +9,48 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
-
+    
     <style>
         :root {
             --color-primary: #155FCF;
             --color-primary-hover: #124d9f;
-            --color-dark-text: #111827;
-            --color-white: #ffffff;
         }
-        
         body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
             text-align: right;
-            color: var(--color-dark-text);
             background-color: #f8fafc;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-
-        /* توحيد الظلال للأسود الغامق */
         .custom-shadow {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
         }
-        
         .form-input {
             width: 100%;
             padding: 0.85rem;
             border: 1px solid #e5e7eb;
             border-radius: 0.75rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
-        
         .form-input:focus {
             outline: none;
             border-color: var(--color-primary);
-            ring: 2px;
-            ring-color: var(--color-primary);
             background-color: white;
+            box-shadow: 0 0 0 3px rgba(21, 95, 207, 0.1);
         }
-        
         .user-type-card {
             border: 2px solid #f3f4f6;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             cursor: pointer;
         }
-        
-        .user-type-card.selected {
-            border-color: var(--color-primary);
-            background-color: #eff6ff;
+        .selected-card {
+            border-color: var(--color-primary) !important;
+            background-color: #eff6ff !important;
         }
-
         .btn-primary {
             background-color: var(--color-primary);
             transition: all 0.3s;
@@ -75,77 +62,52 @@
     </style>
 </head>
 
-<body class="antialiased" x-data="{ mobileMenu: false, dropdownOpen: false }">
+<body x-data="{ userType: 'individual' }">
 
-    <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
-            <div class="flex items-center space-x-2 flex-row-reverse order-1">
-                <a href="../index.html" class="flex items-center">
-                    <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-12 w-auto">
-                </a>
-                <button @click="mobileMenu = !mobileMenu" class="rounded-lg md:hidden focus:outline-none mr-4">
-                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6"><path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"></path><path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2"></path></svg>
-                </button>
-            </div>
-
-            <nav class="hidden md:flex flex-grow justify-center order-2">
-                <div class="flex items-center md:space-x-8 md:space-x-reverse">
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="../index.html">الرئيسية</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./services.html">الخدمات</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./about.html">عن صناع</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./news.html">أخبارنا</a>
-
-                    <div class="relative">
-                        <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none">
-                            <span>انضم لنا</span>
-                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': dropdownOpen}" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
-                        </button>
-                        <div x-show="dropdownOpen" x-transition class="absolute right-0 w-40 mt-2 bg-white border border-gray-200 rounded-md shadow-xl z-50">
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50" href="./forms.html">تدريب</a>
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50" href="./forms.html">توظيف</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
-                <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold" href="./english.html">EN</a>
-                <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold transition hover:bg-blue-50" href="./login.html">تسجيل دخول</a>
-            </div>
+    <div class="w-full bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20">
+            <a href="../index.html">
+                <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-10 w-auto">
+            </a>
+            <a href="./login.html" class="text-sm font-bold text-blue-600 hover:underline">تسجيل دخول</a>
         </div>
     </div>
 
     <div class="flex-grow flex items-center justify-center p-6 bg-gray-50">
         <div class="w-full max-w-xl bg-white rounded-3xl p-8 md:p-12 custom-shadow border border-gray-100">
             <div class="text-center mb-10">
-                <img src="../imgaes/شعار صناع (2).png" class="h-16 mx-auto mb-6" alt="Logo">
                 <h1 class="text-3xl font-extrabold text-gray-900 mb-2">إنشاء حساب جديد</h1>
-                <p class="text-gray-500">انضم إلى مجتمع صناع وابدأ رحلة الابتكار</p>
+                <p class="text-gray-500">سجل بياناتك للانضمام إلى منصة صناع</p>
             </div>
 
-            <form id="registerForm" class="space-y-6">
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="user-type-card p-6 rounded-2xl text-center selected" onclick="selectUserType('individual', this)">
-                        <i class="fas fa-user text-2xl mb-2 text-blue-600"></i>
+            <form class="space-y-6">
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div @click="userType = 'individual'" :class="userType === 'individual' ? 'selected-card' : ''" class="user-type-card p-5 rounded-2xl text-center">
+                        <i class="fas fa-user text-2xl mb-2" :class="userType === 'individual' ? 'text-blue-600' : 'text-gray-400'"></i>
                         <p class="font-bold text-sm">فرد</p>
-                        <input type="radio" name="userType" value="individual" class="hidden" checked>
                     </div>
-                    <div class="user-type-card p-6 rounded-2xl text-center" onclick="selectUserType('company', this)">
-                        <i class="fas fa-building text-2xl mb-2 text-gray-400"></i>
-                        <p class="font-bold text-sm">شركة</p>
-                        <input type="radio" name="userType" value="company" class="hidden">
+                    <div @click="userType = 'company'" :class="userType === 'company' ? 'selected-card' : ''" class="user-type-card p-5 rounded-2xl text-center">
+                        <i class="fas fa-building text-2xl mb-2" :class="userType === 'company' ? 'text-blue-600' : 'text-gray-400'"></i>
+                        <p class="font-bold text-sm">شركة / منشأة</p>
                     </div>
                 </div>
 
-                <div class="space-y-4">
+                <div class="space-y-5">
                     <div>
-                        <label class="block text-sm font-bold mb-2 text-gray-700">الاسم الكامل</label>
-                        <input type="text" class="form-input" placeholder="أدخل اسمك الثلاثي" required>
+                        <label class="block text-sm font-bold mb-2 text-gray-700" x-text="userType === 'individual' ? 'الاسم الكامل' : 'اسم المنشأة التجاري'"></label>
+                        <input type="text" class="form-input" :placeholder="userType === 'individual' ? 'أدخل اسمك الثلاثي' : 'أدخل اسم الشركة الرسمي'" required>
                     </div>
-                    <div>
-                        <label class="block text-sm font-bold mb-2 text-gray-700">البريد الإلكتروني</label>
-                        <input type="email" class="form-input" placeholder="example@mail.com" required>
+
+                    <div x-show="userType === 'individual'" x-transition>
+                        <label class="block text-sm font-bold mb-2 text-gray-700">رقم الجوال</label>
+                        <input type="tel" class="form-input" placeholder="05XXXXXXXX" required>
                     </div>
+
+                    <div x-show="userType === 'company'" x-transition style="display: none;">
+                        <label class="block text-sm font-bold mb-2 text-gray-700">رقم السجل التجاري</label>
+                        <input type="text" class="form-input" placeholder="10XXXXXXXX" required>
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-bold mb-2 text-gray-700">كلمة المرور</label>
@@ -158,18 +120,18 @@
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2 text-sm text-gray-600">
-                    <input type="checkbox" required class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                    <span>أوافق على <a href="#" class="text-blue-600 underline">الشروط والأحكام</a></span>
+                <div class="flex items-start gap-2 text-sm text-gray-600 mt-4">
+                    <input type="checkbox" required class="mt-1 w-4 h-4 rounded border-gray-300 text-blue-600">
+                    <span>أوافق على <a href="#" class="text-blue-600 underline font-bold">شروط الاستخدام</a> وسياسة الخصوصية.</span>
                 </div>
 
                 <button type="submit" class="w-full btn-primary text-white py-4 rounded-xl font-bold text-lg shadow-lg">
-                    إنشاء الحساب
+                    إنشاء حسابي الآن
                 </button>
             </form>
 
             <div class="mt-8 text-center border-t pt-6">
-                <p class="text-gray-600 text-sm">لديك حساب بالفعل؟ <a href="./login.html" class="text-blue-600 font-bold hover:underline">سجل دخولك</a></p>
+                <p class="text-gray-600 text-sm">لديك حساب بالفعل؟ <a href="./login.html" class="text-blue-600 font-bold hover:underline">سجل دخولك هنا</a></p>
             </div>
         </div>
     </div>
@@ -179,7 +141,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <div>
                     <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="w-24 h-auto mb-6">
-                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكّن رواد الأعمال من تحويل أفكارهم إلى منتجات.</p>
+                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكن اصحاب الافكار ورواد الاعمال من تحويل أفكارهم إلى منتجات.</p>
                 </div>
                 <div>
                     <h4 class="font-bold text-blue-600 mb-6 font-montserrat">الروابط الأساسية</h4>
@@ -196,7 +158,7 @@
                         <li><a href="./contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
                         <li><a href="./news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
                         <li><a href="./register.html" class="hover:text-blue-600">انضم كصانع</a></li>
-                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية</a></li>
+                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية والمستخدم</a></li>
                     </ul>
                 </div>
                 <div>
@@ -224,15 +186,6 @@
     </footer>
 
     <script>
-        function selectUserType(type, element) {
-            document.querySelectorAll('.user-type-card').forEach(card => {
-                card.classList.remove('selected', 'bg-blue-50', 'border-blue-600');
-                card.querySelector('i').classList.replace('text-blue-600', 'text-gray-400');
-            });
-            element.classList.add('selected', 'bg-blue-50', 'border-blue-600');
-            element.querySelector('i').classList.replace('text-gray-400', 'text-blue-600');
-            element.querySelector('input').checked = true;
-        }
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
