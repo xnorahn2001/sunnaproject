@@ -3,33 +3,48 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('Individual'); // القيمة الافتراضية
+  const [commercialRegistration, setCommercialRegistration] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   // رابط الباك أند المحلي
-  const API_URL = 'http://127.0.0.1:8080/api';
+  const API_URL = 'http://localhost:5190/api';
 
-  const handleSubmit = async (e ) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
+    // التحقق من السجل التجاري للمصانع
+    if (role === 'Factory' && !commercialRegistration.trim()) {
+      setError('السجل التجاري مطلوب للمصانع');
+      setLoading(false);
+      return;
+    }
+
     try {
+      const requestBody = {
+        fullName: name,
+        phoneNumber: phoneNumber,
+        password: password,
+        accountType: role
+      };
+
+      // إضافة السجل التجاري فقط للمصانع
+      if (role === 'Factory') {
+        requestBody.commercialRegistration = commercialRegistration;
+      }
+
       const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-          fullName: name,        // تم التعديل ليتوافق مع الباك أند
-          email: email, 
-          password: password, 
-          accountType: role      // تم التعديل ليتوافق مع الباك أند
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       const data = await response.json();
@@ -45,7 +60,7 @@ const Register = () => {
       alert('تم إنشاء الحساب بنجاح!');
       navigate('/login'); // التوجه لصفحة تسجيل الدخول
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'حدث خطأ في التسجيل');
     } finally {
       setLoading(false);
     }
@@ -66,11 +81,12 @@ const Register = () => {
           />
         </div>
         <div>
-          <label>البريد الإلكتروني:</label>
+          <label>رقم الجوال:</label>
           <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
+            type="tel" 
+            value={phoneNumber} 
+            onChange={(e) => setPhoneNumber(e.target.value)} 
+            placeholder="05xxxxxxxx"
             required 
           />
         </div>
@@ -87,9 +103,25 @@ const Register = () => {
           <label>نوع الحساب:</label>
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="Individual">فرد (مصمم)</option>
-            <option value="Facility">منشأة (مصنع)</option>
+            <option value="Factory">مصنع</option>
+            <option value="Admin">مدير</option>
           </select>
         </div>
+        
+        {/* حقل السجل التجاري - يظهر فقط للمصانع */}
+        {role === 'Factory' && (
+          <div>
+            <label>السجل التجاري:</label>
+            <input 
+              type="text" 
+              value={commercialRegistration} 
+              onChange={(e) => setCommercialRegistration(e.target.value)} 
+              placeholder="أدخل رقم السجل التجاري"
+              required
+            />
+          </div>
+        )}
+        
         <button type="submit" disabled={loading}>
           {loading ? 'جاري التسجيل...' : 'إنشاء حساب'}
         </button>

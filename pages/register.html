@@ -100,12 +100,12 @@
 
                     <div x-show="userType === 'individual'" x-transition>
                         <label class="block text-sm font-bold mb-2 text-gray-700">رقم الجوال</label>
-                        <input type="tel" class="form-input" placeholder="05XXXXXXXX" required>
+                        <input type="tel" class="form-input" placeholder="05XXXXXXXX" :required="userType === 'individual'">
                     </div>
 
                     <div x-show="userType === 'company'" x-transition style="display: none;">
                         <label class="block text-sm font-bold mb-2 text-gray-700">رقم السجل التجاري</label>
-                        <input type="text" class="form-input" placeholder="10XXXXXXXX" required>
+                        <input type="text" class="form-input" placeholder="10XXXXXXXX" :required="userType === 'company'">
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
