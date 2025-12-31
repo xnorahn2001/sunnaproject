@@ -30,12 +30,10 @@
             background-color: var(--color-white);
         }
         
-        /* توحيد الظلال للأسود الغامق */
         .custom-shadow {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
         }
 
-        /* كروت القيم الجوهرية */
         .value-card {
             background-color: var(--color-white);
             border: 1px solid #f3f4f6;
@@ -53,26 +51,18 @@
             color: white;
             transition: all 0.3s;
         }
-        .btn-primary:hover {
-            background-color: var(--color-primary-hover);
-            transform: scale(1.05);
-        }
     </style>
 </head>
 <body class="antialiased" x-data="{ mobileMenu: false, dropdownOpen: false }">
 
     <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
-            
             <div class="flex items-center space-x-2 flex-row-reverse order-1">
                 <a href="../index.html" class="focus:outline-none flex items-center">
                     <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-12 w-auto"> 
                 </a>
                 <button @click="mobileMenu = !mobileMenu" class="rounded-lg md:hidden focus:outline-none mr-4">
-                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
-                        <path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"></path>
-                        <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2"></path>
-                    </svg>
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
 
@@ -82,43 +72,11 @@
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./services.html">الخدمات</a>
                     <a class="px-4 py-2 text-sm font-bold text-blue-600 border-b-2 border-blue-600" href="./about.html">عن صناع</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./news.html">أخبارنا</a>
-                    
-                    <div class="relative">
-                        <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none">
-                            <span>انضم لنا</span>
-                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': dropdownOpen}" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
-                        </button>
-                        <div x-show="dropdownOpen" x-transition class="absolute right-0 w-40 mt-2 bg-white border border-gray-200 rounded-md shadow-xl z-50">
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">تدريب</a>
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">توظيف</a>
-                        </div>
-                    </div>
                 </div>
             </nav>
 
             <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
-                <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold" href="./english.html">EN</a>
-                <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold transition hover:bg-blue-50" href="./login.html">تسجيل دخول</a>
-                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow transition hover:bg-blue-700" href="./register.html">تسجيل</a>
-            </div>
-        </div>
-
-        <div x-show="mobileMenu" x-transition class="md:hidden bg-white border-t border-gray-100 pb-4 shadow-inner">
-            <div class="flex flex-col p-4 space-y-2">
-                <a class="block px-6 py-3 text-sm" href="../index.html">الرئيسية</a>
-                <a class="block px-6 py-3 text-sm" href="./services.html">الخدمات</a>
-                <a class="block px-6 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-lg" href="./about.html">عن صناع</a>
-                <div x-data="{ subOpen: false }">
-                    <button @click="subOpen = !subOpen" class="flex justify-between w-full px-6 py-3 text-sm">انضم لنا <span>+</span></button>
-                    <div x-show="subOpen" class="bg-gray-50 px-10 py-2 rounded-lg">
-                        <a class="block py-2 text-sm" href="./forms.html">تدريب</a>
-                        <a class="block py-2 text-sm" href="./forms.html">توظيف</a>
-                    </div>
-                </div>
-                <div class="px-6 mt-4 space-y-2 text-center">
-                    <a class="block bg-blue-600 text-white py-3 rounded-xl font-bold" href="./register.html">تسجيل</a>
-                    <a class="block border border-blue-600 text-blue-600 py-3 rounded-xl font-bold" href="./login.html">تسجيل دخول</a>
-                </div>
+                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow transition hover:bg-blue-700" href="./register.html">انضم لنا</a>
             </div>
         </div>
     </div>
@@ -129,39 +87,40 @@
             <div class="space-y-10 order-2 md:order-1">
                 <div data-aos="fade-left">
                     <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-4 text-blue-700 font-bold text-sm">
-                         عن الشركة
+                         نبذة عن صناع
                     </div>
-                    <h2 class="text-4xl font-extrabold mb-6 text-gray-900 leading-tight text-blue-600">شركة صناع الرسالة القابضة</h2>
+                    <h2 class="text-4xl font-extrabold mb-6 text-gray-900 leading-tight">بيت التصميم </h2>
                     <p class="text-lg text-gray-600 leading-relaxed">
-                        شركة سعودية رائدة في تمكين المصممين والمهندسين والصناعيين، تسعى لتطوير منظومة التصميم والهندسة والصناعة الإبداعية في المملكة والوطن العربي. نؤمن أن الابتكار والمعرفة والاستدامة هي ركائز النهضة الصناعية القادمة.
+                        شركة صناع الرسالة القابضة هي كيان متخصص في تصميم وتطوير المنتجات الملموسة، نهدف إلى تحويل المفاهيم الإبداعية إلى واقع هندسي قابل للتصنيع. نحن لا نصمم أشكالاً فحسب، بل نبني حلولاً صناعية ذكية تجمع بين الجمال والوظيفة لتعزيز التنافسية في السوق المحلي والعالمي.
                     </p>
                 </div>
                 
                 <div data-aos="fade-left" data-aos-delay="100">
                     <h3 class="text-2xl font-bold border-r-4 pr-4 border-blue-600 mb-4 text-gray-900">رؤيتنا</h3>
                     <p class="text-gray-600 leading-relaxed text-lg">
-                        أن نكون من الممكنين الرائدين للمصممين والمهندسين والصناعيين، الساعية إلى الريادة في تصميم المنتجات والهندسة والصناعة، والإسهام في تنمية الاقتصاد الإبداعي والابتكاري في الوطن العربي.
+                        أن نكون المرجع الأول لابتكار المنتجات الصناعية في الوطن العربي، والمساهم الأبرز في رسم الهوية التصميمية والتقنية للمنتجات الوطنية لتنافس عالمياً.
                     </p>
                 </div>
 
                 <div data-aos="fade-left" data-aos-delay="200">
                     <h3 class="text-2xl font-bold border-r-4 pr-4 border-blue-600 mb-4 text-gray-900">رسالتنا</h3>
                     <p class="text-gray-600 leading-relaxed text-lg">
-                        تمكين الكوادر من تطوير قدراتهم وتحويلها إلى فرص سوقية، من خلال التدريب والتأهيل، وتقديم خدمات المنتجات والاستشارات، واحتضان المبادرات الإبداعية بما يواكب رؤية المملكة 2030.
+                        تمكين المبتكرين والمصانع من خلال تقديم خدمات تصميم هندسية متكاملة ونمذجة متطورة، وسد الفجوة المعرفية في مجال تصميم المنتجات لضمان مخرجات صناعية ذات قيمة مضافة.
                     </p>
                 </div>
-                
-                <a href="./services.html" class="inline-block px-10 py-4 text-lg font-bold rounded-full btn-primary custom-shadow">اكتشف خدماتنا</a>
             </div>
             
             <div data-aos="zoom-in" class="relative order-1 md:order-2">
                 <div class="absolute -top-6 -right-6 w-full h-full bg-blue-600 rounded-3xl opacity-5"></div>
                 <div class="bg-white rounded-3xl p-4 custom-shadow relative z-10 border border-gray-100">
-                    <img src="../imgaes/هيدر.jpeg" alt="صورة الرحلة" class="w-full h-auto rounded-2xl mb-8">
+                    <img src="../imgaes/هيدر.jpeg" alt="Product Design Journey" class="w-full h-auto rounded-2xl mb-8">
                     <div class="p-4">
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900">مسيرتنا: من شغف طلابي إلى كيان قابض</h3>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">مسيرتنا من شغف طلابي إلى كيان قابض</h3>
                         <p class="text-gray-600 leading-relaxed text-sm mb-4">
-                            ولدت "صُنّاع" من شغف ٍ أصيل بإحياء التصميم بروح ٍ عربية معاصرة. انطلقت عام 2023 كمبادرة طلابية صغيرة، ثم تطورت لتصبح منصةً إلكترونية متكاملة تحت مظلة شركة صناع الرسالة القابضة.
+                            ولدت "صناع" من شغف ٍ أصيل بإحياء التصميم بروح ٍ عربية معاصرة. انطلقت عام 2023 كمبادرة طلابية صغيرة، ثم تطورت لتصبح منصةً إلكترونية متكاملة تحت مظلة شركة صناع الرسالة القابضة.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed text-sm">
+                            بدأت رحلتنا من ملاحظة فجوة في المحتوى العربي والفرص التدريبية، فصممنا تجربة تعليمية تجمع بين التطبيق المعرفي والتمكين السوقي، محققين نتائج ملموسة مع مئات المبدعين.
                         </p>
                     </div>
                 </div>
@@ -171,79 +130,75 @@
 
     <section class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-extrabold mb-16 text-gray-900">قيمنا الجوهرية لقيادة الأثر</h2>
-            <div class="grid md:grid-cols-3 gap-10">
-                
-                <div data-aos="fade-up" class="value-card p-10 custom-shadow bg-white text-right">
-                    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-6 text-3xl">🌱</div>
-                    <h4 class="text-2xl font-bold mb-4 text-gray-900">الأصالة</h4>
-                    <p class="text-gray-600 leading-relaxed">نلتزم بأصالتنا العربية ونحافظ على هويتنا الثقافية مع مواكبة العصر والتطور التقني العالمي.</p>
-                </div>
-                
-                <div data-aos="fade-up" data-aos-delay="100" class="value-card p-10 custom-shadow bg-white text-right">
-                    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-6 text-3xl">🤝</div>
-                    <h4 class="text-2xl font-bold mb-4 text-gray-900">الابتكار</h4>
-                    <p class="text-gray-600 leading-relaxed">نتبنى أحدث الممارسات الابتكارية لضمان استمرارية النمو والمساهمة في بناء اقتصاد إبداعي مستدام.</p>
-                </div>
-                
-                <div data-aos="fade-up" data-aos-delay="200" class="value-card p-10 custom-shadow bg-white text-right">
-                    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-6 text-3xl">✨</div>
-                    <h4 class="text-2xl font-bold mb-4 text-gray-900">التمكين</h4>
-                    <p class="text-gray-600 leading-relaxed">نركز على تمكين المصممين والخبراء وبناء شراكات قوية لتحويل القدرات إلى فرص سوقية حقيقية.</p>
-                </div>
-            </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-16 text-gray-900">قيمنا الجوهرية لقيادة الأثر</h2>
+        <div class="grid md:grid-cols-3 gap-10">
+        <div data-aos="fade-up" class="value-card p-10 custom-shadow bg-white text-right">
+        <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-6 text-3xl">🌱</div>
+        <h4 class="text-2xl font-bold mb-4 text-gray-900">الأصالة</h4>
+        <p class="text-gray-600 leading-relaxed">نلتزم بأصالتنا العربية ونحافظ على هويتنا الثقافية مع مواكبة العصر والتطور التقني العالمي.</p>
         </div>
-    </section>
-
-    <footer class="bg-white border-t border-gray-200 pt-16 pb-8 text-right">
-        <div class="max-w-screen-xl mx-auto px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                <div>
-                    <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="w-24 h-auto mb-6">
-                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكن اصحاب الافكار ورواد الاعمال من تحويل أفكارهم إلى منتجات.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6 font-montserrat">الروابط الأساسية</h4>
-                    <ul class="space-y-3 text-gray-700 text-sm">
-                        <li><a href="../index.html" class="hover:text-blue-600">الرئيسية</a></li>
-                        <li><a href="./about.html" class="hover:text-blue-600">عن صناع</a></li>
-                        <li><a href="./services.html" class="hover:text-blue-600">خدماتنا</a></li>
-                        <li><a href="./products.html" class="hover:text-blue-600">منتجاتنا</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6">الدعم والتواصل</h4>
-                    <ul class="space-y-3 text-gray-700 text-sm">
-                        <li><a href="./contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
-                        <li><a href="./news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
-                        <li><a href="./register.html" class="hover:text-blue-600">انضم كصانع</a></li>
-                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية والمستخدم</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6">تواصل معنا</h4>
-    <ul class="space-y-4 text-gray-700 text-sm">
-        <li class="flex items-center gap-3 justify-end">
-            <span>info@sunnaasar.com</span>
-            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
-            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span>المملكة العربية السعودية</span>
-            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
-        </li>
-    </ul>
-                </div>
-            </div>
-            <div class="border-t pt-8 text-center text-gray-400 text-xs font-montserrat">
-                © <span id="current-year"></span> SUNNA ALL RIGHTS RESERVED
-            </div>
+        <div data-aos="fade-up" data-aos-delay="100" class="value-card p-10 custom-shadow bg-white text-right">
+        <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-6 text-3xl">🤝</div>
+        <h4 class="text-2xl font-bold mb-4 text-gray-900">الابتكار</h4>
+        <p class="text-gray-600 leading-relaxed">نتبنى أحدث الممارسات الابتكارية لضمان استمرارية النمو والمساهمة في بناء اقتصاد إبداعي مستدام.</p>
         </div>
-    </footer>
+        <div data-aos="fade-up" data-aos-delay="200" class="value-card p-10 custom-shadow bg-white text-right">
+        <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-6 text-3xl">✨</div>
+        <h4 class="text-2xl font-bold mb-4 text-gray-900">التمكين</h4>
+        <p class="text-gray-600 leading-relaxed">نركز على تمكين المصممين والخبراء وبناء شراكات قوية لتحويل القدرات إلى فرص سوقية حقيقية.</p>
+        </div>
+        </div>
+        </div>
+        </section>
 
+        <footer class="bg-white border-t border-gray-200 pt-16 pb-8 text-right">
+            <div class="max-w-screen-xl mx-auto px-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                    <div>
+                        <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="w-24 h-auto mb-6">
+                        <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكن اصحاب الافكار ورواد الاعمال من تحويل أفكارهم إلى منتجات.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-blue-600 mb-6 font-montserrat">الروابط الأساسية</h4>
+                        <ul class="space-y-3 text-gray-700 text-sm">
+                            <li><a href="../index.html" class="hover:text-blue-600">الرئيسية</a></li>
+                            <li><a href="./about.html" class="hover:text-blue-600">عن صناع</a></li>
+                            <li><a href="./services.html" class="hover:text-blue-600">خدماتنا</a></li>
+                            <li><a href="./products.html" class="hover:text-blue-600">منتجاتنا</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-blue-600 mb-6">الدعم والتواصل</h4>
+                        <ul class="space-y-3 text-gray-700 text-sm">
+                            <li><a href="./contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
+                            <li><a href="./news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
+                            <li><a href="./register.html" class="hover:text-blue-600">انضم كصانع</a></li>
+                            <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية والمستخدم</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-blue-600 mb-6">تواصل معنا</h4>
+        <ul class="space-y-4 text-gray-700 text-sm">
+            <li class="flex items-center gap-3 justify-end">
+                <span>info@sunnaasar.com</span>
+                <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
+            </li>
+            <li class="flex items-center gap-3 justify-end">
+                <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
+                <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
+            </li>
+            <li class="flex items-center gap-3 justify-end">
+                <span>المملكة العربية السعودية</span>
+                <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
+            </li>
+        </ul>
+                    </div>
+                </div>
+                <div class="border-t pt-8 text-center text-gray-400 text-xs font-montserrat">
+                    © <span id="current-year"></span> SUNNA ALL RIGHTS RESERVED
+                </div>
+            </div>
+        </footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
