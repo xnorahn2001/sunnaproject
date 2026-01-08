@@ -260,7 +260,7 @@
     <script src="../js/auth.js"></script>
     <!-- ... (الجزء العلوي من الصفحة يبقى كما هو) ... -->
 
-    <script src="../js/auth.js"></script> <!-- تأكدي أن المسار صحيح -->
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
@@ -385,9 +385,9 @@
                     alert(`تم الدخول بنجاح! مرحباً ${result.name}`);
 
                     if (result.userType === 'Admin') {
-                        window.location.href = 'Admin Dashboard.html';
+                        window.location.href = 'admin-dashboard.html';
                     } else {
-                        window.location.href = 'GeneralDashboard.html';
+                        window.location.href = 'general-dashboard.html';
                     }
 
                 } catch (error) {

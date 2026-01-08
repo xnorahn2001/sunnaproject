@@ -416,7 +416,7 @@
                         <li><a href="./pages/about.html" class="hover:text-blue-600">عن صناع</a></li>
                         <li><a href="./pages/services.html" class="hover:text-blue-600">خدماتنا</a></li>
                         <li><a href="./pages/products.html" class="hover:text-blue-600">منتجاتنا</a></li>
-                        <li><a href="./pages/experts.html" class="hover:text-blue-600">الخبراء والمستشارين</a></li>
+                        <li><a href="./pages/designers.html" class="hover:text-blue-600">الخبراء والمستشارين</a></li>
                     </ul>
                 </div>
                 <div>
@@ -498,10 +498,10 @@
             const userName = localStorage.getItem('userName') || 'المستخدم';
             const userType = localStorage.getItem('userType') || 'Individual'; // نوع المستخدم
             // تحديد رابط الداشبورد بناءً على النوع
-            let dashboardLink = './pages/General Dashboard.html';
+            let dashboardLink = './pages/general-dashboard.html';
 
             if (userType === 'Admin') {
-                dashboardLink = './pages/Admin Dashboard.html'; // توجيه الآدمن
+                dashboardLink = './pages/admin-dashboard.html'; // توجيه الآدمن
             }
             // يمكن إضافة شروط أخرى هنا (مثلاً للمصانع مستقبلاً)
             const desktopAuthContainer = document.getElementById('auth-buttons');
