@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,16 +22,19 @@
             --color-gray-text: #6b7280;
             --color-white: #ffffff;
         }
+
         body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
             text-align: right;
             color: var(--color-dark-text);
             background-color: var(--color-white);
         }
+
         /* توحيد الظلال */
         .custom-shadow {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
         }
+
         /* تعديلات كرت الخدمة الجديد */
         .service-card {
             position: relative;
@@ -39,11 +43,13 @@
             padding-top: 40px;
             /* مسافة داخلية من الأعلى */
         }
+
         .service-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2) !important;
             transition: all 0.3s ease;
         }
+
         .service-icon-container {
             position: absolute;
             top: -30px;
@@ -61,10 +67,12 @@
             /* ظل أزرق خفيف للأيقونة */
             transition: transform 0.3s ease;
         }
+
         .service-card:hover .service-icon-container {
             transform: scale(1.1) rotate(6deg);
             /* تكبير وتدوير بسيط عند الهوفر */
         }
+
         /* تنسيق الشعارات الموحد */
         .partner-logo-container {
             flex: 0 0 auto;
@@ -74,6 +82,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .partner-logo-container img {
             max-height: 55px;
             /* مقاس موحد */
@@ -81,6 +90,7 @@
             object-fit: contain;
             opacity: 0.7;
         }
+
         .scrolling-wrapper {
             white-space: nowrap;
             overflow: hidden;
@@ -88,18 +98,22 @@
             align-items: center;
             direction: ltr;
         }
+
         .scrolling-content {
             display: flex;
             animation: scroll-rtl 40s linear infinite;
         }
+
         @keyframes scroll-rtl {
             from {
                 transform: translateX(0%);
             }
+
             to {
                 transform: translateX(calc(-150px * 12));
             }
         }
+
         .stat-number-large {
             font-family: 'Montserrat', sans-serif;
             font-size: 3rem;
@@ -108,6 +122,7 @@
         }
     </style>
 </head>
+
 <body class="antialiased" x-data="{ mobileMenu: false }">
     <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
@@ -442,17 +457,17 @@
     <script>
         // 1. تشغيل مكتبة AOS
         AOS.init({ duration: 1000, once: true });
-        
+
         if (document.getElementById('current-year')) {
             document.getElementById('current-year').textContent = new Date().getFullYear();
         }
         // 2. دالة مزامنة الإعدادات (صيانة + واتس)
         async function syncGlobalLinks() {
             try {
-                const res = await fetch('http://localhost:5194/api/AdminContent/get-settings');
+                const res = await fetch('https://sunnabackend.onrender.com/api/AdminContent/get-settings');
                 if (res.ok) {
                     const data = await res.json();
-                    
+
                     // فحص وضع الصيانة
                     const maintenanceSetting = data.find(s => s.Key === 'maintenanceMode' || s.key === 'maintenanceMode');
                     const isMaintenance = maintenanceSetting && String(maintenanceSetting.Value || maintenanceSetting.value) === 'true';
@@ -478,13 +493,13 @@
         // 3. إدارة حالة المستخدم في الهيدر (التحديث الأساسي هنا)
         document.addEventListener('DOMContentLoaded', () => {
             syncGlobalLinks();
-            
+
             const userLoggedIn = localStorage.getItem('userLoggedIn');
             const userName = localStorage.getItem('userName') || 'المستخدم';
             const userType = localStorage.getItem('userType') || 'Individual'; // نوع المستخدم
             // تحديد رابط الداشبورد بناءً على النوع
             let dashboardLink = './pages/General Dashboard.html';
-            
+
             if (userType === 'Admin') {
                 dashboardLink = './pages/Admin Dashboard.html'; // توجيه الآدمن
             }
@@ -531,4 +546,5 @@
         }
     </script>
 </body>
+
 </html>
