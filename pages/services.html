@@ -1,81 +1,103 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>خدماتنا - شركة صناع الرسالة القابضة</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
-    
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap"
+        rel="stylesheet">
+
     <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
-    
+
     <style>
         :root {
-            --color-primary: #155FCF;           
-            --color-primary-hover: #124d9f;         
-            --color-dark-text: #111827;             
-            --color-white: #ffffff;                 
+            --color-primary: #155FCF;
+            --color-primary-hover: #124d9f;
+            --color-dark-text: #111827;
+            --color-white: #ffffff;
         }
+
         body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
             text-align: right;
             color: var(--color-dark-text);
             background-color: var(--color-white);
         }
+
         /* توحيد الظلال للأسود الغامق */
         .custom-shadow {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
         }
+
         /* تنسيقات كروت الخدمات */
         .service-card {
-            background-color: var(--color-white); 
+            background-color: var(--color-white);
             transition: all 0.3s ease;
             border-radius: 1.5rem;
             border: 1px solid #f3f4f6;
         }
+
         .service-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important;
         }
+
         .service-icon {
             color: var(--color-primary);
             font-size: 2.5rem;
         }
     </style>
 </head>
+
 <body class="antialiased" x-data="{ mobileMenu: false, dropdownOpen: false }">
     <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
-            
+
             <div class="flex items-center space-x-2 flex-row-reverse order-1">
                 <a href="../index.html" class="focus:outline-none flex items-center">
-                    <img src="../imgaes/شعار صناع (2).png" alt="شعار صناع" class="h-12 w-auto"> 
+                    <img src="../imgaes/شعار صناع (2).png" alt="شعار صناع" class="h-12 w-auto">
                 </a>
                 <button @click="mobileMenu = !mobileMenu" class="rounded-lg md:hidden focus:outline-none mr-4">
                     <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
-                        <path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"></path>
-                        <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2"></path>
+                        <path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2">
+                        </path>
+                        <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2">
+                        </path>
                     </svg>
                 </button>
             </div>
             <nav class="hidden md:flex flex-grow justify-center order-2">
                 <div class="flex items-center md:space-x-8 md:space-x-reverse">
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="../index.html">الرئيسية</a>
-                    <a class="px-4 py-2 text-sm font-bold text-blue-600 border-b-2 border-blue-600" href="./services.html">الخدمات</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./about.html">عن صناع</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./news.html">أخبارنا</a>
-                    
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition"
+                        href="../index.html">الرئيسية</a>
+                    <a class="px-4 py-2 text-sm font-bold text-blue-600 border-b-2 border-blue-600"
+                        href="./services.html">الخدمات</a>
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./about.html">عن
+                        صناع</a>
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition"
+                        href="./news.html">أخبارنا</a>
+
                     <div class="relative">
-                        <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none">
+                        <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false"
+                            class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none">
                             <span>انضم لنا</span>
-                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': dropdownOpen}" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
+                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': dropdownOpen}"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z">
+                                </path>
+                            </svg>
                         </button>
-                        <div x-show="dropdownOpen" x-transition class="absolute right-0 w-40 mt-2 bg-white border border-gray-200 rounded-md shadow-xl z-50">
+                        <div x-show="dropdownOpen" x-transition
+                            class="absolute right-0 w-40 mt-2 bg-white border border-gray-200 rounded-md shadow-xl z-50">
                             <a class="block px-4 py-3 text-sm hover:bg-blue-50" href="./forms.html">تدريب</a>
                             <a class="block px-4 py-3 text-sm hover:bg-blue-50" href="./forms.html">توظيف</a>
                         </div>
@@ -84,17 +106,21 @@
             </nav>
             <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
                 <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold" href="./english.html">EN</a>
-                <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold transition hover:bg-blue-50" href="./login.html">تسجيل دخول</a>
-                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow" href="./register.html">تسجيل</a>
+                <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold transition hover:bg-blue-50"
+                    href="./login.html">تسجيل دخول</a>
+                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow"
+                    href="./register.html">تسجيل</a>
             </div>
         </div>
         <div x-show="mobileMenu" x-transition class="md:hidden bg-white border-t border-gray-100 pb-4">
             <div class="flex flex-col p-4 space-y-2">
                 <a class="block px-6 py-3 text-sm" href="../index.html">الرئيسية</a>
-                <a class="block px-6 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-lg" href="./services.html">الخدمات</a>
+                <a class="block px-6 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-lg"
+                    href="./services.html">الخدمات</a>
                 <a class="block px-6 py-3 text-sm" href="./about.html">عن صناع</a>
                 <div x-data="{ subOpen: false }">
-                    <button @click="subOpen = !subOpen" class="flex justify-between w-full px-6 py-3 text-sm">انضم لنا <span>+</span></button>
+                    <button @click="subOpen = !subOpen" class="flex justify-between w-full px-6 py-3 text-sm">انضم لنا
+                        <span>+</span></button>
                     <div x-show="subOpen" class="bg-gray-50 px-10 py-2 rounded-lg">
                         <a class="block py-2 text-sm" href="./forms.html">تدريب</a>
                         <a class="block py-2 text-sm" href="./forms.html">توظيف</a>
@@ -102,47 +128,52 @@
                 </div>
                 <div class="px-6 mt-4 space-y-2 text-center">
                     <a class="block bg-blue-600 text-white py-3 rounded-xl font-bold" href="./register.html">تسجيل</a>
-                    <a class="block border border-blue-600 text-blue-600 py-3 rounded-xl font-bold" href="./login.html">تسجيل دخول</a>
+                    <a class="block border border-blue-600 text-blue-600 py-3 rounded-xl font-bold"
+                        href="./login.html">تسجيل دخول</a>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <section class="py-16 bg-white text-center">
         <div class="max-w-7xl mx-auto px-8">
             <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-6">
                 <i class="fas fa-cogs mr-2 text-blue-600"></i>
                 <span class="text-blue-700 font-bold text-sm">خدماتنا المتميزة</span>
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">خدمات <span class="text-blue-600">الشركة</span></h1>
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">فريق متكامل ومحاور رئيسية تصاحبك من الفكرة وحتى التسويق والإنتاج</p>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">خدمات <span
+                    class="text-blue-600">الشركة</span></h1>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">فريق متكامل ومحاور رئيسية تصاحبك من
+                الفكرة وحتى التسويق والإنتاج</p>
         </div>
     </section>
     <section class="pb-24 bg-white">
         <div class="max-w-screen-xl mx-auto px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
+
                 <div data-aos="fade-up" class="service-card p-8 custom-shadow">
                     <i class="service-icon fas fa-drafting-compass mb-4"></i>
                     <h3 class="text-xl font-bold mb-3">استديو تصميم المنتجات الملموسة</h3>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">نصمم منتجك من مرحلة الفكرة إلى مرحلة التنفيذ.</p>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6">نصمم منتجك من مرحلة الفكرة إلى مرحلة التنفيذ.
+                    </p>
                     <a href="./design-studio.html" class="text-blue-600 font-bold text-sm underline">اطلب الخدمة ←</a>
                 </div>
-                
+
                 <div data-aos="fade-up" data-aos-delay="100" class="service-card p-8 custom-shadow">
                     <i class="service-icon fas fa-laptop-code mb-4"></i>
                     <h3 class="text-xl font-bold mb-3">استديو تصميم المنتجات الرقمية (UI & UX)</h3>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">نصمم منتجات رقمية، واجهات UI & UX.</p>
                     <a href="./design-studio.html" class="text-blue-600 font-bold text-sm underline">اطلب الخدمة ←</a>
                 </div>
-                
+
                 <div data-aos="fade-up" data-aos-delay="200" class="service-card p-8 custom-shadow">
                     <i class="service-icon fas fa-comments mb-4"></i>
                     <h3 class="text-xl font-bold mb-3">استشارات تصميمية متخصصة</h3>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-6">نقدم استشارة متخصصة في مجال تصميم المنتجات من مرحلة الفكرة إلى الإنتاج والتصنيع وصولاً للأسواق.</p>
+                    <p class="text-gray-700 text-sm leading-relaxed mb-6">نقدم استشارة متخصصة في مجال تصميم المنتجات من
+                        مرحلة الفكرة إلى الإنتاج والتصنيع وصولاً للأسواق.</p>
                     <a href="./consultations.html" class="text-blue-600 font-bold text-sm underline">احجز استشارة ←</a>
                 </div>
-                
+
                 <div data-aos="fade-up" data-aos-delay="300" class="service-card p-8 custom-shadow">
                     <i class="service-icon fas fa-shopping-cart mb-4"></i>
                     <h3 class="text-xl font-bold mb-3">متجر صناع</h3>
@@ -158,13 +189,14 @@
             </div>
         </div>
     </section>
-    
+
     <footer class="bg-white border-t border-gray-200 pt-16 pb-8 text-right">
         <div class="max-w-screen-xl mx-auto px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <div>
                     <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="w-24 h-auto mb-6">
-                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكن اصحاب الافكار ورواد الاعمال من تحويل أفكارهم إلى منتجات.</p>
+                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة
+                        تمكن اصحاب الافكار ورواد الاعمال من تحويل أفكارهم إلى منتجات.</p>
                 </div>
                 <div>
                     <h4 class="font-bold text-blue-600 mb-6 font-montserrat">الروابط الأساسية</h4>
@@ -182,7 +214,8 @@
                         <li><a href="./contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
                         <li><a href="./news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
                         <li><a href="./register.html" class="hover:text-blue-600">انضم كصانع</a></li>
-                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية والمستخدم</a></li>
+                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية والمستخدم</a>
+                        </li>
                     </ul>
                 </div>
                 <div>
@@ -193,7 +226,8 @@
                             <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
                         </li>
                         <li class="flex items-center gap-3 justify-end">
-                            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
+                            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388
+                                1493</span>
                             <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
                         </li>
                         <li class="flex items-center gap-3 justify-end">
@@ -211,16 +245,16 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
-        if(document.getElementById('current-year')) {
+        if (document.getElementById('current-year')) {
             document.getElementById('current-year').textContent = new Date().getFullYear();
         }
         async function syncGlobalLinks() {
             try {
                 // ✅ استخدام المنفذ الصحيح 5194
-                const res = await fetch('http://localhost:5194/api/AdminContent/get-settings');
+                const res = await fetch('https://sunnabackend.onrender.com/api/AdminContent/get-settings');
                 if (res.ok) {
                     const data = await res.json();
-                    
+
                     // ✅ معالجة البيانات بشكل صحيح (مراعاة حالة الأحرف)
                     const maintenanceSetting = data.find(s => s.Key === 'maintenanceMode' || s.key === 'maintenanceMode');
                     const isMaintenance = maintenanceSetting && String(maintenanceSetting.Value || maintenanceSetting.value) === 'true';
@@ -238,8 +272,9 @@
             }
         }
         document.addEventListener('DOMContentLoaded', () => {
-             syncGlobalLinks();
+            syncGlobalLinks();
         });
     </script>
 </body>
+
 </html>

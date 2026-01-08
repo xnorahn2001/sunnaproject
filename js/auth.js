@@ -1,6 +1,6 @@
 // js/auth.js
 
-var API_BASE_URL = 'http://localhost:5194/api';
+var API_BASE_URL = 'https://sunnabackend.onrender.com/api';
 
 var authService = {
     // دالة مساعدة لفك تشفير التوكن
@@ -8,7 +8,7 @@ var authService = {
         try {
             var base64Url = token.split('.')[1];
             var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
             }).join(''));
             return JSON.parse(jsonPayload);
@@ -18,23 +18,23 @@ var authService = {
     },
 
     async login(phoneOrCR, password) {
-        const url = `${API_BASE_URL}/Auth/login`; 
+        const url = `${API_BASE_URL}/Auth/login`;
         console.log("جاري إرسال طلب تسجيل الدخول إلى:", url);
 
         const response = await fetch(url, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json' 
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
-                PhoneOrCR: phoneOrCR, 
-                Password: password  
+                PhoneOrCR: phoneOrCR,
+                Password: password
             })
         });
 
         if (response.status === 404) {
-             throw new Error("لم يتم العثور على الرابط. تأكدي من تشغيل السيرفر.");
+            throw new Error("لم يتم العثور على الرابط. تأكدي من تشغيل السيرفر.");
         }
 
         if (!response.ok) {
@@ -55,10 +55,10 @@ var authService = {
         if (data.Token) {
             // حفظ التوكن
             localStorage.setItem('token', data.Token);
-            
+
             // فك التشفير واستخراج البيانات
             const decoded = this.parseJwt(data.Token);
-            
+
             if (decoded) {
                 // استخراج الدور (Role) والاسم
                 // في .NET Claims، الدور يأتي غالباً باسم طويل

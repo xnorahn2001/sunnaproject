@@ -1,72 +1,150 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نخبة الخبراء - شركة صناع الرسالة القابضة</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap"
+        rel="stylesheet">
     <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
-    
+
     <style>
-        :root { --color-primary: #155FCF; --color-primary-hover: #124d9f; --color-dark-text: #111827; --color-white: #ffffff; }
-        body { font-family: 'IBM Plex Sans Arabic', sans-serif; text-align: right; color: var(--color-dark-text); background-color: var(--color-white); }
-        .custom-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important; }
-        .expert-card { background-color: var(--color-white); transition: all 0.3s ease; border-radius: 1.5rem; border: 1px solid #f3f4f6; text-align: center; height: 100%; display: flex; flex-direction: column; }
-        .expert-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important; }
-        .expert-avatar { width: 110px; height: 110px; object-fit: cover; border-radius: 50%; border: 4px solid #eff6ff; margin: 0 auto 1.5rem; transition: transform 0.3s ease; background-color: #f8fafc; }
-        .expert-card:hover .expert-avatar { transform: scale(1.05); border-color: var(--color-primary); }
-        .expert-badge { font-size: 0.65rem; font-weight: 800; padding: 3px 10px; border-radius: 50px; text-transform: uppercase; margin-bottom: 10px; display: inline-block; }
-        .btn-primary { background-color: var(--color-primary); color: white; transition: all 0.3s; }
-        .btn-primary:hover { background-color: var(--color-primary-hover); }
-        .btn-disabled { background-color: #cbd5e1; color: #64748b; cursor: not-allowed; }
+        :root {
+            --color-primary: #155FCF;
+            --color-primary-hover: #124d9f;
+            --color-dark-text: #111827;
+            --color-white: #ffffff;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            text-align: right;
+            color: var(--color-dark-text);
+            background-color: var(--color-white);
+        }
+
+        .custom-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .expert-card {
+            background-color: var(--color-white);
+            transition: all 0.3s ease;
+            border-radius: 1.5rem;
+            border: 1px solid #f3f4f6;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .expert-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .expert-avatar {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #eff6ff;
+            margin: 0 auto 1.5rem;
+            transition: transform 0.3s ease;
+            background-color: #f8fafc;
+        }
+
+        .expert-card:hover .expert-avatar {
+            transform: scale(1.05);
+            border-color: var(--color-primary);
+        }
+
+        .expert-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        .btn-disabled {
+            background-color: #cbd5e1;
+            color: #64748b;
+            cursor: not-allowed;
+        }
     </style>
 </head>
+
 <body class="antialiased" x-data="{ mobileMenu: false }">
     <!-- Navbar -->
     <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
             <div class="flex items-center space-x-2 flex-row-reverse order-1">
                 <a href="../index.html" class="focus:outline-none flex items-center">
-                    <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-12 w-auto"> 
+                    <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-12 w-auto">
                 </a>
-                <button @click="mobileMenu = !mobileMenu" class="rounded-lg md:hidden focus:outline-none mr-4 text-gray-600">
+                <button @click="mobileMenu = !mobileMenu"
+                    class="rounded-lg md:hidden focus:outline-none mr-4 text-gray-600">
                     <i class="fas fa-bars w-6 h-6 text-xl"></i>
                 </button>
             </div>
             <nav class="hidden md:flex flex-grow justify-center order-2 font-bold">
                 <div class="flex items-center md:space-x-8 md:space-x-reverse">
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="../index.html">الرئيسية</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./services.html">الخدمات</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./about.html">عن صناع</a>
-                    <a class="px-4 py-2 text-sm text-blue-600 border-b-2 border-blue-600" href="./experts.html">الخبراء</a>
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition"
+                        href="../index.html">الرئيسية</a>
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition"
+                        href="./services.html">الخدمات</a>
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./about.html">عن
+                        صناع</a>
+                    <a class="px-4 py-2 text-sm text-blue-600 border-b-2 border-blue-600"
+                        href="./experts.html">الخبراء</a>
                 </div>
             </nav>
             <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
-                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow hover:bg-blue-700 transition" href="./register.html">انضم لنا</a>
+                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow hover:bg-blue-700 transition"
+                    href="./register.html">انضم لنا</a>
             </div>
         </div>
         <div x-show="mobileMenu" x-transition class="md:hidden bg-white border-t border-gray-100 pb-4 shadow-inner">
             <div class="flex flex-col p-4 space-y-2">
                 <a class="block px-6 py-3 text-sm" href="../index.html">الرئيسية</a>
-                <a class="block px-6 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-lg" href="./services.html">الخدمات</a>
+                <a class="block px-6 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-lg"
+                    href="./services.html">الخدمات</a>
                 <a class="block px-6 py-3 text-sm" href="./about.html">عن صناع</a>
             </div>
         </div>
     </div>
-    
+
     <section class="py-16 bg-white text-center">
         <div class="max-w-7xl mx-auto px-8">
-            <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-6 text-blue-700 font-bold text-sm">
+            <div
+                class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-6 text-blue-700 font-bold text-sm">
                 <i class="fas fa-user-check ml-2"></i> نخبة الكفاءات
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">المصممون <span class="text-blue-600">والمستشارون</span></h1>
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">استكشف مجموعة من أفضل الخبراء المعتمدين في مجالات التصميم الصناعي والاستشارات الفنية.</p>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">المصممون <span
+                    class="text-blue-600">والمستشارون</span></h1>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">استكشف مجموعة من أفضل الخبراء المعتمدين
+                في مجالات التصميم الصناعي والاستشارات الفنية.</p>
         </div>
     </section>
     <section class="pb-24 bg-white flex-grow">
@@ -74,7 +152,7 @@
             <div class="flex items-center justify-between mb-12 border-r-4 border-blue-600 pr-4">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900">طاقم الخبراء المعتمد</h2>
             </div>
-            
+
             <div id="experts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- مؤشر التحميل -->
                 <div class="col-span-full text-center py-20 hidden" id="loading-spinner">
@@ -82,8 +160,11 @@
                 </div>
             </div>
             <div class="mt-20 text-center bg-blue-50/50 p-10 rounded-3xl border border-blue-100">
-                <h4 class="text-xl font-bold mb-4 text-gray-900">هل تملك مهارات التصميم أو الخبرة الاستشارية وتود الانضمام إلينا؟</h4>
-                <a href="./register.html" class="inline-block bg-blue-600 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-700 transition-all shadow-xl">سجل كخبير الآن</a>
+                <h4 class="text-xl font-bold mb-4 text-gray-900">هل تملك مهارات التصميم أو الخبرة الاستشارية وتود
+                    الانضمام إلينا؟</h4>
+                <a href="./register.html"
+                    class="inline-block bg-blue-600 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-700 transition-all shadow-xl">سجل
+                    كخبير الآن</a>
             </div>
         </div>
     </section>
@@ -111,7 +192,8 @@
                         <li><a href="./contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
                         <li><a href="./news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
                         <li><a href="./register.html" class="hover:text-blue-600">انضم كصانع</a></li>
-                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية والمستخدم</a></li>
+                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية والمستخدم</a>
+                        </li>
                     </ul>
                 </div>
                 <div>
@@ -122,7 +204,8 @@
                             <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
                         </li>
                         <li class="flex items-center gap-3 justify-end">
-                            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
+                            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388
+                                1493</span>
                             <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
                         </li>
                         <li class="flex items-center gap-3 justify-end">
@@ -140,21 +223,21 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
-        if(document.getElementById('current-year')) {
+        if (document.getElementById('current-year')) {
             document.getElementById('current-year').textContent = new Date().getFullYear();
         }
         async function loadExperts() {
             const container = document.getElementById('experts-container');
             const spinner = document.getElementById('loading-spinner');
-            const BASE_URL = 'http://localhost:5194';
+            const BASE_URL = 'https://sunnabackend.onrender.com';
             try {
-                if(spinner) spinner.classList.remove('hidden');
-                
+                if (spinner) spinner.classList.remove('hidden');
+
                 const response = await fetch(`${BASE_URL}/api/AdminContent/get-all-experts`);
                 if (!response.ok) throw new Error("Failed");
-                
+
                 const experts = await response.json();
-                container.innerHTML = ''; 
+                container.innerHTML = '';
                 if (!experts || experts.length === 0) {
                     container.innerHTML = '<p class="col-span-full text-center py-10 text-gray-500">لا يوجد خبراء مضافين حالياً.</p>';
                     return;
@@ -170,7 +253,7 @@
                     let bio = rawDesc;
                     if (rawDesc.includes('|')) {
                         const parts = rawDesc.split('|');
-                        bio = ""; 
+                        bio = "";
                         parts.forEach(part => {
                             part = part.trim();
                             if (part.startsWith('Role:')) role = part.replace('Role:', '').trim();
@@ -178,7 +261,7 @@
                             else bio += part + " ";
                         });
                     }
-                    if(!role) role = "خبير معتمد";
+                    if (!role) role = "خبير معتمد";
                     // معالجة الرابط
                     if (externalLink && externalLink !== '#' && !externalLink.startsWith('http')) {
                         externalLink = 'https://' + externalLink;
@@ -214,12 +297,13 @@
                             </a>
                         </div>`;
                 });
-            } catch (e) { 
-                console.error("خطأ:", e); 
+            } catch (e) {
+                console.error("خطأ:", e);
                 container.innerHTML = '<p class="col-span-full text-center py-10 text-red-500 italic">عذراً، فشل تحميل البيانات.</p>';
             }
         }
         window.onload = loadExperts;
     </script>
 </body>
+
 </html>

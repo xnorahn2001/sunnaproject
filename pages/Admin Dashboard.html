@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,29 +15,35 @@
             --color-primary: #155FCF;
             --color-sidebar: #ffffff;
         }
+
         body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
             background-color: #fdfdfd;
         }
+
         .sidebar {
             background-color: var(--color-sidebar);
             border-left: 1px solid #f1f5f9;
         }
+
         .menu-item {
             cursor: pointer;
             transition: 0.2s;
             color: #64748b;
             font-weight: 500;
         }
+
         .menu-item:hover {
             background-color: #f8fafc;
             color: var(--color-primary);
         }
+
         .menu-item.active {
             background-color: #eff6ff;
             color: var(--color-primary);
             border-left: 4px solid var(--color-primary);
         }
+
         .content-card {
             background: white;
             border-radius: 1.5rem;
@@ -45,6 +52,7 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
             margin-bottom: 2rem;
         }
+
         .form-input {
             width: 100%;
             padding: 0.75rem;
@@ -56,10 +64,12 @@
             text-align: left;
             direction: ltr;
         }
+
         .form-input:focus {
             border-color: var(--color-primary);
             box-shadow: 0 0 0 2px rgba(21, 95, 207, 0.1);
         }
+
         .btn-action {
             transition: 0.3s;
             padding: 5px 10px;
@@ -67,32 +77,40 @@
             font-weight: bold;
             font-size: 0.8rem;
         }
+
         .btn-edit {
             color: #155FCF;
             background: #eff6ff;
         }
+
         .btn-delete {
             color: #ef4444;
             background: #fef2f2;
         }
+
         .btn-accept {
             color: #059669;
             background: #d1fae5;
         }
+
         .btn-reject {
             color: #dc2626;
             background: #fee2e2;
         }
+
         .toggle-checkbox:checked {
             right: 0;
             border-color: #68D391;
         }
+
         .toggle-checkbox:checked+.toggle-label {
             background-color: #68D391;
         }
+
         [x-cloak] {
             display: none !important;
         }
+
         .logo-box {
             display: flex;
             justify-content: center;
@@ -100,6 +118,7 @@
             border-bottom: 1px solid #f8fafc;
             margin-bottom: 15px;
         }
+
         .status-badge {
             padding: 4px 10px;
             border-radius: 99px;
@@ -108,6 +127,7 @@
         }
     </style>
 </head>
+
 <body class="antialiased" x-data="adminSystem()">
     <div class="flex min-h-screen">
         <!-- Sidebar -->
@@ -452,8 +472,8 @@
     <!-- MAIN LOGIC -->
     <script>
         function adminSystem() {
-            const BASE_URL = 'http://localhost:5194/api/AdminContent';
-            const HOST_URL = 'http://localhost:5194';
+            const BASE_URL = 'https://sunnabackend.onrender.com/api/AdminContent';
+            const HOST_URL = 'https://sunnabackend.onrender.com';
             return {
                 activeTab: 'stats',
                 adminName: localStorage.getItem('userName') || 'المدير العام',
@@ -638,4 +658,5 @@
         }
     </script>
 </body>
+
 </html>

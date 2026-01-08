@@ -1,11 +1,11 @@
 // js/apiService.js
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = 'https://sunnabackend.onrender.com/api';
 
 const apiService = {
     async request(endpoint, method = 'GET', body = null, isQueryParam = false) {
         const token = localStorage.getItem('token');
         let url = `${BASE_URL}${endpoint}`;
-        
+
         const options = {
             method,
             headers: {
