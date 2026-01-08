@@ -3,190 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إنشاء حساب - شركة صناع الرسالة القابضة</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>تسجيل حساب جديد - شركة صناع الرسالة القابضة</title>
     
     <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
     <style>
-        :root {
-            --color-primary: #155FCF;
-            --color-primary-hover: #124d9f;
-        }
-        body {
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
-            text-align: right;
-            background-color: #f8fafc;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .custom-shadow {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
-        }
-        .form-input {
-            width: 100%;
-            padding: 0.85rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.75rem;
-            transition: all 0.3s ease;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            background-color: white;
-            box-shadow: 0 0 0 3px rgba(21, 95, 207, 0.1);
-        }
-        .user-type-card {
-            border: 2px solid #f3f4f6;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .selected-card {
-            border-color: var(--color-primary) !important;
-            background-color: #eff6ff !important;
-        }
-        .btn-primary {
-            background-color: var(--color-primary);
-            transition: all 0.3s;
-        }
-        .btn-primary:hover {
-            background-color: var(--color-primary-hover);
-            transform: translateY(-2px);
-        }
+        body { font-family: 'IBM Plex Sans Arabic', sans-serif; }
     </style>
 </head>
-
-<body x-data="{ userType: 'individual' }">
-
-    <div class="w-full bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20">
-            <a href="../index.html">
-                <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-10 w-auto">
-            </a>
-            <a href="./login.html" class="text-sm font-bold text-blue-600 hover:underline">تسجيل دخول</a>
-        </div>
-    </div>
-
-    <div class="flex-grow flex items-center justify-center p-6 bg-gray-50">
-        <div class="w-full max-w-xl bg-white rounded-3xl p-8 md:p-12 custom-shadow border border-gray-100">
-            <div class="text-center mb-10">
-                <h1 class="text-3xl font-extrabold text-gray-900 mb-2">إنشاء حساب جديد</h1>
-                <p class="text-gray-500">سجل بياناتك للانضمام إلى منصة صناع</p>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white rounded-3xl shadow-xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row">
+        
+        <!-- القسم الجانبي (الأزرق) -->
+        <div class="hidden md:flex md:w-1/2 bg-blue-600 text-white flex-col justify-center items-center p-10 relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('../imgaes/pattern.png')] opacity-10"></div>
+            <div class="relative z-10 text-center">
+                <div class="bg-white p-4 rounded-3xl shadow-md inline-block mb-6">
+                    <img src="../imgaes/شعار صناع (2).png" class="w-24 h-auto">
+                </div>
+                <h2 class="text-3xl font-bold mb-4">أهلاً بك في عائلة صناع</h2>
+                <p class="text-blue-100 leading-relaxed font-light text-lg">انضم الآن وابدأ رحلتك في عالم الابتكار والتصميم.</p>
             </div>
-
-            <form class="space-y-6">
-                <div class="grid grid-cols-2 gap-4 mb-8">
-                    <div @click="userType = 'individual'" :class="userType === 'individual' ? 'selected-card' : ''" class="user-type-card p-5 rounded-2xl text-center">
-                        <i class="fas fa-user text-2xl mb-2" :class="userType === 'individual' ? 'text-blue-600' : 'text-gray-400'"></i>
-                        <p class="font-bold text-sm">فرد</p>
-                    </div>
-                    <div @click="userType = 'company'" :class="userType === 'company' ? 'selected-card' : ''" class="user-type-card p-5 rounded-2xl text-center">
-                        <i class="fas fa-building text-2xl mb-2" :class="userType === 'company' ? 'text-blue-600' : 'text-gray-400'"></i>
-                        <p class="font-bold text-sm">شركة / منشأة</p>
+        </div>
+        
+        <!-- القسم الأيسر (النموذج) -->
+        <div class="w-full md:w-1/2 p-8 md:p-12">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl font-bold text-gray-800">إنشاء حساب جديد</h2>
+                <p class="text-gray-500 mt-2">أدخل بياناتك للتسجيل</p>
+            </div>
+            
+            <form id="registerForm" class="space-y-4" onsubmit="registerUser(event)">
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">الاسم الكامل</label>
+                    <div class="relative">
+                        <i class="fas fa-user absolute right-4 top-3.5 text-gray-400"></i>
+                        <input type="text" id="fullName" required 
+                               class="w-full pr-10 pl-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition"
+                               placeholder="الاسم الثلاثي">
                     </div>
                 </div>
-
-                <div class="space-y-5">
-                    <div>
-                        <label class="block text-sm font-bold mb-2 text-gray-700" x-text="userType === 'individual' ? 'الاسم الكامل' : 'اسم المنشأة التجاري'"></label>
-                        <input type="text" class="form-input" :placeholder="userType === 'individual' ? 'أدخل اسمك الثلاثي' : 'أدخل اسم الشركة الرسمي'" required>
+                <!-- حقل البريد الإلكتروني -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">البريد الإلكتروني</label>
+                    <div class="relative">
+                        <i class="fas fa-envelope absolute right-4 top-3.5 text-gray-400"></i>
+                        <input type="email" id="email" required 
+                               class="w-full pr-10 pl-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition"
+                               placeholder="example@mail.com">
                     </div>
-
-                    <div x-show="userType === 'individual'" x-transition>
-                        <label class="block text-sm font-bold mb-2 text-gray-700">رقم الجوال</label>
-                        <input type="tel" class="form-input" placeholder="05XXXXXXXX" :required="userType === 'individual'">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">رقم الجوال</label>
+                    <div class="relative">
+                        <i class="fas fa-phone absolute right-4 top-3.5 text-gray-400"></i>
+                        <input type="tel" id="phoneNumber" required pattern="05[0-9]{8}"
+                               class="w-full pr-10 pl-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition"
+                               placeholder="05xxxxxxxx">
                     </div>
-
-                    <div x-show="userType === 'company'" x-transition style="display: none;">
-                        <label class="block text-sm font-bold mb-2 text-gray-700">رقم السجل التجاري</label>
-                        <input type="text" class="form-input" placeholder="10XXXXXXXX" :required="userType === 'company'">
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-bold mb-2 text-gray-700">كلمة المرور</label>
-                            <input type="password" class="form-input" placeholder="••••••••" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">نوع الحساب</label>
+                    <div class="relative">
+                        <i class="fas fa-users absolute right-4 top-3.5 text-gray-400"></i>
+                        <select id="userType" class="w-full pr-10 pl-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition appearance-none">
+                            <option value="Individual">فرد (مستشار / مصمم)</option>
+                            <option value="Factory">مصنع / ورشة</option> 
+                            <option value="Company">منشأة / شركة</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-gray-700">
+                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                         </div>
-                        <div>
-                            <label class="block text-sm font-bold mb-2 text-gray-700">تأكيد الكلمة</label>
-                            <input type="password" class="form-input" placeholder="••••••••" required>
-                        </div>
                     </div>
                 </div>
-
-                <div class="flex items-start gap-2 text-sm text-gray-600 mt-4">
-                    <input type="checkbox" required class="mt-1 w-4 h-4 rounded border-gray-300 text-blue-600">
-                    <span>أوافق على <a href="#" class="text-blue-600 underline font-bold">شروط الاستخدام</a> وسياسة الخصوصية.</span>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">كلمة المرور</label>
+                    <div class="relative">
+                        <i class="fas fa-lock absolute right-4 top-3.5 text-gray-400"></i>
+                        <input type="password" id="password" required minlength="6"
+                               class="w-full pr-10 pl-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition"
+                               placeholder="********">
+                    </div>
                 </div>
-
-                <button type="submit" class="w-full btn-primary text-white py-4 rounded-xl font-bold text-lg shadow-lg">
-                    إنشاء حسابي الآن
+                <div id="error-msg" class="text-red-500 text-sm text-center hidden p-2 bg-red-50 rounded-lg"></div>
+                <button type="submit" id="submitBtn" 
+                        class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition shadow-lg transform hover:-translate-y-1">
+                    إنشاء الحساب
                 </button>
             </form>
-
-            <div class="mt-8 text-center border-t pt-6">
-                <p class="text-gray-600 text-sm">لديك حساب بالفعل؟ <a href="./login.html" class="text-blue-600 font-bold hover:underline">سجل دخولك هنا</a></p>
+            <div class="mt-8 text-center text-sm text-gray-500">
+                لديك حساب بالفعل؟ <a href="./login.html" class="text-blue-600 font-bold hover:underline">تسجيل الدخول</a>
             </div>
         </div>
     </div>
-
-    <footer class="bg-white border-t border-gray-200 pt-16 pb-8 text-right">
-        <div class="max-w-screen-xl mx-auto px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                <div>
-                    <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="w-24 h-auto mb-6">
-                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكن اصحاب الافكار ورواد الاعمال من تحويل أفكارهم إلى منتجات.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6 font-montserrat">الروابط الأساسية</h4>
-                    <ul class="space-y-3 text-gray-700 text-sm">
-                        <li><a href="../index.html" class="hover:text-blue-600">الرئيسية</a></li>
-                        <li><a href="./about.html" class="hover:text-blue-600">عن صناع</a></li>
-                        <li><a href="./services.html" class="hover:text-blue-600">خدماتنا</a></li>
-                        <li><a href="./products.html" class="hover:text-blue-600">منتجاتنا</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6">الدعم والتواصل</h4>
-                    <ul class="space-y-3 text-gray-700 text-sm">
-                        <li><a href="./contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
-                        <li><a href="./news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
-                        <li><a href="./register.html" class="hover:text-blue-600">انضم كصانع</a></li>
-                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية والمستخدم</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6">تواصل معنا</h4>
-    <ul class="space-y-4 text-gray-700 text-sm">
-        <li class="flex items-center gap-3 justify-end">
-            <span>info@sunnaasar.com</span>
-            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
-            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span>المملكة العربية السعودية</span>
-            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
-        </li>
-    </ul>
-                </div>
-            </div>
-            <div class="border-t pt-8 text-center text-gray-400 text-xs font-montserrat">
-                © <span id="current-year"></span> SUNNA ALL RIGHTS RESERVED
-            </div>
-        </div>
-    </footer>
-
+    <!-- Script -->
     <script>
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+        async function registerUser(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const errorMsg = document.getElementById('error-msg');
+            
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i> جاري التسجيل...';
+            errorMsg.classList.add('hidden');
+            
+            // توليد بيانات المستخدم
+            const userType = document.getElementById('userType').value;
+            const crNumber = userType === 'Individual' ? null : "0000000000"; 
+            const data = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                userType: userType,
+                password: document.getElementById('password').value,
+                crNumber: crNumber 
+            };
+            try {
+                const response = await fetch('http://localhost:5194/api/Auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                // ✅ تحسين معالجة الرد وتجنب أخطاء JSON
+                let result;
+                const contentType = response.headers.get("content-type");
+                
+                if (contentType && contentType.indexOf("application/json") !== -1) {
+                    result = await response.json();
+                } else {
+                    // إذا كان الخطأ نصياً من السيرفر
+                    const text = await response.text();
+                    throw new Error(text || 'حدث خطأ غير متوقع من السيرفر');
+                }
+                if (response.ok) {
+                    if(result.token || result.Token) {
+                        localStorage.setItem('authToken', result.token || result.Token);
+                        localStorage.setItem('userLoggedIn', 'true');
+                        localStorage.setItem('userName', data.fullName);
+                        localStorage.setItem('userType', data.userType);
+                        
+                        // التوجيه مع معالجة المسافات في اسم الملف
+                        window.location.href = './General%20Dashboard.html'; 
+                    } else {
+                        window.location.href = './login.html';
+                    }
+                } else {
+                    // عرض رسالة الخطأ القادمة من الباك إند
+                    throw new Error(result.message || (typeof result === 'string' ? result : JSON.stringify(result)));
+                }
+            } catch (error) {
+                console.error(error);
+                errorMsg.textContent = '⚠️ ' + error.message.replace(/"/g, ''); // تنظيف الرسالة
+                errorMsg.classList.remove('hidden');
+                btn.disabled = false;
+                btn.textContent = 'إنشاء الحساب';
+            }
+        }
     </script>
 </body>
 </html>

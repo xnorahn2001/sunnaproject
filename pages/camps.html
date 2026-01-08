@@ -16,114 +16,48 @@
     <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
     
     <style>
-        :root {
-            --color-primary: #155FCF;           
-            --color-primary-hover: #124d9f;         
-            --color-dark-text: #111827;             
-            --color-white: #ffffff;                 
-        }
-        body {
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
-            text-align: right;
-            color: var(--color-dark-text);
-            background-color: var(--color-white);
-        }
-
-        /* توحيد الظلال للأسود الغامق */
-        .custom-shadow {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
-        }
-
-        .camp-card {
-            background-color: var(--color-white); 
-            transition: all 0.3s ease;
-            border-radius: 1.5rem;
-            border: 1px solid #f3f4f6;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        .camp-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important;
-        }
-        
-        .camp-image {
-            height: 200px;
-            object-fit: cover;
-            width: 100%;
-        }
-
-        .camp-tag {
-            background-color: #eff6ff;
-            color: var(--color-primary);
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 99px;
-            font-size: 0.75rem;
-        }
-
-        .btn-primary {
-            background-color: var(--color-primary);
-            color: white;
-            transition: all 0.3s;
-        }
+        :root { --color-primary: #155FCF; --color-primary-hover: #124d9f; --color-dark-text: #111827; --color-white: #ffffff; }
+        body { font-family: 'IBM Plex Sans Arabic', sans-serif; text-align: right; color: var(--color-dark-text); background-color: var(--color-white); }
+        .custom-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important; }
+        .camp-card { background-color: var(--color-white); transition: all 0.3s ease; border-radius: 1.5rem; border: 1px solid #f3f4f6; overflow: hidden; display: flex; flex-direction: column; height: 100%; }
+        .camp-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important; }
+        .camp-image { height: 200px; object-fit: cover; width: 100%; }
+        .camp-tag { background-color: #eff6ff; color: var(--color-primary); font-weight: 700; padding: 4px 12px; border-radius: 99px; font-size: 0.75rem; }
+        .btn-primary { background-color: var(--color-primary); color: white; transition: all 0.3s; }
+        .btn-primary:hover { background-color: var(--color-primary-hover); }
+        .btn-disabled { background-color: #cbd5e1; color: #64748b; cursor: not-allowed; }
     </style>
 </head>
 <body class="antialiased" x-data="{ mobileMenu: false, dropdownOpen: false }">
-
     <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
-            
             <div class="flex items-center space-x-2 flex-row-reverse order-1">
                 <a href="../index.html" class="focus:outline-none flex items-center">
                     <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-12 w-auto"> 
                 </a>
                 <button @click="mobileMenu = !mobileMenu" class="rounded-lg md:hidden focus:outline-none mr-4">
-                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
-                        <path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"></path>
-                        <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2"></path>
-                    </svg>
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6"><path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"></path><path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2"></path></svg>
                 </button>
             </div>
-
             <nav class="hidden md:flex flex-grow justify-center order-2">
                 <div class="flex items-center md:space-x-8 md:space-x-reverse">
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="../index.html">الرئيسية</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./services.html">الخدمات</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./about.html">عن صناع</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./news.html">أخبارنا</a>
-                    
-                    <div class="relative">
-                        <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none transition">
-                            <span>انضم لنا</span>
-                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': dropdownOpen}" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
-                        </button>
-                        <div x-show="dropdownOpen" x-transition class="absolute right-0 w-40 mt-2 bg-white border border-gray-200 rounded-md shadow-xl z-50 py-2">
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">تدريب</a>
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">توظيف</a>
-                        </div>
-                    </div>
                 </div>
             </nav>
-
             <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
                 <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold" href="./english.html">EN</a>
                 <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold transition hover:bg-blue-50" href="./login.html">تسجيل دخول</a>
                 <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow transition hover:bg-blue-700" href="./register.html">تسجيل</a>
             </div>
         </div>
-
         <div x-show="mobileMenu" x-transition class="md:hidden bg-white border-t border-gray-100 pb-4 shadow-inner">
             <div class="flex flex-col p-4 space-y-2">
                 <a class="block px-6 py-3 text-sm" href="../index.html">الرئيسية</a>
                 <a class="block px-6 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-lg" href="./services.html">الخدمات</a>
                 <a class="block px-6 py-3 text-sm" href="./about.html">عن صناع</a>
-                <div class="px-6 mt-4 space-y-2 text-center">
-                    <a class="block bg-blue-600 text-white py-3 rounded-xl font-bold" href="./register.html">تسجيل</a>
-                    <a class="block border border-blue-600 text-blue-600 py-3 rounded-xl font-bold" href="./login.html">دخول</a>
-                </div>
             </div>
         </div>
     </div>
@@ -137,115 +71,111 @@
             <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">شارك في برامجنا التدريبية المكثفة وطور مهاراتك في التصميم والهندسة الصناعية بأيدي الخبراء.</p>
         </div>
     </section>
-
     <section class="pb-24 bg-white flex-grow">
         <div class="max-w-screen-xl mx-auto px-8">
             <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-12 border-r-4 border-blue-600 pr-4">اكتشف معسكراتنا القادمة</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                
-                <div data-aos="fade-up" class="camp-card custom-shadow bg-white">
-                    <img src="../imgaes/camp_placeholder.jpg" alt="معسكر التصميم" class="camp-image">
-                    <div class="p-8 flex flex-col flex-grow">
-                        <div class="mb-4"><span class="camp-tag">متاح للتسجيل</span></div>
-                        <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">معسكر التصميم الصناعي المتكامل</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">تدريب مكثف لمدة 4 أسابيع يغطي كل مراحل تصميم المنتجات بدءاً من الفكرة حتى النمذجة.</p>
-                        
-                        <div class="space-y-2 border-t border-gray-50 pt-4 mb-6">
-                            <div class="flex items-center gap-2 text-xs text-gray-400 font-bold">
-                                <i class="far fa-calendar-alt text-blue-600"></i> يبدأ: 15 نوفمبر 2025
-                            </div>
-                            <div class="flex items-center gap-2 text-xs text-gray-400 font-bold">
-                                <i class="fas fa-map-marker-alt text-blue-600"></i> الرياض (حضورياً)
-                            </div>
-                        </div>
-                        <a href="./register.html" class="btn-primary w-full py-3 rounded-xl text-sm font-bold shadow-md text-center">سجل اهتمامك الآن →</a>
-                    </div>
-                </div>
-                
-                <div data-aos="fade-up" data-aos-delay="100" class="camp-card custom-shadow bg-white">
-                    <img src="../imgaes/camp_placeholder2.jpg" alt="هاكثون" class="camp-image">
-                    <div class="p-8 flex flex-col flex-grow">
-                        <div class="mb-4"><span class="camp-tag" style="background-color: #fff7ed; color: #f97316;">قريباً</span></div>
-                        <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">هاكثون الهندسة والابتكار</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">تحدي لمدة 48 ساعة لتطوير حلول هندسية مبتكرة في مجال الطاقة المستدامة.</p>
-                        <button class="w-full py-3 rounded-xl text-sm font-bold bg-gray-100 text-gray-400 cursor-not-allowed">التفاصيل قريباً</button>
-                    </div>
-                </div>
-                
-                <div data-aos="fade-up" data-aos-delay="200" class="camp-card custom-shadow bg-white opacity-75">
-                    <img src="../imgaes/camp_placeholder3.jpg" alt="طباعة 3D" class="camp-image">
-                    <div class="p-8 flex flex-col flex-grow">
-                        <div class="mb-4"><span class="camp-tag" style="background-color: #fef2f2; color: #ef4444;">انتهى</span></div>
-                        <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">أساسيات الطباعة ثلاثية الأبعاد</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">معسكر مكثف لتعلم أساسيات النمذجة والطباعة ثلاثية الأبعاد الاحترافية.</p>
-                        <a href="#" class="text-gray-400 font-bold text-sm hover:text-blue-600 transition">شاهد ملخص الفعالية ←</a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="mt-20 text-center bg-gray-50 p-10 rounded-3xl border border-gray-100">
-                <h4 class="text-xl font-bold mb-4 text-gray-900">هل تود تصميم معسكر تدريبي مخصص لمنشأتك؟</h4>
-                <a href="./contact.html" class="inline-block bg-gray-900 text-white px-8 py-3 rounded-full font-bold hover:bg-black transition-all shadow-lg">تواصل مع قسم التدريب</a>
+            <div id="camps-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                 <div class="items-center justify-center p-10 col-span-full hidden" id="loading-spinner">
+                     <i class="fas fa-circle-notch fa-spin text-3xl text-blue-600"></i>
+                 </div>
             </div>
         </div>
     </section>
-
     <footer class="bg-white border-t border-gray-200 pt-16 pb-8 text-right">
         <div class="max-w-screen-xl mx-auto px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                <div>
-                    <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="w-24 h-auto mb-6">
-                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكن اصحاب الافكار ورواد الاعمال من تحويل أفكارهم إلى منتجات.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6 font-montserrat">الروابط الأساسية</h4>
-                    <ul class="space-y-3 text-gray-700 text-sm">
-                        <li><a href="../index.html" class="hover:text-blue-600">الرئيسية</a></li>
-                        <li><a href="./about.html" class="hover:text-blue-600">عن صناع</a></li>
-                        <li><a href="./services.html" class="hover:text-blue-600">خدماتنا</a></li>
-                        <li><a href="./products.html" class="hover:text-blue-600">منتجاتنا</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6">الدعم والتواصل</h4>
-                    <ul class="space-y-3 text-gray-700 text-sm">
-                        <li><a href="./contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
-                        <li><a href="./news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
-                        <li><a href="./register.html" class="hover:text-blue-600">انضم كصانع</a></li>
-                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية والمستخدم</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6">تواصل معنا</h4>
-    <ul class="space-y-4 text-gray-700 text-sm">
-        <li class="flex items-center gap-3 justify-end">
-            <span>info@sunnaasar.com</span>
-            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
-            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span>المملكة العربية السعودية</span>
-            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
-        </li>
-    </ul>
-                </div>
-            </div>
             <div class="border-t pt-8 text-center text-gray-400 text-xs font-montserrat">
                 © <span id="current-year"></span> SUNNA ALL RIGHTS RESERVED
             </div>
         </div>
     </footer>
-
-
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
         document.getElementById('current-year').textContent = new Date().getFullYear();
+        async function loadCamps() {
+            const container = document.getElementById('camps-container');
+            const spinner = document.getElementById('loading-spinner');
+            const BASE_URL = 'http://localhost:5194';
+            try {
+                spinner.classList.remove('hidden');
+                const response = await fetch(`${BASE_URL}/api/AdminContent/get-all-camps`);
+                
+                if (!response.ok) throw new Error("Failed");
+                const camps = await response.json();
+                container.innerHTML = ''; 
+               if (camps.length === 0) {
+                    container.innerHTML = '<p class="text-center w-full col-span-full pt-10 text-gray-400">لا توجد معسكرات متاحة حالياً.</p>';
+                    return;
+                }
+                camps.forEach((camp, index) => {
+                    const title = camp.Title || camp.title || "بدون اسم";
+                    let rawDesc = camp.Description || camp.description || "";
+                    let rawImg = camp.ImageUrl || camp.imageUrl;
+                    // قيم افتراضية
+                    let location = "الرياض (حضوري)";
+                    let status = "Available";
+                    let externalLink = ""; // فارغ افتراضياً
+                    let desc = rawDesc;
+                    // تحليل البيانات المدمجة
+                    if (rawDesc.includes('|')) {
+                        const parts = rawDesc.split('|');
+                        desc = ""; 
+                        parts.forEach(part => {
+                            part = part.trim();
+                            if (part.startsWith('Location:')) location = part.replace('Location:', '').trim();
+                            else if (part.startsWith('Status:')) status = part.replace('Status:', '').trim();
+                            else if (part.startsWith('Link:')) externalLink = part.replace('Link:', '').trim();
+                            else desc += part + " ";
+                        });
+                    }
+                    // معالجة الرابط لضمان عمله (إضافة https إذا لم توجد)
+                    if (externalLink && externalLink !== '#' && !externalLink.startsWith('http')) {
+                        externalLink = 'https://' + externalLink;
+                    }
+                    // تفعيل الزر فقط إذا كان هناك رابط
+                    const hasLink = externalLink && externalLink.length > 3;
+                    const btnClass = hasLink ? 'btn-primary shadow-md hover:scale-[1.02]' : 'btn-disabled';
+                    const btnText = hasLink ? 'سجل الآن →' : 'التسجيل مغلق/قريباً';
+                    const btnHref = hasLink ? externalLink : 'javascript:void(0)';
+                    const btnTarget = hasLink ? '_blank' : '_self';
+                    // الحالة والألوان
+                    const statusText = status === 'Available' ? 'متاح للتسجيل' : 'قريباً';
+                    const statusBg = status === 'Available' ? '#eff6ff' : '#fff7ed';
+                    const statusColor = status === 'Available' ? '#155FCF' : '#f97316';
+                    // معالجة الصورة
+                    let displayImg = '../imgaes/camp_placeholder.jpg';
+                    if (rawImg) {
+                        displayImg = rawImg.startsWith('/') ? BASE_URL + rawImg : rawImg;
+                    }
+                    container.innerHTML += `
+                        <div data-aos="fade-up" data-aos-delay="${index * 100}" class="camp-card custom-shadow bg-white">
+                            <img src="${displayImg}" alt="${title}" class="camp-image" onerror="this.src='../imgaes/sh.png'">
+                            <div class="p-8 flex flex-col flex-grow">
+                                <div class="mb-4 flex justify-between items-start">
+                                    <span class="camp-tag" style="background-color: ${statusBg}; color: ${statusColor};">
+                                        ${statusText}
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900 leading-tight">${title}</h3>
+                                <p class="text-xs text-gray-400 mb-4 flex items-center gap-1">
+                                    <i class="fas fa-map-marker-alt"></i> ${location}
+                                </p>
+                                <p class="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">
+                                    ${desc.substring(0, 120)}${desc.length>120?'...':''}
+                                </p>
+                                <a href="${btnHref}" target="${btnTarget}" class="${btnClass} w-full py-3 rounded-xl text-sm font-bold text-center block transition-transform">
+                                    ${btnText}
+                                </a>
+                            </div>
+                        </div>`;
+                });
+            } catch (e) { 
+                console.error(e); 
+                container.innerHTML = '<p class="text-center col-span-full text-red-400">عذراً، فشل تحميل البيانات.</p>';
+            }
+        }
+        window.onload = loadCamps;
     </script>
 </body>
 </html>

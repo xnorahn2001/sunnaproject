@@ -9,185 +9,76 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
-    
-    <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
+    <link rel="icon" href="../images/شعار صناع (2).png" type="image/x-icon">
     
     <style>
-        :root {
-            --color-primary: #155FCF;           
-            --color-primary-hover: #124d9f;         
-            --color-dark-text: #111827;             
-            --color-white: #ffffff;                 
-        }
-        body {
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
-            text-align: right;
-            color: var(--color-dark-text);
-            background-color: var(--color-white);
-        }
-
-        /* توحيد الظلال للأسود الغامق */
-        .custom-shadow {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
-        }
-
-        .news-card {
-            background-color: var(--color-white); 
-            transition: all 0.3s ease;
-            border-radius: 1.5rem;
-            border: 1px solid #f3f4f6;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        .news-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important;
-        }
-        
-        .news-image {
-            height: 220px;
-            object-fit: cover;
-            width: 100%;
-        }
-
-        .news-date-badge {
-            background-color: #eff6ff;
-            color: var(--color-primary);
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 99px;
-            font-size: 0.75rem;
-        }
+        :root { --color-primary: #155FCF; --color-dark-text: #111827; --color-white: #ffffff; }
+        body { font-family: 'IBM Plex Sans Arabic', sans-serif; text-align: right; color: var(--color-dark-text); background-color: var(--color-white); }
+        .custom-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important; }
+        .news-card { transition: all 0.3s ease; border-radius: 1.5rem; border: 1px solid #f3f4f6; overflow: hidden; display: flex; flex-direction: column; height: 100%; background: white; }
+        .news-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3) !important; }
+        .news-image { height: 220px; object-fit: cover; width: 100%; background: #f1f5f9; }
+        .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; }
+        @keyframes loading { from { background-position: 200% 0; } to { background-position: -200% 0; } }
     </style>
 </head>
 <body class="antialiased" x-data="{ mobileMenu: false, dropdownOpen: false }">
-
+    <!-- Navbar -->
     <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
-            
             <div class="flex items-center space-x-2 flex-row-reverse order-1">
                 <a href="../index.html" class="focus:outline-none flex items-center">
                     <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-12 w-auto"> 
                 </a>
                 <button @click="mobileMenu = !mobileMenu" class="rounded-lg md:hidden focus:outline-none mr-4">
-                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
-                        <path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"></path>
-                        <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2"></path>
-                    </svg>
+                    <i class="fas fa-bars"></i>
                 </button>
             </div>
-
             <nav class="hidden md:flex flex-grow justify-center order-2">
                 <div class="flex items-center md:space-x-8 md:space-x-reverse">
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="../index.html">الرئيسية</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./services.html">الخدمات</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./about.html">عن صناع</a>
                     <a class="px-4 py-2 text-sm font-bold text-blue-600 border-b-2 border-blue-600" href="./news.html">أخبارنا</a>
-                    
-                    <div class="relative">
-                        <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none transition">
-                            <span>انضم لنا</span>
-                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': dropdownOpen}" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
-                        </button>
-                        <div x-show="dropdownOpen" x-transition class="absolute right-0 w-40 mt-2 bg-white border border-gray-200 rounded-md shadow-xl z-50">
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">تدريب</a>
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">توظيف</a>
-                        </div>
-                    </div>
                 </div>
             </nav>
-
             <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
-                <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold" href="./english.html">EN</a>
-                <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold transition hover:bg-blue-50" href="./login.html">تسجيل دخول</a>
-                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow transition hover:bg-blue-700" href="./register.html">تسجيل</a>
-            </div>
-        </div>
-
-        <div x-show="mobileMenu" x-transition class="md:hidden bg-white border-t border-gray-100 pb-4 shadow-inner">
-            <div class="flex flex-col p-4 space-y-2">
-                <a class="block px-6 py-3 text-sm" href="../index.html">الرئيسية</a>
-                <a class="block px-6 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-lg" href="./services.html">الخدمات</a>
-                <a class="block px-6 py-3 text-sm" href="./about.html">عن صناع</a>
-                <div x-data="{ subOpen: false }">
-                    <button @click="subOpen = !subOpen" class="flex justify-between w-full px-6 py-3 text-sm">انضم لنا <span>+</span></button>
-                    <div x-show="subOpen" class="bg-gray-50 px-10 py-2 rounded-lg"><a class="block py-2 text-sm" href="./forms.html">تدريب</a><a class="block py-2 text-sm" href="./forms.html">توظيف</a></div>
-                </div>
-                <div class="px-6 mt-4 space-y-2 text-center">
-                    <a class="block bg-blue-600 text-white py-3 rounded-xl font-bold" href="./register.html">تسجيل</a>
-                    <a class="block border border-blue-600 text-blue-600 py-3 rounded-xl font-bold" href="./login.html">دخول</a>
-                </div>
+                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow" href="./register.html">تسجيل</a>
             </div>
         </div>
     </div>
     
+    <!-- Hero Section -->
     <section class="py-16 bg-white text-center">
         <div class="max-w-7xl mx-auto px-8">
-            <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-6 text-blue-700 font-bold text-sm">
-                <i class="fas fa-bullhorn ml-2"></i> آخر المستجدات
+            <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-6">
+                <i class="fas fa-bullhorn ml-2 text-blue-600"></i>
+                <span class="text-blue-700 font-bold text-sm">آخر المستجدات</span>
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">آخر <span class="text-blue-600">مستجداتنا</span> وأخبارنا</h1>
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">تابع معنا أحدث المشاريع، الإطلاقات، والحراكات لشركة صناع الرسالة القابضة</p>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">مكتبة <span class="text-blue-600">الأخبار</span></h1>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">كل ما يخص شركة صناع الرسالة من مشاريع وشراكات وإطلاقات جديدة.</p>
         </div>
     </section>
-
+    <!-- News Grid -->
     <section class="pb-24 bg-white flex-grow">
         <div class="max-w-screen-xl mx-auto px-8">
-            <div class="flex items-center gap-4 mb-10">
-                <div class="h-8 w-2 bg-blue-600 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900">مكتبة الأخبار</h2>
+            
+            <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Skeletons (Loading State) -->
+                <div class="news-card skeleton h-80"></div>
+                <div class="news-card skeleton h-80"></div>
+                <div class="news-card skeleton h-80"></div>
+            </div>
+            <div id="no-news" class="hidden text-center py-20 text-gray-400">
+                <i class="fas fa-newspaper text-5xl mb-4"></i>
+                <p>لا توجد أخبار منشورة حالياً</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                
-                <div data-aos="fade-up" class="news-card custom-shadow">
-                    <img src="../imgaes/مقداار.png" alt="News 1" class="news-image">
-                    <div class="p-8 flex-grow">
-                        <span class="news-date-badge mb-4 inline-block tracking-wider">🗓️ 28 أكتوبر 2025</span>
-                        <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">صُنّاع تطلق منصة "مقدار" لخدمات التصميم الصناعي</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-6">أعلنت الشركة عن إطلاق ذراعها الخدمي الجديد لتوفير حلول تصميم المنتجات وربطها بالمصانع.</p>
-                        <a href="#" class="text-blue-600 font-bold text-sm hover:underline">اقرأ الخبر كاملاً ←</a>
-                    </div>
-                </div>
-                
-                <div data-aos="fade-up" data-aos-delay="100" class="news-card custom-shadow">
-                    <img src="../imgaes/اكاديمية طويق .png" alt="News 2" class="news-image">
-                    <div class="p-8 flex-grow">
-                        <span class="news-date-badge mb-4 inline-block tracking-wider">🗓️ 15 سبتمبر 2025</span>
-                        <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">شراكة استراتيجية مع أكاديمية "طويق" لتمكين المصممين</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-6">اتفاقية تعاون لتقديم معسكرات متخصصة في التصميم والهندسة الصناعية.</p>
-                        <a href="#" class="text-blue-600 font-bold text-sm hover:underline">اقرأ الخبر كاملاً ←</a>
-                    </div>
-                </div>
-                
-                <div data-aos="fade-up" data-aos-delay="200" class="news-card custom-shadow">
-                    <img src="../imgaes/هدايا.jpg" alt="News 3" class="news-image">
-                    <div class="p-8 flex-grow">
-                        <span class="news-date-badge mb-4 inline-block tracking-wider">🗓️ 05 يوليو 2025</span>
-                        <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">تطوير منتج "هدية الحاج الذكية" المبتكر</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-6">إطلاق نسخة تجريبية لمنتج يهدف لرفع جودة تجربة ضيوف الرحمن.</p>
-                        <a href="#" class="text-blue-600 font-bold text-sm hover:underline">اقرأ الخبر كاملاً ←</a>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div class="mt-20 flex justify-center">
-                <nav class="flex items-center gap-2">
-                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-gray-400 hover:bg-gray-50"><i class="fas fa-chevron-right"></i></a>
-                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-600 text-white font-bold">1</a>
-                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50">2</a>
-                    <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50"><i class="fas fa-chevron-left"></i></a>
-                </nav>
-            </div>
         </div>
     </section>
-
+    <!-- Footer -->
     <footer class="bg-white border-t border-gray-200 pt-16 pb-8 text-right">
         <div class="max-w-screen-xl mx-auto px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
@@ -202,6 +93,8 @@
                         <li><a href="./about.html" class="hover:text-blue-600">عن صناع</a></li>
                         <li><a href="./services.html" class="hover:text-blue-600">خدماتنا</a></li>
                         <li><a href="./products.html" class="hover:text-blue-600">منتجاتنا</a></li>
+                        <li><a href="./designers.html" class="hover:text-blue-600">الخبراء والمستشارين</a></li>
+
                     </ul>
                 </div>
                 <div>
@@ -236,11 +129,83 @@
             </div>
         </div>
     </footer>
-
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
         document.getElementById('current-year').textContent = new Date().getFullYear();
+        // --- دالة جلب الأخبار ---
+        async function fetchLiveNews() {
+            const container = document.getElementById('news-container');
+            const noNewsMsg = document.getElementById('no-news');
+            
+            // رابط السيرفر الأساسي (مهم جداً للصور)
+            const BASE_URL = 'http://localhost:5194'; 
+            try {
+                // طلب البيانات من API
+                const response = await fetch(`${BASE_URL}/api/AdminContent/get-all-news`);
+                
+                if (!response.ok) throw new Error('Network error');
+                const newsList = await response.json();
+                
+                container.innerHTML = ''; // مسح علامات التحميل
+                if (!newsList || newsList.length === 0) {
+                    noNewsMsg.classList.remove('hidden');
+                    return;
+                }
+                newsList.forEach((news, index) => {
+                    // 1. معالجة التاريخ
+                    const dateStr = news.CreatedAt || news.createdAt || new Date();
+                    const date = new Date(dateStr).toLocaleDateString('ar-SA', {
+                        year: 'numeric', month: 'long', day: 'numeric'
+                    });
+                    // 2. معالجة الصورة (الحل الجذري)
+                    let rawImg = news.ImageUrl || news.imageUrl; // قراءة المسار الخام
+                    let displayImg = '';
+                    if (rawImg) {
+                        if (rawImg.startsWith('/')) {
+                            // إذا كان مساراً نسبياً (من السيرفر)، نضيف له الدومين
+                            displayImg = BASE_URL + rawImg; 
+                        } else if (rawImg.startsWith('http')) {
+                            // إذا كان رابط خارجي، نستخدمه كما هو
+                            displayImg = rawImg;
+                        } else {
+                            // للاحتياط
+                            displayImg = BASE_URL + '/' + rawImg;
+                        }
+                    } else {
+                        // صورة احتياطية في حال عدم وجود صورة
+                        displayImg = '../images/default_news.png';
+                    }
+                    // 3. معالجة النصوص (العنوان والوصف)
+                    const title = news.Title || news.title || "بدون عنوان";
+                    let content = news.Description || news.description || news.content || ""; 
+                    // 4. قص النص بأمان
+                    const shortDesc = content.substring(0, 100) + (content.length > 100 ? '...' : '');
+                    // بناء كود HTML للخبر
+                    const newsHtml = `
+                        <div data-aos="fade-up" data-aos-delay="${index * 100}" class="news-card custom-shadow">
+                             <img src="${displayImg}" alt="${title}" class="news-image" 
+                                  onerror="this.onerror=null;this.src='../images/شعار صناع (2).png';">
+                            <div class="p-8 flex-grow">
+                                <span class="bg-blue-50 text-blue-600 font-bold px-3 py-1 rounded-full text-[10px] mb-4 inline-block">
+                                    🗓️ ${date}
+                                </span>
+                                <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">${title}</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                                    ${shortDesc}
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += newsHtml;
+                });
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                container.innerHTML = '<p class="text-center col-span-full text-red-400">عذراً، فشل تحميل الأخبار حالياً. تأكد من تشغيل السيرفر.</p>';
+            }
+        }
+        // تشغيل الجلب عند تحميل الصفحة
+        window.onload = fetchLiveNews;
     </script>
 </body>
 </html>

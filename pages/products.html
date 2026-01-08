@@ -13,120 +13,45 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
     
     <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
     
     <style>
-        :root {
-            --color-primary: #155FCF;           
-            --color-primary-hover: #124d9f;         
-            --color-dark-text: #111827;             
-            --color-white: #ffffff;                 
-        }
-        body {
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
-            text-align: right;
-            color: var(--color-dark-text);
-            background-color: var(--color-white);
-        }
-
-        /* توحيد الظلال للأسود الغامق */
-        .custom-shadow {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
-        }
-
-        .product-card {
-            background-color: var(--color-white); 
-            transition: all 0.3s ease;
-            border-radius: 1.5rem;
-            border: 1px solid #f3f4f6;
-            overflow: hidden;
-        }
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important;
-        }
-        
-        .product-image {
-            height: 220px;
-            object-fit: cover;
-            width: 100%;
-        }
-
-        .product-tag {
-            background-color: #eff6ff;
-            color: var(--color-primary);
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 99px;
-            font-size: 0.75rem;
-        }
-
-        .btn-primary {
-            background-color: var(--color-primary);
-            color: white;
-            transition: all 0.3s;
-        }
-        .btn-primary:hover {
-            background-color: var(--color-primary-hover);
-        }
+        :root { --color-primary: #155FCF; --color-primary-hover: #124d9f; --color-dark-text: #111827; --color-white: #ffffff; }
+        body { font-family: 'IBM Plex Sans Arabic', sans-serif; text-align: right; color: var(--color-dark-text); background-color: var(--color-white); }
+        .custom-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important; }
+        .product-card { background-color: var(--color-white); transition: all 0.3s ease; border-radius: 1.5rem; border: 1px solid #f3f4f6; overflow: hidden; height: 100%; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important; }
+        .btn-primary { background-color: var(--color-primary); color: white; transition: all 0.3s; }
+        .btn-primary:hover { background-color: var(--color-primary-hover); }
+        .btn-disabled { background-color: #cbd5e1; color: #64748b; cursor: not-allowed; }
     </style>
 </head>
 <body class="antialiased" x-data="{ mobileMenu: false, dropdownOpen: false }">
-
     <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
-            
             <div class="flex items-center space-x-2 flex-row-reverse order-1">
                 <a href="../index.html" class="focus:outline-none flex items-center">
                     <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-12 w-auto"> 
                 </a>
                 <button @click="mobileMenu = !mobileMenu" class="rounded-lg md:hidden focus:outline-none mr-4">
-                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
-                        <path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"></path>
-                        <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2"></path>
-                    </svg>
+                    <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
-
             <nav class="hidden md:flex flex-grow justify-center order-2">
                 <div class="flex items-center md:space-x-8 md:space-x-reverse">
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="../index.html">الرئيسية</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./services.html">الخدمات</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./about.html">عن صناع</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./news.html">أخبارنا</a>
-                    
-                    <div class="relative">
-                        <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none transition">
-                            <span>انضم لنا</span>
-                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': dropdownOpen}" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
-                        </button>
-                        <div x-show="dropdownOpen" x-transition class="absolute right-0 w-40 mt-2 bg-white border border-gray-200 rounded-md shadow-xl z-50">
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">تدريب</a>
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">توظيف</a>
-                        </div>
-                    </div>
+                    <a class="px-4 py-2 text-sm font-bold text-blue-600 border-b-2 border-blue-600" href="./products.html">منتجاتنا</a>
                 </div>
             </nav>
-
             <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
-                <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold transition hover:bg-blue-50" href="./login.html">تسجيل دخول</a>
-                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow transition hover:bg-blue-700" href="./register.html">تسجيل</a>
+                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow hover:bg-blue-700 transition" href="./register.html">تسجيل</a>
             </div>
         </div>
-
         <div x-show="mobileMenu" x-transition class="md:hidden bg-white border-t border-gray-100 pb-4">
             <div class="flex flex-col p-4 space-y-2">
                 <a class="block px-6 py-3 text-sm" href="../index.html">الرئيسية</a>
-                <a class="block px-6 py-3 text-sm" href="./services.html">الخدمات</a>
-                <a class="block px-6 py-3 text-sm" href="./about.html">عن صناع</a>
-                <div x-data="{ subOpen: false }">
-                    <button @click="subOpen = !subOpen" class="flex justify-between w-full px-6 py-3 text-sm">انضم لنا <span>+</span></button>
-                    <div x-show="subOpen" class="bg-gray-50 px-10 py-2 rounded-lg"><a class="block py-2 text-sm" href="./forms.html">تدريب</a><a class="block py-2 text-sm" href="./forms.html">توظيف</a></div>
-                </div>
-                <div class="px-6 mt-4 space-y-2 text-center">
-                    <a class="block bg-blue-600 text-white py-3 rounded-xl font-bold" href="./register.html">تسجيل</a>
-                    <a class="block border border-blue-600 text-blue-600 py-3 rounded-xl font-bold" href="./login.html">دخول</a>
-                </div>
+                <a class="block px-6 py-3 text-sm" href="./products.html">منتجاتنا</a>
             </div>
         </div>
     </div>
@@ -144,52 +69,13 @@
     
     <section class="pb-24 bg-white flex-grow">
         <div class="max-w-screen-xl mx-auto px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                
-                <div data-aos="fade-up" class="product-card custom-shadow">
-                    <img src="../imgaes/مقداار.png" alt="مقدار" class="product-image">
-                    <div class="p-8">
-                        <span class="product-tag">الذراع الخدمي</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-3 text-gray-900">منصة مقدار للتصميم</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-6">منصة متكاملة لربط العملاء بأفضل المصممين والمهندسين لإنشاء وتطوير منتجاتهم.</p>
-                        <a href="https://www.miqdarsa.com/" class="inline-block btn-primary px-6 py-3 rounded-xl text-sm font-bold shadow-md">اكتشف المنصة ←</a>
-                    </div>
-                </div>
-                
-                <div data-aos="fade-up" data-aos-delay="100" class="product-card custom-shadow">
-                    <img src="../imgaes/blue.png" alt="متجر صناع" class="product-image">
-                    <div class="p-8">
-                        <span class="product-tag" style="background-color: #155FCF; color: white;">تجاري</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-3 text-gray-900">متجر صُنّاع للمنتجات</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-6">متجر تجاري يعرض منتجات مبتكرة مصنوعة بأيدي صُنّاع، متاحة للشراء المباشر.</p>
-                        <a href="https://sunnaasar.com/" class="inline-block btn-primary px-6 py-3 rounded-xl text-sm font-bold shadow-md">تسوّق الآن ←</a>
-                    </div>
-                </div>
-                
-                <div data-aos="fade-up" data-aos-delay="200" class="product-card custom-shadow">
-                    <img src="../imgaes/mic.jpg" alt="بودكاست" class="product-image">
-                    <div class="p-8">
-                        <span class="product-tag">الذراع المعرفي</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-3 text-gray-900">بودكاست صُنّاع</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-6">منصة صوتية تستضيف رواد المجال لمشاركة المعرفة والخبرات في عالم التصميم والصناعة.</p>
-                        <a href="#" class="inline-block btn-primary px-6 py-3 rounded-xl text-sm font-bold shadow-md">استمع الآن ←</a>
-                    </div>
-                </div>
-
-                <div data-aos="fade-up" data-aos-delay="300" class="product-card custom-shadow">
-                    <img src="../imgaes/هدايا.jpg" alt="هدية الحاج" class="product-image">
-                    <div class="p-8">
-                        <span class="product-tag" style="background-color: #2F327D; color: white;">مشاريع نوعية</span>
-                        <h3 class="text-2xl font-bold mt-4 mb-3 text-gray-900">هدية الحاج الذكية</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-6">منتج إبداعي مبتكر لخدمة ضيوف الرحمن بالشراكة مع جهات حكومية وخاصة.</p>
-                        <a href="#" class="inline-block btn-primary px-6 py-3 rounded-xl text-sm font-bold shadow-md">اطلع على المشروع ←</a>
-                    </div>
-                </div>
-
+            <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                 <div class="items-center justify-center p-10 col-span-full hidden" id="loading-spinner">
+                     <i class="fas fa-circle-notch fa-spin text-3xl text-blue-600"></i>
+                 </div>
             </div>
         </div>
     </section>
-
     <footer class="bg-white border-t border-gray-200 pt-16 pb-8 text-right">
         <div class="max-w-screen-xl mx-auto px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
@@ -204,6 +90,7 @@
                         <li><a href="./about.html" class="hover:text-blue-600">عن صناع</a></li>
                         <li><a href="./services.html" class="hover:text-blue-600">خدماتنا</a></li>
                         <li><a href="./products.html" class="hover:text-blue-600">منتجاتنا</a></li>
+                        <li><a href="./designers.html" class="hover:text-blue-600">الخبراء والمستشارين</a></li>
                     </ul>
                 </div>
                 <div>
@@ -212,25 +99,16 @@
                         <li><a href="./contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
                         <li><a href="./news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
                         <li><a href="./register.html" class="hover:text-blue-600">انضم كصانع</a></li>
-                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصية والمستخدم</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-blue-600 mb-6">تواصل معنا</h4>
-    <ul class="space-y-4 text-gray-700 text-sm">
-        <li class="flex items-center gap-3 justify-end">
-            <span>info@sunnaasar.com</span>
-            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
-            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span>المملكة العربية السعودية</span>
-            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
-        </li>
-    </ul>
+                    <ul class="space-y-4 text-gray-700 text-sm">
+                        <li class="flex items-center gap-3 justify-end">
+                            <span>info@sunnaasar.com</span>
+                            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="border-t pt-8 text-center text-gray-400 text-xs font-montserrat">
@@ -241,8 +119,102 @@
     
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ duration: 1000, once: true });
+            if(document.getElementById('current-year')) {
+                document.getElementById('current-year').textContent = new Date().getFullYear();
+            }
+            loadProducts();
+        });
+        async function loadProducts() {
+            const container = document.getElementById('products-grid');
+            const spinner = document.getElementById('loading-spinner');
+            const BASE_URL = 'http://localhost:5194';
+            if (!container) return;
+            try {
+                if(spinner) spinner.classList.remove('hidden');
+                
+                const response = await fetch(`${BASE_URL}/api/AdminContent/get-all-products`);
+                if (!response.ok) throw new Error('Network error');
+                
+                const data = await response.json();
+                container.innerHTML = ''; 
+                
+                if (!data || data.length === 0) {
+                     container.innerHTML = '<p class="text-center col-span-full text-gray-500 py-10 italic">لا توجد منتجات مضافة حالياً.</p>';
+                     return;
+                }
+                data.forEach((product, index) => {
+                    // 1. البيانات الأساسية
+                    const title = product.Title || "منتج بدون عنوان";
+                    let rawDesc = product.Description || "";
+                    let rawImg = product.ImageUrl;
+                    
+                    // 2. استخراج السعر والرابط
+                    // Format: "Price: ... | Link: ... | Description..."
+                    let price = "السعر عند الطلب";
+                    let externalLink = "";
+                    let desc = rawDesc;
+                    if (rawDesc.includes('|')) {
+                        const parts = rawDesc.split('|');
+                        desc = ""; 
+                        parts.forEach(part => {
+                            part = part.trim();
+                            if (part.startsWith('Price:')) price = part.replace('Price:', '').trim();
+                            else if (part.startsWith('Link:')) externalLink = part.replace('Link:', '').trim();
+                            else desc += part + " ";
+                        });
+                    }
+                    // 3. معالجة الرابط والزر
+                    if (externalLink && externalLink !== '#' && !externalLink.startsWith('http')) {
+                        externalLink = 'https://' + externalLink;
+                    }
+                    const hasLink = externalLink && externalLink.length > 3;
+                    const btnText = hasLink ? 'شراء / تفاصيل ←' : 'عرض التفاصيل';
+                    const btnHref = hasLink ? externalLink : 'javascript:void(0)'; // يمكن استبداله بصفحة تفاصيل داخلية
+                    const btnClass = hasLink ? 'bg-blue-600 hover:bg-blue-700 shadow-md' : 'bg-gray-200 text-gray-600';
+                    // 4. معالجة الصورة
+                    let displayImage = '../imgaes/product_placeholder.png'; // صورة افتراضية
+                    if (rawImg && rawImg.length > 3) {
+                        displayImage = rawImg.startsWith('/') ? BASE_URL + rawImg : rawImg;
+                    }
+                    
+                    // 5. التاريخ
+                    const date = new Date(product.CreatedAt).toLocaleDateString('ar-SA');
+                    // 6. حقن HTML
+                    container.innerHTML += `
+                        <div data-aos="fade-up" data-aos-delay="${index * 100}" class="product-card custom-shadow bg-white rounded-3xl overflow-hidden flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
+                            <div class="h-64 overflow-hidden relative group bg-gray-100">
+                                <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-blue-800 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10">
+                                    ${price}
+                                </span>
+                                <img src="${displayImage}" alt="${title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='../imgaes/blue.png'">
+                            </div>
+                            
+                            <div class="p-6 flex-grow flex flex-col">
+                                <h3 class="text-xl font-bold mb-3 text-gray-900 line-clamp-1">${title}</h3>
+                                
+                                <p class="text-gray-600 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
+                                    ${desc.length > 5 ? desc : 'منتج مميز من صناع الرسالة'}
+                                </p>
+                                
+                                <div class="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
+                                    <span class="text-gray-400 text-xs font-bold">
+                                        ${date}
+                                    </span>
+                                    
+                                    <a href="${btnHref}" target="${hasLink ? '_blank' : '_self'}" class="inline-block ${btnClass} text-white px-6 py-2 rounded-xl text-sm font-bold transition">
+                                       ${btnText}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>`;
+                });
+            } catch (e) { 
+                console.error("Error:", e);
+                container.innerHTML = '<p class="text-center col-span-full text-red-400">فشل تحميل المنتجات.</p>';
+            }
+        }
     </script>
 </body>
 </html>

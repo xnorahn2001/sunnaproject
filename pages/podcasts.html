@@ -40,6 +40,9 @@
             border-radius: 1.5rem;
             border: 1px solid #f3f4f6;
             overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
         .episode-card:hover {
             transform: translateY(-8px);
@@ -94,7 +97,7 @@
             <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
                 <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold" href="./english.html">EN</a>
                 <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold transition hover:bg-blue-50" href="./login.html">تسجيل دخول</a>
-                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow" href="./register.html">تسجيل</a>
+                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow transition hover:bg-blue-700" href="./register.html">تسجيل</a>
             </div>
         </div>
 
@@ -129,7 +132,7 @@
         <div class="max-w-4xl mx-auto px-6">
             <div data-aos="fade-down" class="text-center mb-10">
                 <h2 class="text-2xl md:text-3xl font-bold mb-2">الحلقة المميزة: الإبداع والريادة الصناعية</h2>
-                <p class="text-gray-500">بودكاست صُنّاع | الحلقة 05 - مع المهندس/ خالد أحمد</p>
+                <p class="text-gray-500">بودكاست صُنّاع | الحلقة المميزة</p>
             </div>
             <div data-aos="zoom-in" class="podcast-embed-container aspect-video relative">
                  <img src="../imgaes/podcast_placeholder.jpg" alt="مشغل البودكاست" class="w-full h-full object-cover rounded-3xl" /> 
@@ -144,30 +147,9 @@
 
     <section class="py-20 bg-gray-50">
         <div class="max-w-screen-xl mx-auto px-8">
-            <h2 data-aos="fade-left" class="text-3xl font-bold mb-12 text-gray-900 border-r-4 border-blue-600 pr-4">الحلقات الأخيرة</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <div data-aos="fade-up" class="episode-card p-8 custom-shadow bg-white">
-                    <span class="text-xs font-bold text-blue-600 mb-4 block uppercase tracking-wider">الحلقة 04 | 15 أكتوبر 2025</span>
-                    <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">رحلة تحويل فكرة إلى منتج ناجح في السوق المحلي</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-8">مناقشة مع مؤسس "شركة تصميم" حول التحديات والفرص في مجال الابتكار بالمنطقة.</p>
-                    <a href="#" class="flex items-center gap-2 text-blue-600 font-bold hover:gap-4 transition-all">استمع الآن <i class="fas fa-arrow-left"></i></a>
+            <h2 class="text-3xl font-bold mb-12 text-gray-900 border-r-4 border-blue-600 pr-4">الحلقات الأخيرة</h2>
+            <div id="podcast-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 </div>
-                
-                <div data-aos="fade-up" data-aos-delay="100" class="episode-card p-8 custom-shadow bg-white">
-                    <span class="text-xs font-bold text-blue-600 mb-4 block uppercase tracking-wider">الحلقة 03 | 01 أكتوبر 2025</span>
-                    <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">أهمية الهندسة الصناعية في تحقيق رؤية 2030</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-8">حوار معمق حول دور الكوادر الهندسية المحلية في دفع عجلة التنمية والصناعة.</p>
-                    <a href="#" class="flex items-center gap-2 text-blue-600 font-bold hover:gap-4 transition-all">استمع الآن <i class="fas fa-arrow-left"></i></a>
-                </div>
-                
-                <div data-aos="fade-up" data-aos-delay="200" class="episode-card p-8 custom-shadow bg-white">
-                    <span class="text-xs font-bold text-blue-600 mb-4 block uppercase tracking-wider">الحلقة 02 | 15 سبتمبر 2025</span>
-                    <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">كيف يمكن للمصممين الشباب الحصول على التمويل؟</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-8">نصائح وإرشادات حول الذراع الاستثماري وكيفية عرض المشاريع أمام المستثمرين.</p>
-                    <a href="#" class="flex items-center gap-2 text-blue-600 font-bold hover:gap-4 transition-all">استمع الآن <i class="fas fa-arrow-left"></i></a>
-                </div>
-            </div>
             
             <div class="text-center mt-16">
                 <a href="#" class="px-10 py-4 bg-gray-900 text-white font-bold rounded-full hover:bg-black transition-all shadow-lg">عرض جميع الحلقات</a>
@@ -189,6 +171,8 @@
                         <li><a href="./about.html" class="hover:text-blue-600">عن صناع</a></li>
                         <li><a href="./services.html" class="hover:text-blue-600">خدماتنا</a></li>
                         <li><a href="./products.html" class="hover:text-blue-600">منتجاتنا</a></li>
+                        <li><a href="./designers.html" class="hover:text-blue-600">الخبراء والمستشارين</a></li>
+
                     </ul>
                 </div>
                 <div>
@@ -202,20 +186,20 @@
                 </div>
                 <div>
                     <h4 class="font-bold text-blue-600 mb-6">تواصل معنا</h4>
-    <ul class="space-y-4 text-gray-700 text-sm">
-        <li class="flex items-center gap-3 justify-end">
-            <span>info@sunnaasar.com</span>
-            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
-            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span>المملكة العربية السعودية</span>
-            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
-        </li>
-    </ul>
+                    <ul class="space-y-4 text-gray-700 text-sm">
+                        <li class="flex items-center gap-3 justify-end">
+                            <span>info@sunnaasar.com</span>
+                            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
+                        </li>
+                        <li class="flex items-center gap-3 justify-end">
+                            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
+                            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
+                        </li>
+                        <li class="flex items-center gap-3 justify-end">
+                            <span>المملكة العربية السعودية</span>
+                            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="border-t pt-8 text-center text-gray-400 text-xs font-montserrat">
@@ -226,8 +210,38 @@
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
+        // تفعيل AOS وتحديث السنة
         AOS.init({ duration: 1000, once: true });
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // وظيفة جلب حلقات البودكاست من السيرفر وعرضها بتنسيق الكروت الأصلي
+        async function loadPodcasts() {
+            try {
+                const response = await fetch('http://localhost:5194/api/AdminContent/get-all-podcasts');
+                const data = await response.json();
+                const container = document.getElementById('podcast-grid');
+                container.innerHTML = ''; // تنظيف الحاوية
+
+                data.forEach((ep, index) => {
+                    // دمج البيانات المستلمة مع تصميم كرت الحلقة الأصلي الخاص بك
+                    container.innerHTML += `
+                        <div data-aos="fade-up" data-aos-delay="${index * 100}" class="episode-card p-8 custom-shadow bg-white flex-grow flex flex-col">
+                            <img src="${ep.imageUrl || '../imgaes/mic.jpg'}" class="w-full h-40 object-cover rounded-2xl mb-4" onerror="this.src='../imgaes/mic.jpg'">
+                            <h3 class="text-xl font-bold mb-4 text-gray-900 leading-tight">${ep.title}</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-8 flex-grow">${ep.description}</p>
+                            <a href="${ep.link || '#'}" target="_blank" class="flex items-center gap-2 text-blue-600 font-bold hover:gap-4 transition-all mt-auto">
+                                استمع الآن <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>`;
+                });
+            } catch (e) { 
+                console.error("خطأ في الاتصال بالسيرفر جاري تحميل الحلقات:", e); 
+                document.getElementById('podcast-grid').innerHTML = '<p class="text-center col-span-full text-gray-500 italic">عذراً، فشل تحميل الحلقات حالياً.</p>';
+            }
+        }
+
+        // تشغيل الجلب عند تحميل الصفحة
+        window.onload = loadPodcasts;
     </script>
 </body>
 </html>

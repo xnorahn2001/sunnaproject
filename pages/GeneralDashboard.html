@@ -3,210 +3,388 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم - شركة صناع الرسالة القابضة</title>
-    
+    <title>لوحة التحكم - منصة صناع</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
-    
-    <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@500;700;800&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --color-primary: #155FCF;
-            --color-sidebar: #111827;
+            --color-sidebar-bg: #ffffff;
             --color-bg-light: #f8fafc;
+            --color-text-muted: #64748b;
         }
-        
         body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
             background-color: var(--color-bg-light);
         }
-
-        /* توحيد الظلال للسواد الغامق المتناسق مع الموقع */
         .custom-shadow {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05) !important;
         }
-
-        /* Sidebar Styling */
         .sidebar {
-            background-color: var(--color-sidebar);
+            background-color: var(--color-sidebar-bg);
+            border-left: 1px solid #e2e8f0;
             transition: all 0.3s ease-in-out;
         }
-        
         .menu-item {
             transition: all 0.2s ease;
-            color: #9ca3af;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            border-radius: 12px;
+            margin-bottom: 4px;
         }
-        
         .menu-item:hover {
-            background-color: #1f2937;
-            color: white;
+            background-color: #f1f5f9;
+            color: var(--color-primary);
         }
-        
         .menu-item.active {
-            background-color: var(--color-primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(21, 95, 207, 0.3);
+            background-color: #eff6ff;
+            color: var(--color-primary);
+            font-weight: bold;
+            border-right: 4px solid var(--color-primary);
         }
-
-        /* Responsive Sidebar for Mobile */
-        @media (max-width: 1024px) {
-            .sidebar {
-                position: fixed;
-                right: -100%;
-                z-index: 100;
-                height: 100vh;
-            }
-            .sidebar.open {
-                right: 0;
-            }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        [x-cloak] {
+            display: none !important;
         }
     </style>
 </head>
-
-<body class="antialiased" x-data="{ 
-    sidebarOpen: false, 
-    userType: 'company', 
-    companyMenu: [
-        { icon: 'fas fa-chart-line', title: 'نظرة عامة', active: true },
-        { icon: 'fas fa-clipboard-list', title: 'إدارة المشاريع', active: false },
-        { icon: 'fas fa-users', title: 'إدارة الفريق', active: false },
-        { icon: 'fas fa-file-invoice-dollar', title: 'المدفوعات', active: false },
-        { icon: 'fas fa-cog', title: 'الإعدادات', active: false },
-    ],
-    individualMenu: [
-        { icon: 'fas fa-user-circle', title: 'ملفي الشخصي', active: true },
-        { icon: 'fas fa-briefcase', title: 'عروضي المقدمة', active: false },
-        { icon: 'fas fa-calendar-alt', title: 'جدول المواعيد', active: false },
-        { icon: 'fas fa-money-bill-wave', title: 'المستحقات', active: false },
-        { icon: 'fas fa-cog', title: 'الإعدادات', active: false },
-    ]
-}">
-
-    <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
-
+<body class="antialiased" x-data="dashboardData()">
     <div class="flex min-h-screen">
-        
-        <aside :class="sidebarOpen ? 'open' : ''" class="sidebar w-72 flex-shrink-0 lg:static fixed flex flex-col p-6 text-white overflow-y-auto h-screen">
-            <div class="flex items-center gap-3 mb-10 border-b border-gray-800 pb-6">
-                <img src="../imgaes/شعار صناع (2).png" class="w-10 h-auto" alt="Logo">
-                <span class="text-xl font-bold tracking-tight">منصة صناع</span>
+        <aside class="sidebar w-72 flex-shrink-0 lg:static fixed flex flex-col p-6 h-screen z-50">
+            <div class="flex items-center gap-3 mb-10 border-b border-gray-100 pb-6">
+                <img src="../imgaes/شعار صناع (2).png" class="w-12 h-auto" alt="Logo">
+                <span class="text-xl font-bold tracking-tight text-gray-800">صُناع</span>
             </div>
-
-            <nav class="space-y-2 flex-grow">
-                <template x-for="item in (userType === 'company' ? companyMenu : individualMenu)" :key="item.title">
-                    <a href="#" :class="item.active ? 'active' : ''" class="menu-item flex items-center gap-4 p-3 rounded-xl font-medium">
-                        <i :class="item.icon" class="w-6 text-center"></i>
+            <nav class="space-y-1 flex-grow">
+                <p class="text-gray-400 text-[10px] font-bold mb-4 uppercase px-3 tracking-widest">القائمة الرئيسية</p>
+                <template x-for="item in menuItems" :key="item.id">
+                    <div @click="activeTab = item.id" :class="activeTab === item.id ? 'active' : ''"
+                        class="menu-item flex items-center gap-4 p-3 font-medium">
+                        <i :class="item.icon" class="w-6 text-center text-lg"></i>
                         <span x-text="item.title"></span>
-                    </a>
+                    </div>
                 </template>
             </nav>
-
-            <div class="mt-auto pt-6 border-t border-gray-800">
-                <a href="#" class="flex items-center gap-4 p-3 rounded-xl text-red-400 hover:bg-red-500/10 transition">
-                    <i class="fas fa-sign-out-alt w-6 text-center"></i>
-                    <span>تسجيل الخروج</span>
-                </a>
-            </div>
+            <button @click="logout()"
+                class="mt-auto flex items-center gap-4 p-3 rounded-xl text-red-500 hover:bg-red-50 transition font-bold">
+                <i class="fas fa-sign-out-alt w-6 text-center"></i> خروج
+            </button>
         </aside>
-
-        <main class="flex-grow flex flex-col min-w-0 bg-gray-50">
-            
-            <header class="bg-white h-20 flex items-center justify-between px-8 border-b border-gray-200 sticky top-0 z-30">
+        <main class="flex-grow bg-gray-50 flex flex-col overflow-y-auto h-screen">
+            <header
+                class="bg-white h-20 flex items-center justify-between px-8 border-b border-gray-200 sticky top-0 z-30 shadow-sm">
+                <h2 class="text-xl font-bold text-gray-800" x-text="getPageTitle()"></h2>
                 <div class="flex items-center gap-4">
-                    <button @click="sidebarOpen = true" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                    <h2 class="text-xl font-bold text-gray-800 hidden md:block" x-text="userType === 'company' ? 'لوحة تحكم الشركات' : 'لوحة تحكم الأفراد'"></h2>
-                </div>
-
-                <div class="flex items-center bg-gray-100 p-1 rounded-full border border-gray-200">
-                    <button @click="userType = 'company'" :class="userType === 'company' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'" class="px-6 py-2 rounded-full text-xs font-bold transition-all">شركة</button>
-                    <button @click="userType = 'individual'" :class="userType === 'individual' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'" class="px-6 py-2 rounded-full text-xs font-bold transition-all">فرد</button>
+                    <div class="text-left">
+                        <p class="text-sm font-bold text-gray-900" x-text="userName"></p>
+                        <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-1 rounded-md font-bold"
+                            x-text="userType === 'Factory' ? 'منشأة صناعية' : 'عضو مبدع'"></span>
+                    </div>
+                    <div
+                        class="w-11 h-11 bg-gray-100 rounded-full border-2 border-blue-500 flex items-center justify-center overflow-hidden shadow-sm">
+                        <template x-if="userImage"><img :src="userImage" class="w-full h-full object-cover"></template>
+                        <template x-if="!userImage"><i class="fas fa-user text-gray-400"></i></template>
+                    </div>
                 </div>
             </header>
-
             <div class="p-8 space-y-8">
-                
-                <div class="bg-white p-8 rounded-3xl custom-shadow border border-gray-100">
-                    <h1 class="text-3xl font-extrabold text-gray-900 mb-2">مرحباً بك مجدداً 👋</h1>
-                    <p class="text-gray-500" x-text="userType === 'company' ? 'إليك آخر مستجدات مشاريع شركتك والكوادر المتاحة.' : 'إليك نظرة سريعة على عروضك ومواعيد الجلسات القادمة.'"></p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-white p-6 rounded-2xl custom-shadow border-r-4 border-blue-600">
-                        <p class="text-gray-500 text-sm font-bold mb-1" x-text="userType === 'company' ? 'المشاريع الجارية' : 'عروض نشطة'"></p>
-                        <h3 class="text-2xl font-black font-montserrat">12</h3>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl custom-shadow border-r-4 border-yellow-500">
-                        <p class="text-gray-500 text-sm font-bold mb-1" x-text="userType === 'company' ? 'طلبات بانتظار الرد' : 'مواعيد اليوم'"></p>
-                        <h3 class="text-2xl font-black font-montserrat">04</h3>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl custom-shadow border-r-4 border-green-500">
-                        <p class="text-gray-500 text-sm font-bold mb-1">إجمالي المحفظة</p>
-                        <h3 class="text-2xl font-black font-montserrat">2,450 ريال</h3>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl custom-shadow border-r-4 border-purple-500">
-                        <p class="text-gray-500 text-sm font-bold mb-1">التقييم العام</p>
-                        <h3 class="text-2xl font-black font-montserrat">4.9 / 5</h3>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-bold text-gray-800" x-text="userType === 'company' ? '📋 متابعة المشاريع' : '🔍 مشاريع مقترحة لك'"></h3>
-                        <div class="bg-white p-6 rounded-2xl custom-shadow space-y-4">
-                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-blue-50 transition border border-transparent hover:border-blue-200 cursor-pointer">
-                                <div>
-                                    <h4 class="font-bold text-gray-900">تصميم منتج ملموس (كرسي ذكي)</h4>
-                                    <p class="text-xs text-gray-400 mt-1">آخر تحديث: منذ ساعتين</p>
-                                </div>
-                                <span class="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-bold rounded-lg">قيد التنفيذ</span>
+                <!-- Overview Tab -->
+                <div x-show="activeTab === 'overview'" x-transition x-cloak>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div
+                            class="bg-white p-6 rounded-3xl custom-shadow flex items-center gap-4 border-r-4 border-blue-600">
+                            <div
+                                class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 text-xl">
+                                <i class="fas fa-project-diagram"></i>
                             </div>
-                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-yellow-50 transition border border-transparent hover:border-yellow-200 cursor-pointer">
-                                <div>
-                                    <h4 class="font-bold text-gray-900">تطوير واجهة تطبيق مقدار</h4>
-                                    <p class="text-xs text-gray-400 mt-1">آخر تحديث: يوم أمس</p>
-                                </div>
-                                <span class="px-3 py-1 bg-yellow-100 text-yellow-600 text-xs font-bold rounded-lg">مراجعة</span>
+                            <div>
+                                <p class="text-gray-400 text-xs font-bold">المشاريع النشطة</p>
+                                <h3 class="text-2xl font-black text-gray-800" x-text="projects.length"></h3>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-3xl custom-shadow flex items-center gap-4 border-r-4 border-purple-600">
+                            <div
+                                class="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600 text-xl">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-xs font-bold">معرض الأعمال</p>
+                                <h3 class="text-2xl font-black text-gray-800" x-text="portfolio.length"></h3>
                             </div>
                         </div>
                     </div>
-
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-bold text-gray-800">🔔 آخر التنبيهات</h3>
-                        <div class="bg-white p-6 rounded-2xl custom-shadow space-y-6">
-                            <div class="flex gap-4">
-                                <div class="w-10 h-10 bg-green-100 text-green-600 rounded-full flex-shrink-0 flex items-center justify-center"><i class="fas fa-check"></i></div>
-                                <div>
-                                    <p class="text-sm text-gray-700">تم اعتماد دفعة مالية للمشروع <strong>رقم #4432</strong></p>
-                                    <span class="text-xs text-gray-400">منذ 5 دقائق</span>
+                </div>
+                <!-- Projects Tab (تم التعديل هنا) -->
+                <div x-show="activeTab === 'projects'" x-transition x-cloak class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold text-gray-800">إدارة المشاريع</h2>
+                        <button @click="showAddProject = true"
+                            class="bg-blue-600 text-white px-8 py-3 rounded-2xl font-bold shadow-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-plus ml-2"></i> إضافة مشروع جديد
+                        </button>
+                    </div>
+                    <!-- نموذج الإضافة -->
+                    <div x-show="showAddProject" class="bg-white p-8 rounded-3xl custom-shadow border-2 border-blue-100"
+                        x-transition>
+                        <form @submit.prevent="submitNewProject" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="col-span-2">
+                                    <label class="block text-sm font-bold mb-2 text-gray-700">عنوان المشروع</label>
+                                    <input type="text" x-model="newProject.title" required
+                                        class="w-full p-4 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-100"
+                                        placeholder="مثال: تصميم كرسي ذكي">
+                                </div>
+                                <div class="col-span-2">
+                                    <label class="block text-sm font-bold mb-2 text-gray-700">وصف وتفاصيل
+                                        المشروع</label>
+                                    <textarea x-model="newProject.description" rows="4" required
+                                        class="w-full p-4 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-100"
+                                        placeholder="اشرح لنا فكرة مشروعك..."></textarea>
                                 </div>
                             </div>
                             <div class="flex gap-4">
-                                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex-shrink-0 flex items-center justify-center"><i class="fas fa-envelope"></i></div>
-                                <div>
-                                    <p class="text-sm text-gray-700">رسالة جديدة من المصمم <strong>أحمد محمد</strong></p>
-                                    <span class="text-xs text-gray-400">منذ ساعة</span>
+                                <button type="submit"
+                                    class="bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 transition">حفظ
+                                    المشروع</button>
+                                <button type="button" @click="showAddProject = false"
+                                    class="bg-gray-100 text-gray-500 px-8 py-4 rounded-2xl font-bold hover:bg-gray-200 transition">إلغاء</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- قائمة المشاريع -->
+                    <div class="grid grid-cols-1 gap-4">
+                        <template x-for="project in projects" :key="project.id">
+                            <div
+                                class="bg-white p-6 rounded-3xl custom-shadow border border-gray-50 flex items-center justify-between hover:border-blue-200 transition">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600">
+                                        <i class="fas fa-layer-group"></i> <!-- أيقونة مشاريع -->
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-lg text-gray-900" x-text="project.title"></h4>
+                                        <p class="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                                            <i class="far fa-calendar-alt"></i>
+                                            <span x-text="project.date"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <span :class="getStatusClass(project.status)" class="status-badge"
+                                    x-text="getStatusText(project.status)"></span>
+                            </div>
+                        </template>
+                        <template x-if="projects.length === 0">
+                            <div class="text-center py-12 bg-gray-50 rounded-3xl border border-dashed border-gray-300">
+                                <i class="fas fa-folder-open text-4xl text-gray-300 mb-4"></i>
+                                <p class="text-gray-500 font-bold">لا توجد مشاريع حالياً</p>
+                                <p class="text-xs text-gray-400 mt-2">ابدأ بإضافة مشروعك الأول الآن</p>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <!-- Portfolio Tab -->
+                <div x-show="activeTab === 'portfolio'" x-transition x-cloak class="space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold text-gray-800">معرض أعمالي</h2>
+                        <label
+                            class="bg-blue-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg cursor-pointer hover:bg-blue-700 transition"><i
+                                class="fas fa-upload ml-2"></i> رفع عمل جديد<input type="file"
+                                @change="addPortfolioItem" class="hidden" accept="image/*"></label>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <template x-for="(work, index) in portfolio" :key="index">
+                            <div
+                                class="portfolio-card relative bg-white rounded-3xl overflow-hidden custom-shadow group border border-gray-100">
+                                <img :src="work.image"
+                                    class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110">
+                                <div
+                                    class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <button @click="deletePortfolioItem(index)"
+                                        class="bg-red-600 text-white w-10 h-10 rounded-full shadow-xl hover:bg-red-700 transition"><i
+                                            class="fas fa-trash-alt"></i></button>
                                 </div>
                             </div>
+                        </template>
+                    </div>
+                </div>
+                <!-- Profile Tab -->
+                <div x-show="activeTab === 'profile'" x-transition x-cloak>
+                    <div class="bg-white p-10 rounded-3xl custom-shadow border border-gray-100">
+                        <h2 class="text-2xl font-bold mb-8 text-gray-800">بيانات الحساب المهنية</h2>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                            <div class="flex flex-col items-center gap-6">
+                                <div
+                                    class="w-48 h-48 rounded-full bg-gray-50 border-4 border-white shadow-lg overflow-hidden relative group">
+                                    <template x-if="userImage"><img :src="userImage"
+                                            class="w-full h-full object-cover"></template>
+                                    <template x-if="!userImage"><i
+                                            class="fas fa-user-circle text-8xl text-gray-200 mt-8"></i></template>
+                                    <label
+                                        class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center cursor-pointer">
+                                        <span class="text-white text-xs font-bold">تحديث</span>
+                                        <input type="file" @change="updatePhoto" class="hidden">
+                                    </label>
+                                </div>
+                            </div>
+                            <form @submit.prevent="updateProfile" class="lg:col-span-2 space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="col-span-2 md:col-span-1"><label
+                                            class="block text-sm font-bold mb-2 text-gray-700">الاسم</label><input
+                                            type="text" x-model="userName"
+                                            class="w-full p-4 border rounded-2xl bg-gray-50 outline-none focus:ring-2 focus:ring-blue-100">
+                                    </div>
+                                    <div class="col-span-2 md:col-span-1"><label
+                                            class="block text-sm font-bold mb-2 text-gray-700">التخصص</label><input
+                                            type="text" x-model="userBio.role"
+                                            class="w-full p-4 border rounded-2xl bg-gray-50 outline-none focus:ring-2 focus:ring-blue-100">
+                                    </div>
+                                    <div class="col-span-2"><label
+                                            class="block text-sm font-bold mb-2 text-gray-700">النبذة
+                                            التعريفية</label><textarea x-model="userBio.description" rows="5"
+                                            class="w-full p-4 border rounded-2xl bg-gray-50 outline-none focus:ring-2 focus:ring-blue-100"></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit"
+                                    class="bg-blue-600 text-white px-12 py-4 rounded-2xl font-bold shadow-xl hover:bg-blue-700 transition">حفظ
+                                    الملف</button>
+                            </form>
                         </div>
                     </div>
-
+                </div>
+                <!-- Settings Tab -->
+                <div x-show="activeTab === 'settings'" x-transition x-cloak class="max-w-4xl space-y-8">
+                    <div class="bg-white p-8 rounded-3xl custom-shadow border border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2"><i
+                                class="fas fa-shield-alt text-blue-600"></i> أمان الحساب</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div><label class="block text-sm font-bold mb-2 text-gray-600">كلمة المرور
+                                    الجديدة</label><input type="password" x-model="passForm.newPass"
+                                    class="w-full p-4 border rounded-2xl bg-gray-50 outline-none focus:ring-2 focus:ring-blue-100"
+                                    placeholder="••••••••"></div>
+                            <div><label class="block text-sm font-bold mb-2 text-gray-600">تأكيد كلمة
+                                    المرور</label><input type="password" x-model="passForm.confirmPass"
+                                    class="w-full p-4 border rounded-2xl bg-gray-50 outline-none focus:ring-2 focus:ring-blue-100"
+                                    placeholder="••••••••"></div>
+                        </div>
+                        <button @click="updatePassword()"
+                            class="mt-6 bg-gray-900 text-white px-8 py-3 rounded-2xl font-bold hover:bg-black transition shadow-lg">تحديث
+                            كلمة السر</button>
+                    </div>
+                    <!-- (باقي الإعدادات كما هي) -->
+                    <div class="bg-white p-8 rounded-3xl custom-shadow border border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2"><i
+                                class="fas fa-database text-blue-600"></i> بياناتك والخصوصية</h3>
+                        <div class="flex flex-wrap gap-4">
+                            <button @click="alert('جاري تصدير مشاريعك وبياناتك...') "
+                                class="flex-1 p-4 border-2 border-dashed border-blue-100 rounded-2xl text-blue-600 font-bold hover:bg-blue-50 transition"><i
+                                    class="fas fa-download ml-2"></i> تحميل ملف ببياناتي</button>
+                            <button @click="deleteAccount()"
+                                class="flex-1 p-4 border-2 border-dashed border-red-50 rounded-2xl text-red-500 font-bold hover:bg-red-50 transition"><i
+                                    class="fas fa-user-slash ml-2"></i> حذف الحساب نهائياً</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
     </div>
-
     <script>
-        // إغلاق القائمة عند تغيير الشاشة لضمان عدم حدوث أخطاء
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 1024) Alpine.store('sidebarOpen', false);
-        });
+        function dashboardData() {
+            return {
+                activeTab: 'overview',
+                showAddProject: false,
+                userName: localStorage.getItem('userName') || 'عضو صناع',
+                userType: localStorage.getItem('userType') || 'Individual',
+                userImage: localStorage.getItem('userImage') || null,
+                portfolio: JSON.parse(localStorage.getItem('userPortfolio') || '[]'),
+                userBio: JSON.parse(localStorage.getItem('userBio') || '{"role": "", "description": ""}'),
+                projects: JSON.parse(localStorage.getItem('userProjects') || '[]'),
+                newProject: { title: '', description: '' },
+                passForm: { newPass: '', confirmPass: '' },
+                // تم تعديل اسم القائمة هنا
+                menuItems: [
+                    { id: 'overview', icon: 'fas fa-home', title: 'الرئيسية' },
+                    { id: 'projects', icon: 'fas fa-layer-group', title: 'مشاريعي' }, // تعديل الاسم والأيقونة
+                    { id: 'portfolio', icon: 'fas fa-images', title: 'معرضي' },
+                    { id: 'profile', icon: 'fas fa-user-edit', title: 'الملف الشخصي' },
+                    { id: 'settings', icon: 'fas fa-cog', title: 'إعدادات الحساب' },
+                ],
+                addPortfolioItem(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.portfolio.unshift({ image: e.target.result, date: new Date().toLocaleDateString('ar-SA') });
+                            localStorage.setItem('userPortfolio', JSON.stringify(this.portfolio));
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                },
+                deletePortfolioItem(index) {
+                    if (confirm('حذف من المعرض؟')) {
+                        this.portfolio.splice(index, 1);
+                        localStorage.setItem('userPortfolio', JSON.stringify(this.portfolio));
+                    }
+                },
+                submitNewProject() {
+                    if (!this.newProject.title) return;
+                    const project = {
+                        id: Date.now(),
+                        title: this.newProject.title,
+                        description: this.newProject.description,
+                        userName: this.userName,
+                        userPhone: localStorage.getItem('userPhone') || '05xxxxxxxx',
+                        status: 'Pending',
+                        createdAt: new Date().toISOString(),
+                        date: new Date().toLocaleDateString('ar-SA')
+                    };
+                    this.projects.unshift(project);
+                    localStorage.setItem('userProjects', JSON.stringify(this.projects));
+                    alert('✅ تم حفظ المشروع بنجاح!');
+                    this.showAddProject = false;
+                    this.newProject = { title: '', description: '' }; // تصفير الحقول
+                },
+                updatePhoto(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.userImage = e.target.result;
+                            localStorage.setItem('userImage', e.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                },
+                updateProfile() {
+                    localStorage.setItem('userName', this.userName);
+                    localStorage.setItem('userBio', JSON.stringify(this.userBio));
+                    alert('✅ تم التحديث');
+                },
+                updatePassword() {
+                    if (!this.passForm.newPass || this.passForm.newPass !== this.passForm.confirmPass) return alert('خطأ في كلمة المرور');
+                    alert('✅ تم التغيير بنجاح');
+                },
+                deleteAccount() {
+                    if (confirm('⚠️ سيتم مسح حسابك للأبد، هل أنت متأكد؟')) {
+                        localStorage.clear();
+                        window.location.href = 'login.html';
+                    }
+                },
+                getPageTitle() { return this.menuItems.find(i => i.id === this.activeTab).title; },
+                getStatusText(status) { return status === 'Pending' ? 'قيد المراجعة' : 'تم القبول'; },
+                getStatusClass(status) { return status === 'Pending' ? 'bg-yellow-100 text-yellow-600' : 'bg-green-100 text-green-600'; },
+                logout() { localStorage.clear(); window.location.href = 'login.html'; }
+            }
+        }
     </script>
 </body>
 </html>

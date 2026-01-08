@@ -4,255 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نموذج التقديم - شركة صناع الرسالة القابضة</title>
-    
+    <!-- (الروابط والستايلات الأساسية كما هي) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
     <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
-    
     <style>
-        :root {
-            --color-primary: #155FCF;           
-            --color-primary-hover: #124d9f;         
-            --color-dark-text: #111827;             
-            --color-white: #ffffff;                 
-        }
-        body {
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
-            text-align: right;
-            color: var(--color-dark-text);
-            background-color: #f8fafc;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* توحيد الظلال للسواد */
-        .custom-shadow {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
-        }
-
-        /* تنسيقات حقول النموذج */
-        .form-input {
-            border: 1px solid #e5e7eb;
-            padding: 12px 15px;
-            border-radius: 0.75rem;
-            width: 100%;
-            transition: all 0.3s;
-            background: white;
-        }
-        .form-input:focus {
-            border-color: var(--color-primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(21, 95, 207, 0.1);
-        }
-        
-        /* تنسيق زر التبديل */
-        .role-label {
-            cursor: pointer;
-            padding: 10px 25px;
-            border-radius: 99px;
-            transition: all 0.3s;
-            font-weight: 600;
-            flex: 1;
-            text-align: center;
-        }
-        input[type="radio"]:checked + .role-label {
-            background-color: var(--color-primary);
-            color: white;
-            box-shadow: 0 4px 10px rgba(21, 95, 207, 0.3);
-        }
-
-        .btn-primary {
-            background-color: var(--color-primary);
-            transition: all 0.3s;
-        }
-        .btn-primary:hover {
-            background-color: var(--color-primary-hover);
-            transform: translateY(-2px);
-        }
+        :root { --color-primary: #155FCF; }
+        body { font-family: 'IBM Plex Sans Arabic', sans-serif; background-color: #f8fafc; }
     </style>
 </head>
-
-<body class="antialiased" x-data="{ mobileMenu: false, dropdownOpen: false }">
-
+<body class="antialiased flex flex-col min-h-screen" x-data="{ jobLink: '#' }" x-init="fetch('http://localhost:5194/api/AdminContent/get-settings').then(r=>r.json()).then(d=>jobLink = (d.find(s=>s.Key==='jobFormUrl')||{}).Value || '#')">
+    <!-- Header -->
     <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
-            
-            <div class="flex items-center space-x-2 flex-row-reverse order-1">
-                <a href="../index.html" class="focus:outline-none flex items-center">
-                    <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-12 w-auto"> 
-                </a>
-                <button @click="mobileMenu = !mobileMenu" class="rounded-lg md:hidden focus:outline-none mr-4">
-                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6"><path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"></path><path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2"></path></svg>
-                </button>
+            <div class="flex items-center space-x-2 flex-row-reverse">
+                <a href="../index.html"><img src="../imgaes/شعار صناع (2).png" alt="Logo" class="h-12 w-auto"></a>
             </div>
-
-            <nav class="hidden md:flex flex-grow justify-center order-2">
-                <div class="flex items-center md:space-x-8 md:space-x-reverse">
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="../index.html">الرئيسية</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./services.html">الخدمات</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./about.html">عن صناع</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="./news.html">أخبارنا</a>
-                    
-                    <div class="relative">
-                        <button @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none transition">
-                            <span>انضم لنا</span>
-                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': dropdownOpen}" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
-                        </button>
-                        <div x-show="dropdownOpen" x-transition class="absolute right-0 w-40 mt-2 bg-white border border-gray-200 rounded-md shadow-xl z-50">
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">تدريب</a>
-                            <a class="block px-4 py-3 text-sm hover:bg-blue-50 transition" href="./forms.html">توظيف</a>
-                        </div>
-                    </div>
-                </div>
+            <nav class="hidden md:flex flex-grow justify-center space-x-8 space-x-reverse">
+                <a class="px-4 py-2 text-sm hover:text-blue-600" href="../index.html">الرئيسية</a>
+                <a class="px-4 py-2 text-sm hover:text-blue-600" href="./services.html">خدماتنا</a>
+                <a class="px-4 py-2 text-sm hover:text-blue-600 font-bold text-blue-600" href="./forms.html">انضم لنا</a>
             </nav>
-
-            <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
-                <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold" href="./english.html">EN</a>
-                <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold transition hover:bg-blue-50" href="./login.html">تسجيل دخول</a>
-                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow" href="./register.html">تسجيل</a>
-            </div>
-        </div>
-
-        <div x-show="mobileMenu" x-transition class="md:hidden bg-white border-t border-gray-100 pb-4 shadow-inner">
-            <div class="flex flex-col p-4 space-y-2">
-                <a class="block px-6 py-3 text-sm" href="../index.html">الرئيسية</a>
-                <a class="block px-6 py-3 text-sm" href="./services.html">الخدمات</a>
-                <a class="block px-6 py-3 text-sm font-bold text-blue-600" href="./about.html">عن صناع</a>
-                <div class="px-6 mt-4 space-y-2 text-center">
-                    <a class="block bg-blue-600 text-white py-3 rounded-xl font-bold" href="./register.html">تسجيل</a>
-                    <a class="block border border-blue-600 text-blue-600 py-3 rounded-xl font-bold" href="./login.html">دخول</a>
-                </div>
-            </div>
         </div>
     </div>
-
-    <main class="flex-grow py-12 md:py-20 px-6">
-        <div class="max-w-3xl mx-auto">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">انضم إلى فريق صناع</h1>
-                <p class="text-gray-500 text-lg">املأ النموذج أدناه لبدء رحلتك المهنية أو التدريبية معنا</p>
+    <!-- Main Content -->
+    <main class="flex-grow py-12 px-6 flex items-center justify-center">
+        <div class="max-w-2xl w-full bg-white p-10 rounded-3xl shadow-xl text-center border border-gray-100">
+            
+            <div class="bg-blue-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fas fa-briefcase text-3xl text-blue-600"></i>
             </div>
-
-            <div class="bg-white p-8 md:p-12 rounded-3xl custom-shadow border border-gray-100" x-data="{ role: 'job' }">
-                
-                <div class="mb-12">
-                    <label class="block text-center text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">اختر مسار التقديم</label>
-                    <div class="flex items-center bg-gray-50 p-1.5 rounded-full border border-gray-200 max-w-md mx-auto">
-                        <input type="radio" id="job-role" name="type" value="job" class="hidden" x-model="role">
-                        <label for="job-role" class="role-label" :class="role === 'job' ? '' : 'text-gray-500 hover:bg-gray-100'">طلب وظيفة</label>
-
-                        <input type="radio" id="internship-role" name="type" value="internship" class="hidden" x-model="role">
-                        <label for="internship-role" class="role-label" :class="role === 'internship' ? '' : 'text-gray-500 hover:bg-gray-100'">طلب تدريب</label>
-                    </div>
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-4">انضم لفريق صناع</h1>
+            <p class="text-gray-500 text-lg mb-8 leading-relaxed">
+                نبحث دائماً عن المبدعين وأصحاب الشغف. <br>املأ النموذج الموحد للتوظيف والتدريب وسنراجع طلبك بعناية.
+            </p>
+            <template x-if="jobLink !== '#'">
+                <a :href="jobLink" target="_blank" class="block w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-xl shadow-lg hover:bg-blue-700 transition transform hover:-translate-y-1">
+                    <i class="fas fa-external-link-alt ml-2"></i> تعبئة نموذج التقديم
+                </a>
+            </template>
+            
+            <template x-if="jobLink === '#'">
+                <div class="bg-yellow-50 text-yellow-700 p-4 rounded-xl font-bold border border-yellow-200">
+                    ⚠️ لم يتم تحديد رابط التقديم حالياً، يرجى المحاولة لاحقاً.
                 </div>
-
-                <form class="space-y-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">الاسم الكامل</label>
-                            <input type="text" class="form-input" placeholder="اسمك الثلاثي" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">البريد الإلكتروني</label>
-                            <input type="email" class="form-input" placeholder="example@mail.com" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">رقم الجوال</label>
-                            <input type="tel" class="form-input" placeholder="05xxxxxxxx" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">التخصص</label>
-                            <input type="text" class="form-input" placeholder="مثلاً: تصميم صناعي" required>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">السيرة الذاتية (ملف PDF)</label>
-                        <div class="relative border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-blue-400 transition cursor-pointer">
-                            <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" accept=".pdf">
-                            <i class="fas fa-cloud-upload-alt text-3xl text-blue-500 mb-3"></i>
-                            <p class="text-gray-500 text-sm font-medium">اسحب الملف هنا أو اضغط للرفع</p>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">رسالة تعريفية</label>
-                        <textarea class="form-input" rows="4" placeholder="لماذا تريد الانضمام إلينا؟"></textarea>
-                    </div>
-
-                    <button type="submit" class="w-full btn-primary text-white py-4 rounded-xl font-bold text-lg shadow-xl">
-                        إرسال الطلب الآن
-                    </button>
-                </form>
-
-                <p class="text-center text-xs text-gray-400 mt-8 leading-relaxed">
-                    بالضغط على إرسال، فإنك توافق على <a href="privacy-policy.html" class="text-blue-600 underline">سياسة الخصوصية</a> الخاصة بمنصة صناع.
-                </p>
-            </div>
+            </template>
+            <p class="text-xs text-gray-400 mt-6">سيتم فتح النموذج في Google Forms</p>
         </div>
     </main>
-
-    <footer class="bg-white border-t border-gray-200 pt-16 pb-8 text-right">
-        <div class="max-w-screen-xl mx-auto px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                <div>
-                    <img src="../imgaes/شعار صناع (2).png" alt="Logo" class="w-24 h-auto mb-6">
-                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكن اصحاب الافكار ورواد الاعمال من تحويل أفكارهم إلى منتجات.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6 font-montserrat">الروابط الأساسية</h4>
-                    <ul class="space-y-3 text-gray-700 text-sm">
-                        <li><a href="../index.html" class="hover:text-blue-600">الرئيسية</a></li>
-                        <li><a href="./about.html" class="hover:text-blue-600">عن صناع</a></li>
-                        <li><a href="./services.html" class="hover:text-blue-600">خدماتنا</a></li>
-                        <li><a href="./products.html" class="hover:text-blue-600">منتجاتنا</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6">الدعم والتواصل</h4>
-                    <ul class="space-y-3 text-gray-700 text-sm">
-                        <li><a href="./contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
-                        <li><a href="./news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
-                        <li><a href="./register.html" class="hover:text-blue-600">انضم كصانع</a></li>
-                        <li><a href="./privacy-policy.html" class="hover:text-blue-600">سياسةالخصوصية والمستخدم</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-blue-600 mb-6">تواصل معنا</h4>
-    <ul class="space-y-4 text-gray-700 text-sm">
-        <li class="flex items-center gap-3 justify-end">
-            <span>info@sunnaasar.com</span>
-            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
-            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span>المملكة العربية السعودية</span>
-            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
-        </li>
-    </ul>
-                </div>
-            </div>
-            <div class="border-t pt-8 text-center text-gray-400 text-xs font-montserrat">
-                © <span id="current-year"></span> SUNNA ALL RIGHTS RESERVED
-            </div>
-        </div>
+    <footer class="bg-white border-t border-gray-200 pt-10 pb-6 text-center">
+        <p class="text-gray-500 text-sm">جميع الحقوق محفوظة © <script>document.write(new Date().getFullYear())</script> شركة صناع الرسالة القابضة</p>
     </footer>
-
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true });
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
 </body>
 </html>

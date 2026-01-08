@@ -3,243 +3,639 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم الإدارة - صناع</title>
-    
+    <title>مركز التحكم الشامل - صُنّاع</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
-    
-    <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
-    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --color-primary: #155FCF;
-            --color-primary-hover: #124d9f;
-            --color-sidebar: #111827;
+            --color-sidebar: #ffffff;
         }
-        
         body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
-            background-color: #f8fafc;
+            background-color: #fdfdfd;
         }
-
-        /* توحيد الظلال للسواد الغامق */
-        .custom-shadow {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
-        }
-
-        /* Sidebar Styling */
         .sidebar {
             background-color: var(--color-sidebar);
-            transition: all 0.3s ease-in-out;
+            border-left: 1px solid #f1f5f9;
         }
-        
         .menu-item {
-            transition: all 0.2s ease;
-            color: #9ca3af;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #64748b;
+            font-weight: 500;
         }
-        
         .menu-item:hover {
-            background-color: #1f2937;
-            color: white;
+            background-color: #f8fafc;
+            color: var(--color-primary);
         }
-        
         .menu-item.active {
-            background-color: var(--color-primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(21, 95, 207, 0.3);
+            background-color: #eff6ff;
+            color: var(--color-primary);
+            border-left: 4px solid var(--color-primary);
         }
-
-        /* Stat Cards Border Accent */
-        .stat-card {
-            border-top: 4px solid var(--color-primary);
+        .content-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            margin-bottom: 2rem;
         }
-
-        @media (max-width: 1024px) {
-            .sidebar {
-                position: fixed;
-                right: -100%;
-                z-index: 100;
-                height: 100vh;
-            }
-            .sidebar.open {
-                right: 0;
-            }
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 1rem;
+            outline: none;
+            background: #fff;
+            text-align: left;
+            direction: ltr;
+        }
+        .form-input:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(21, 95, 207, 0.1);
+        }
+        .btn-action {
+            transition: 0.3s;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        .btn-edit {
+            color: #155FCF;
+            background: #eff6ff;
+        }
+        .btn-delete {
+            color: #ef4444;
+            background: #fef2f2;
+        }
+        .btn-accept {
+            color: #059669;
+            background: #d1fae5;
+        }
+        .btn-reject {
+            color: #dc2626;
+            background: #fee2e2;
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #68D391;
+        }
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: #68D391;
+        }
+        [x-cloak] {
+            display: none !important;
+        }
+        .logo-box {
+            display: flex;
+            justify-content: center;
+            padding: 25px 0;
+            border-bottom: 1px solid #f8fafc;
+            margin-bottom: 15px;
+        }
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: bold;
         }
     </style>
 </head>
-
-<body class="antialiased" x-data="{ sidebarOpen: false }">
-
-    <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 bg-black/50 z-40 lg:hidden"></div>
-
+<body class="antialiased" x-data="adminSystem()">
     <div class="flex min-h-screen">
-        
-        <aside :class="sidebarOpen ? 'open' : ''" class="sidebar w-72 flex-shrink-0 lg:static fixed flex flex-col p-6 text-white h-screen z-50">
-            <div class="flex items-center gap-3 mb-10 border-b border-gray-800 pb-6">
-                <img src="../imgaes/شعار صناع (2).png" class="w-10 h-auto" alt="Logo">
-                <span class="text-xl font-bold tracking-tight">إدارة صناع</span>
-            </div>
-
+        <!-- Sidebar -->
+        <aside class="sidebar w-72 flex-shrink-0 flex flex-col p-6 h-screen sticky top-0">
+            <div class="logo-box"><img src="../imgaes/شعار صناع (2).png" class="w-16 h-auto"
+                    onerror="this.src='https://placehold.co/60x60?text=Logo'"></div>
             <nav class="space-y-1 flex-grow overflow-y-auto">
-                <p class="text-gray-500 text-xs font-bold mb-4 uppercase tracking-widest px-3">الرئيسية</p>
-                <a href="#" class="menu-item active flex items-center gap-4 p-3 rounded-xl font-medium">
-                    <i class="fas fa-chart-line w-6 text-center text-lg"></i>
-                    <span>الإحصائيات</span>
-                </a>
-
-                <p class="text-gray-500 text-xs font-bold mt-8 mb-4 uppercase tracking-widest px-3">المحتوى</p>
-                <a href="#" class="menu-item flex items-center gap-4 p-3 rounded-xl font-medium">
-                    <i class="fas fa-edit w-6 text-center text-lg"></i>
-                    <span>تعديل الموقع</span>
-                </a>
-                <a href="#" class="menu-item flex items-center gap-4 p-3 rounded-xl font-medium">
-                    <i class="fas fa-newspaper w-6 text-center text-lg"></i>
-                    <span>إدارة الأخبار</span>
-                </a>
-                <a href="#" class="menu-item flex items-center gap-4 p-3 rounded-xl font-medium">
-                    <i class="fas fa-graduation-cap w-6 text-center text-lg"></i>
-                    <span>المعسكرات</span>
-                </a>
-
-                <p class="text-gray-500 text-xs font-bold mt-8 mb-4 uppercase tracking-widest px-3">المستخدمين</p>
-                <a href="#" class="menu-item flex items-center gap-4 p-3 rounded-xl font-medium">
-                    <i class="fas fa-users-cog w-6 text-center text-lg"></i>
-                    <span>إدارة الأعضاء</span>
-                </a>
-            </nav>
-
-            <div class="mt-auto pt-6 border-t border-gray-800">
-                <a href="#" class="flex items-center gap-4 p-3 rounded-xl text-red-400 hover:bg-red-500/10 transition">
-                    <i class="fas fa-sign-out-alt w-6 text-center"></i>
-                    <span>خروج النظام</span>
-                </a>
-            </div>
-        </aside>
-
-        <main class="flex-grow flex flex-col min-w-0">
-            
-            <header class="bg-white h-20 flex items-center justify-between px-8 border-b border-gray-200 sticky top-0 z-30 shadow-sm">
-                <div class="flex items-center gap-4">
-                    <button @click="sidebarOpen = true" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                    <h2 class="text-xl font-bold text-gray-800">لوحة التحكم الإدارية</h2>
+                <p class="text-slate-400 text-[10px] font-bold mb-2 uppercase px-3 tracking-widest">الرئيسية</p>
+                <div @click="activeTab = 'stats'" :class="activeTab === 'stats' ? 'active' : ''"
+                    class="menu-item p-3 rounded-xl flex items-center gap-3"><i class="fas fa-chart-line w-5"></i>
+                    الإحصائيات</div>
+                <div @click="activeTab = 'applications'" :class="activeTab === 'applications' ? 'active' : ''"
+                    class="menu-item p-3 rounded-xl flex items-center gap-3"><i class="fas fa-file-alt w-5"></i> إدارة
+                    التقديم</div>
+                <div @click="activeTab = 'projects'" :class="activeTab === 'projects' ? 'active' : ''"
+                    class="menu-item p-3 rounded-xl flex items-center gap-3"><i class="fas fa-tasks w-5"></i> مشاريع
+                    الأعضاء</div>
+                <p class="text-slate-400 text-[10px] font-bold mt-6 mb-2 uppercase px-3 tracking-widest">المحتوى</p>
+                <div @click="activeTab = 'news'" :class="activeTab === 'news' ? 'active' : ''"
+                    class="menu-item p-3 rounded-xl flex items-center gap-3"><i class="fas fa-newspaper w-5"></i>
+                    الأخبار</div>
+                <div @click="activeTab = 'products'" :class="activeTab === 'products' ? 'active' : ''"
+                    class="menu-item p-3 rounded-xl flex items-center gap-3"><i class="fas fa-shopping-bag w-5"></i>
+                    المنتجات</div>
+                <div @click="activeTab = 'camps'" :class="activeTab === 'camps' ? 'active' : ''"
+                    class="menu-item p-3 rounded-xl flex items-center gap-3"><i class="fas fa-graduation-cap w-5"></i>
+                    المعسكرات</div>
+                <div @click="activeTab = 'podcast'" :class="activeTab === 'podcast' ? 'active' : ''"
+                    class="menu-item p-3 rounded-xl flex items-center gap-3"><i class="fas fa-microphone-alt w-5"></i>
+                    البودكاست</div>
+                <div @click="activeTab = 'experts'" :class="activeTab === 'experts' ? 'active' : ''"
+                    class="menu-item p-3 rounded-xl flex items-center gap-3"><i class="fas fa-user-tie w-5"></i> الخبراء
                 </div>
-                
+                <p class="text-slate-400 text-[10px] font-bold mt-6 mb-2 uppercase px-3 tracking-widest">الإعدادات</p>
+                <div @click="activeTab = 'settings'" :class="activeTab === 'settings' ? 'active' : ''"
+                    class="menu-item p-3 rounded-xl flex items-center gap-3"><i class="fas fa-sliders-h w-5"></i>
+                    إعدادات النظام</div>
+            </nav>
+            <button @click="logout()"
+                class="mt-auto p-3 rounded-xl text-red-500 hover:bg-red-50 flex items-center gap-3 font-bold transition"><i
+                    class="fas fa-sign-out-alt"></i> خروج</button>
+        </aside>
+        <!-- Main Content -->
+        <main class="flex-grow p-8 bg-gray-50">
+            <header
+                class="flex justify-between items-center mb-10 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h1 class="text-2xl font-bold text-gray-800" x-text="getTitle()"></h1>
                 <div class="flex items-center gap-4">
-                    <span class="text-sm font-bold text-gray-500 hidden sm:block">مدير النظام</span>
-                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">A</div>
+                    <div class="text-left"><span class="block font-bold text-blue-600 text-sm"
+                            x-text="adminName"></span><span
+                            class="block text-[10px] text-gray-400 uppercase font-bold">مدير النظام</span></div>
+                    <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 font-bold text-xl"
+                        x-text="adminName.charAt(0)"></div>
                 </div>
             </header>
-
-            <div class="p-8 space-y-10">
-                
-                <div class="bg-white p-8 rounded-3xl custom-shadow border border-gray-100">
-                    <h1 class="text-3xl font-extrabold text-gray-900 mb-2">نظرة عامة على النظام ⚙️</h1>
-                    <p class="text-gray-500">مرحباً بك في مركز التحكم. تابع الأرقام والعمليات الجارية في المنصة.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-white p-6 rounded-2xl custom-shadow border-t-4 border-blue-600">
-                        <div class="flex items-center justify-between mb-2">
-                            <i class="fas fa-users text-blue-600 text-xl"></i>
-                            <span class="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-lg">+12%</span>
-                        </div>
-                        <h3 class="text-2xl font-black font-montserrat">1,219</h3>
-                        <p class="text-gray-500 text-xs font-bold uppercase mt-1">إجمالي المستخدمين</p>
+            <!-- 1. STATS -->
+            <div x-show="activeTab === 'stats'" x-transition x-cloak>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="content-card border-b-4 border-green-500"><span class="stat-label">المستخدمين</span>
+                        <h2 class="text-3xl font-black mt-2" x-text="analytics.UsersCount || 0">0</h2>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl custom-shadow border-t-4 border-yellow-500">
-                        <div class="flex items-center justify-between mb-2">
-                            <i class="fas fa-calendar-alt text-yellow-500 text-xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-black font-montserrat">39</h3>
-                        <p class="text-gray-500 text-xs font-bold uppercase mt-1">فعالية نشطة</p>
+                    <div class="content-card border-b-4 border-blue-600"><span class="stat-label">المحتوى</span>
+                        <h2 class="text-3xl font-black mt-2" x-text="totalItems">0</h2>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl custom-shadow border-t-4 border-green-500">
-                        <div class="flex items-center justify-between mb-2">
-                            <i class="fas fa-handshake text-green-600 text-xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-black font-montserrat">09</h3>
-                        <p class="text-gray-500 text-xs font-bold uppercase mt-1">شركاء جدد</p>
+                    <div class="content-card border-b-4 border-orange-500"><span class="stat-label">المنتجات</span>
+                        <h2 class="text-3xl font-black mt-2" x-text="analytics.ProductsCount || 0">0</h2>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl custom-shadow border-t-4 border-purple-500">
-                        <div class="flex items-center justify-between mb-2">
-                            <i class="fas fa-newspaper text-purple-600 text-xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-black font-montserrat">12</h3>
-                        <p class="text-gray-500 text-xs font-bold uppercase mt-1">أخبار معلقة</p>
+                    <div class="content-card border-b-4 border-purple-600"><span class="stat-label">مشاريع
+                            الأعضاء</span>
+                        <h2 class="text-3xl font-black mt-2" x-text="projectsList.length || 0">0</h2>
                     </div>
                 </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-bold text-gray-800">🛠️ إدارة المحتوى السريعة</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <button class="bg-white p-6 rounded-2xl custom-shadow hover:border-blue-600 border border-transparent transition-all text-right group">
-                                <i class="fas fa-edit text-blue-600 mb-4 text-2xl group-hover:scale-110 transition"></i>
-                                <p class="font-bold text-gray-900">تعديل الموقع</p>
-                                <p class="text-xs text-gray-400">تحديث العناوين والنصوص</p>
-                            </button>
-                            <button class="bg-white p-6 rounded-2xl custom-shadow hover:border-green-600 border border-transparent transition-all text-right group">
-                                <i class="fas fa-newspaper text-green-600 mb-4 text-2xl group-hover:scale-110 transition"></i>
-                                <p class="font-bold text-gray-900">إضافة خبر</p>
-                                <p class="text-xs text-gray-400">نشر تحديث جديد للشركة</p>
-                            </button>
-                            <button class="bg-white p-6 rounded-2xl custom-shadow hover:border-purple-600 border border-transparent transition-all text-right group">
-                                <i class="fas fa-images text-purple-600 mb-4 text-2xl group-hover:scale-110 transition"></i>
-                                <p class="font-bold text-gray-900">معرض الصور</p>
-                                <p class="text-xs text-gray-400">تنظيم أصول الموقع</p>
-                            </button>
-                            <button class="bg-white p-6 rounded-2xl custom-shadow hover:border-yellow-600 border border-transparent transition-all text-right group">
-                                <i class="fas fa-box text-yellow-600 mb-4 text-2xl group-hover:scale-110 transition"></i>
-                                <p class="font-bold text-gray-900">إدارة المنتجات</p>
-                                <p class="text-xs text-gray-400">تحديث متجر صناع</p>
+            </div>
+            <!-- 2. APPLICATIONS MANAGEMENT -->
+            <div x-show="activeTab === 'applications'" x-transition x-cloak>
+                <div class="content-card border border-blue-100">
+                    <h3 class="font-bold text-xl mb-4 text-gray-800 flex items-center gap-2"><i
+                            class="fab fa-google-drive text-green-500"></i> إدارة نظام التوظيف</h3>
+                    <p class="text-gray-500 mb-6 text-sm">تحكم بروابط نماذج جوجل المستخدمة في الموقع للتوظيف والتدريب.
+                    </p>
+                    <div class="grid gap-6">
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <h4 class="font-bold text-blue-600 mb-4"><i class="fas fa-link"></i> رابط النموذج
+                                (للمستخدمين)</h4>
+                            <label class="block text-xs font-bold text-gray-500 mb-2">رابط نموذج التوظيف والتدريب
+                                (Google Form URL)</label>
+                            <div class="flex gap-2">
+                                <input type="text" x-model="config.jobFormUrl" placeholder="https://forms.gle/..."
+                                    class="form-input mb-0 flex-grow">
+                                <button @click="saveConfig('jobFormUrl', config.jobFormUrl)"
+                                    class="bg-blue-600 text-white px-4 rounded-xl font-bold hover:bg-blue-700">حفظ</button>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mt-2">* هذا الرابط سيتم وضعه تلقائياً في زر "تقديم"
+                                بالموقع.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-2xl border border-dashed border-gray-300">
+                            <h4 class="font-bold text-green-600 mb-4"><i class="fas fa-file-excel"></i> ملف الردود (لك
+                                أنت)</h4>
+                            <label class="block text-xs font-bold text-gray-500 mb-2">رابط ملف الردود (Google Sheet
+                                URL)</label>
+                            <div class="flex gap-2 mb-4">
+                                <input type="text" x-model="config.jobSheetUrl"
+                                    placeholder="https://docs.google.com/spreadsheets/..."
+                                    class="form-input mb-0 flex-grow">
+                                <button @click="saveConfig('jobSheetUrl', config.jobSheetUrl)"
+                                    class="bg-green-600 text-white px-4 rounded-xl font-bold hover:bg-green-700">حفظ</button>
+                            </div>
+                            <button @click="openSheet()"
+                                class="w-full bg-white border-2 border-green-500 text-green-600 py-3 rounded-xl font-bold hover:bg-green-50 transition flex items-center justify-center gap-2">
+                                <i class="fas fa-external-link-alt"></i> فتح ملف الردود والطلبات الآن
                             </button>
                         </div>
                     </div>
-
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-bold text-gray-800">⏱️ آخر النشاطات</h3>
-                        <div class="bg-white p-6 rounded-3xl custom-shadow space-y-6">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0"><i class="fas fa-user-plus"></i></div>
-                                <div class="flex-grow">
-                                    <p class="text-sm text-gray-800">تم تسجيل مستخدم جديد (أحمد علي)</p>
-                                    <p class="text-xs text-gray-400">منذ 5 دقائق</p>
+                </div>
+            </div>
+            <!-- 2.5 PROJECTS MANAGEMENT (NEW - LocalStorage) -->
+            <div x-show="activeTab === 'projects'" x-transition x-cloak>
+                <div class="content-card">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-bold text-xl text-gray-800">مشاريع وطلبات الأعضاء</h3>
+                        <button @click="loadProjects()"
+                            class="text-blue-600 text-sm font-bold flex items-center gap-2 hover:bg-blue-50 px-3 py-1 rounded-lg transition"><i
+                                class="fas fa-sync-alt"></i> تحديث</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50 text-gray-600">
+                                <tr>
+                                    <th class="p-4 text-right rounded-r-xl">عنوان المشروع</th>
+                                    <th class="p-4 text-right">صاحب الطلب</th>
+                                    <th class="p-4 text-center">التاريخ</th>
+                                    <th class="p-4 text-center">الحالة</th>
+                                    <th class="p-4 text-center rounded-l-xl">إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template x-for="proj in projectsList" :key="proj.id || proj.Id">
+                                    <tr class="hover:bg-gray-50 border-b border-gray-100 last:border-0 transition">
+                                        <td class="p-4 font-bold text-gray-800">
+                                            <div x-text="proj.title || proj.Title"></div>
+                                            <div class="text-xs text-gray-400 font-normal mt-1"
+                                                x-text="(proj.description || proj.Description || '').substring(0,50) + '...'">
+                                            </div>
+                                        </td>
+                                        <td class="p-4">
+                                            <div class="font-bold" x-text="proj.userName || proj.UserName"></div>
+                                            <div class="text-xs text-gray-400"
+                                                x-text="proj.userPhone || proj.UserPhone"></div>
+                                        </td>
+                                        <td class="p-4 text-center text-gray-500"
+                                            x-text="proj.date || new Date(proj.createdAt || proj.CreatedAt).toLocaleDateString('ar-SA')">
+                                        </td>
+                                        <td class="p-4 text-center">
+                                            <span class="status-badge"
+                                                :class="{'bg-yellow-100 text-yellow-700': (proj.status || proj.Status) === 'Pending', 'bg-green-100 text-green-700': (proj.status || proj.Status) === 'Accepted', 'bg-red-100 text-red-700': (proj.status || proj.Status) === 'Rejected'}"
+                                                x-text="(proj.status || proj.Status) === 'Pending' ? 'جديد' : ((proj.status || proj.Status) === 'Accepted' ? 'مقبول' : 'مرفوض')"></span>
+                                        </td>
+                                        <td class="p-4 text-center">
+                                            <div class="flex items-center justify-center gap-2">
+                                                <button @click="updateProjectStatus(proj.id || proj.Id, 'Accepted')"
+                                                    title="قبول" class="btn-action btn-accept"><i
+                                                        class="fas fa-check"></i></button>
+                                                <button @click="updateProjectStatus(proj.id || proj.Id, 'Rejected')"
+                                                    title="رفض" class="btn-action btn-reject"><i
+                                                        class="fas fa-times"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <template x-if="projectsList.length === 0">
+                                    <tr>
+                                        <td colspan="5" class="p-8 text-center text-gray-400">لا توجد مشاريع جديدة</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- 3. CONFIGURATION (Content Tabs) -->
+            <template x-for="type in ['news', 'products', 'camps', 'podcast', 'experts']" :key="type">
+                <div x-show="activeTab === type" x-transition x-cloak>
+                    <!-- Form -->
+                    <div class="content-card border-2"
+                        :class="editingId ? 'border-orange-200 bg-orange-50' : 'border-transparent'">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-bold text-blue-700" x-text="editingId ? 'تعديل المحتوى' : 'إضافة جديد'">
+                            </h3>
+                            <button x-show="editingId" @click="cancelEdit(type)"
+                                class="text-sm text-red-500 font-bold">إلغاء التعديل</button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <template x-if="type === 'news'">
+                                <div class="contents">
+                                    <input type="text" x-model="forms.news.title" placeholder="عنوان الخبر"
+                                        class="form-input" style="text-align: right; direction: rtl;">
+                                    <input type="file" id="news-image-input" class="form-input bg-white"
+                                        accept="image/*">
+                                    <input type="text" x-model="forms.news.externalLink"
+                                        placeholder="رابط المصدر (اختياري)" class="form-input md:col-span-2">
+                                    <textarea x-model="forms.news.content" placeholder="محتوى الخبر..."
+                                        class="form-input md:col-span-2" rows="3"
+                                        style="text-align: right; direction: rtl;"></textarea>
                                 </div>
-                                <span class="text-[10px] font-bold bg-green-100 text-green-600 px-2 py-1 rounded">جديد</span>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center flex-shrink-0"><i class="fas fa-calendar-check"></i></div>
-                                <div class="flex-grow">
-                                    <p class="text-sm text-gray-800">إنشاء فعالية جديدة: معسكر التصميم</p>
-                                    <p class="text-xs text-gray-400">منذ ساعة</p>
+                            </template>
+                            <template x-if="type === 'products'">
+                                <div class="contents">
+                                    <input type="text" x-model="forms.products.name" placeholder="اسم المنتج"
+                                        class="form-input" style="text-align: right; direction: rtl;">
+                                    <input type="text" x-model="forms.products.price" placeholder="السعر"
+                                        class="form-input" style="text-align: right; direction: rtl;">
+                                    <input type="file" id="products-image-input" class="form-input bg-white"
+                                        accept="image/*">
+                                    <input type="text" x-model="forms.products.externalLink" placeholder="رابط الشراء"
+                                        class="form-input">
+                                    <textarea x-model="forms.products.description" placeholder="الوصف..."
+                                        class="form-input md:col-span-2"
+                                        style="text-align: right; direction: rtl;"></textarea>
                                 </div>
-                            </div>
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center flex-shrink-0"><i class="fas fa-check-double"></i></div>
-                                <div class="flex-grow">
-                                    <p class="text-sm text-gray-800">تم نشر خبر: إطلاق منصة مقدار</p>
-                                    <p class="text-xs text-gray-400">منذ 3 ساعات</p>
+                            </template>
+                            <template x-if="type === 'camps'">
+                                <div class="contents">
+                                    <input type="text" x-model="forms.camps.name" placeholder="اسم المعسكر"
+                                        class="form-input" style="text-align: right; direction: rtl;">
+                                    <input type="text" x-model="forms.camps.location" placeholder="الموقع"
+                                        class="form-input" style="text-align: right; direction: rtl;">
+                                    <input type="file" id="camps-image-input" class="form-input bg-white"
+                                        accept="image/*">
+                                    <select x-model="forms.camps.status" class="form-input"
+                                        style="text-align: right; direction: rtl;">
+                                        <option value="Available">متاح</option>
+                                        <option value="Soon">قريباً</option>
+                                    </select>
+                                    <input type="text" x-model="forms.camps.externalLink" placeholder="رابط التسجيل"
+                                        class="form-input md:col-span-2">
+                                    <textarea x-model="forms.camps.description" placeholder="التفاصيل..."
+                                        class="form-input md:col-span-2"
+                                        style="text-align: right; direction: rtl;"></textarea>
                                 </div>
-                            </div>
+                            </template>
+                            <template x-if="type === 'podcast'">
+                                <div class="contents">
+                                    <input type="text" x-model="forms.podcast.title" placeholder="عنوان الحلقة"
+                                        class="form-input" style="text-align: right; direction: rtl;">
+                                    <input type="file" id="podcast-image-input" class="form-input bg-white">
+                                    <input type="text" x-model="forms.podcast.externalLink" placeholder="رابط الحلقة"
+                                        class="form-input md:col-span-2">
+                                    <textarea x-model="forms.podcast.description" placeholder="الوصف..."
+                                        class="form-input md:col-span-2"
+                                        style="text-align: right; direction: rtl;"></textarea>
+                                </div>
+                            </template>
+                            <template x-if="type === 'experts'">
+                                <div class="contents">
+                                    <input type="text" x-model="forms.experts.name" placeholder="اسم الخبير"
+                                        class="form-input" style="text-align: right; direction: rtl;">
+                                    <input type="text" x-model="forms.experts.role" placeholder="التخصص"
+                                        class="form-input" style="text-align: right; direction: rtl;">
+                                    <input type="file" id="experts-image-input" class="form-input bg-white">
+                                    <input type="text" x-model="forms.experts.externalLink" placeholder="رابط الأعمال"
+                                        class="form-input">
+                                    <textarea x-model="forms.experts.bio" placeholder="نبذة..."
+                                        class="form-input md:col-span-2"
+                                        style="text-align: right; direction: rtl;"></textarea>
+                                </div>
+                            </template>
+                        </div>
+                        <button @click="submitData(type)"
+                            class="px-8 py-3 rounded-xl font-bold mt-4 text-white transition"
+                            :class="editingId ? 'bg-orange-500 hover:bg-orange-600' : 'bg-blue-600 hover:bg-blue-700'"
+                            x-text="editingId ? 'حفظ التعديلات' : 'نشر الآن'"></button>
+                    </div>
+                    <!-- Table -->
+                    <div class="content-card mt-6">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr>
+                                        <th class="p-4 text-right">العنوان</th>
+                                        <th class="p-4 text-center">تحكم</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template x-for="item in lists[type]" :key="item.Id">
+                                        <tr class="hover:bg-gray-50 border-b">
+                                            <td class="p-4 flex items-center gap-4">
+                                                <img :src="getImageUrl(item.ImageUrl)"
+                                                    class="w-10 h-10 rounded bg-gray-100 object-cover"
+                                                    onerror="this.src='../images/blue.png'">
+                                                <span x-text="item.Title || item.Name"></span>
+                                            </td>
+                                            <td class="text-center">
+                                                <button @click="editItem(type, item)" class="btn-action btn-edit"><i
+                                                        class="fas fa-edit"></i></button>
+                                                <button @click="deleteItem(type, item.Id)"
+                                                    class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
+                </div>
+            </template>
+            <!-- 4. SYSTEM SETTINGS -->
+            <div x-show="activeTab === 'settings'" class="max-w-3xl mx-auto space-y-6" x-transition x-cloak>
+                <div class="content-card border-l-4"
+                    :class="config.maintenanceMode === 'true' ? 'border-red-500 bg-red-50' : 'border-green-500'">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800">وضع الصيانة (Maintenance Mode)</h3>
+                            <p class="text-sm text-gray-500 mt-1">عند تفعيل هذا الوضع، سيظهر للزوار صفحة "جاري الصيانة"
+                                ولن يتمكنوا من تصفح الموقع.</p>
+                        </div>
+                        <div
+                            class="relative inline-block w-14 mr-2 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" name="toggle" id="maintenance-toggle"
+                                :checked="config.maintenanceMode === 'true'"
+                                @change="toggleMaintenance($event.target.checked)"
+                                class="toggle-checkbox absolute block w-8 h-8 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300" />
+                            <label for="maintenance-toggle"
+                                class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">إعدادات التواصل</h3>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">رقم الواتساب الرئيسي</label>
+                        <div class="flex gap-2">
+                            <input type="text" x-model="config.whatsapp" placeholder="9665xxxxxxxx"
+                                class="form-input mb-0 flex-grow">
+                            <button @click="saveConfig('whatsapp', config.whatsapp)"
+                                class="bg-blue-600 text-white px-6 rounded-xl font-bold hover:bg-blue-700">حفظ</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
     </div>
-
+    <!-- MAIN LOGIC -->
     <script>
-        // إغلاق الشريط الجانبي تلقائياً عند تغيير حجم الشاشة
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 1024) Alpine.store('sidebarOpen', false);
-        });
+        function adminSystem() {
+            const BASE_URL = 'http://localhost:5194/api/AdminContent';
+            const HOST_URL = 'http://localhost:5194';
+            return {
+                activeTab: 'stats',
+                adminName: localStorage.getItem('userName') || 'المدير العام',
+                totalItems: 0,
+                editingId: null,
+                analytics: {},
+                projectsList: [],
+                lists: { news: [], products: [], camps: [], podcast: [], experts: [] },
+                // Config (Linked to Backend)
+                config: {
+                    maintenanceMode: 'false',
+                    whatsapp: '',
+                    jobFormUrl: '',
+                    jobSheetUrl: ''
+                },
+                forms: {
+                    news: { title: '', content: '', externalLink: '' },
+                    products: { name: '', price: '', externalLink: '', description: '' },
+                    camps: { name: '', location: '', status: 'Available', externalLink: '', description: '' },
+                    podcast: { title: '', externalLink: '', description: '' },
+                    experts: { name: '', role: '', externalLink: '', bio: '' }
+                },
+                init() {
+                    const token = localStorage.getItem('token');
+                    if (!token) window.location.href = '../login.html';
+                    this.loadConfig(); // Load all URLs and settings
+                    this.refreshAllData();
+                    this.loadAllLists();
+                    this.loadProjects(); // Auto load projects
+                    // تحديث تلقائي للقائمة كل 2 ثانية للتأكد من وصول المشاريع الجديدة
+                    setInterval(() => {
+                        this.loadProjects();
+                    }, 2000);
+                },
+                getHostUrl() { return HOST_URL; },
+                async apiFetch(endpoint, method = 'GET', body = null, isFormData = false) {
+                    const token = localStorage.getItem('token');
+                    const headers = { 'Authorization': `Bearer ${token}` };
+                    if (!isFormData) headers['Content-Type'] = 'application/json';
+                    // Check if it's a Project URL or AdminContent URL
+                    let url = endpoint.startsWith('http') ? endpoint : `${BASE_URL}/${endpoint}`;
+                    try {
+                        const res = await fetch(url, {
+                            method,
+                            headers,
+                            body: body ? (isFormData ? body : JSON.stringify(body)) : null
+                        });
+                        return res.ok ? res : null;
+                    } catch (e) { return null; }
+                },
+                // --- Projects Logic (Updated to LocalStorage) ---
+                loadProjects() {
+                    const saved = localStorage.getItem('userProjects');
+                    this.projectsList = saved ? JSON.parse(saved) : [];
+                },
+                updateProjectStatus(id, newStatus) {
+                    if (!confirm('هل أنت متأكد من تغيير حالة المشروع؟')) return;
+                    // Find project in the list
+                    const index = this.projectsList.findIndex(p => p.id == id || p.Id == id);
+                    if (index !== -1) {
+                        this.projectsList[index].status = newStatus;
+                        this.projectsList[index].Status = newStatus; // for compatibility
+                        // Save back to localStorage
+                        localStorage.setItem('userProjects', JSON.stringify(this.projectsList));
+                        alert('✅ تم تحديث الحالة بنجاح');
+                        this.loadProjects(); // Refresh UI
+                    } else {
+                        alert('❌ لم يتم العثور على المشروع');
+                    }
+                },
+                async loadConfig() {
+                    const res = await this.apiFetch('get-settings');
+                    if (res) {
+                        const settings = await res.json();
+                        settings.forEach(s => {
+                            if (this.config.hasOwnProperty(s.key || s.Key)) {
+                                this.config[s.key || s.Key] = s.value || s.Value;
+                            }
+                        });
+                    }
+                },
+                async saveConfig(key, value) {
+                    const res = await this.apiFetch('update-config', 'POST', { Key: key, Value: String(value) });
+                    if (res) alert('✅ تم حفظ الإعداد بنجاح');
+                },
+                async toggleMaintenance(isChecked) {
+                    this.config.maintenanceMode = isChecked ? 'true' : 'false';
+                    await this.saveConfig('maintenanceMode', this.config.maintenanceMode);
+                    alert(isChecked ? '⚠️ تم تفعيل وضع الصيانة.' : '✅ تم إيقاف وضع الصيانة.');
+                },
+                openSheet() {
+                    if (this.config.jobSheetUrl) window.open(this.config.jobSheetUrl, '_blank');
+                    else alert('⚠️ لم يتم حفظ رابط الشيت بعد!');
+                },
+                // --- Standard Content Logic ---
+                async refreshAllData() {
+                    const res = await this.apiFetch('get-dashboard-analytics');
+                    if (res) {
+                        this.analytics = await res.json();
+                        this.totalItems = (this.analytics.NewsCount || 0) + (this.analytics.ProductsCount || 0) + (this.analytics.CampsCount || 0) + (this.analytics.PodcastsCount || 0) + (this.analytics.ExpertsCount || 0);
+                    }
+                },
+                async loadAllLists() {
+                    const types = { news: 'get-all-news', products: 'get-all-products', camps: 'get-all-camps', podcast: 'get-all-podcasts', experts: 'get-all-experts' };
+                    for (const [key, endpoint] of Object.entries(types)) {
+                        const res = await this.apiFetch(endpoint);
+                        if (res) this.lists[key] = await res.json();
+                    }
+                },
+                getImageUrl(url) {
+                    if (!url) return '../images/blue.png';
+                    if (url.startsWith('http')) return url;
+                    return `${HOST_URL}${url}`;
+                },
+                parseDesc(type, desc) {
+                    let data = { location: '', status: 'Available', price: '', externalLink: '', content: '' };
+                    if (!desc) return data;
+                    if (desc.includes('|')) {
+                        const parts = desc.split('|');
+                        parts.forEach(p => {
+                            p = p.trim();
+                            if (p.startsWith('Location:')) data.location = p.replace('Location:', '').trim();
+                            else if (p.startsWith('Status:')) data.status = p.replace('Status:', '').trim();
+                            else if (p.startsWith('Price:')) data.price = p.replace('Price:', '').trim();
+                            else if (p.startsWith('Role:')) data.role = p.replace('Role:', '').trim();
+                            else if (p.startsWith('Link:')) data.externalLink = p.replace('Link:', '').trim();
+                            else data.content += p + " ";
+                        });
+                        data.content = data.content.trim();
+                    } else { data.content = desc; }
+                    return data;
+                },
+                editItem(type, item) {
+                    this.editingId = item.Id;
+                    const parsed = this.parseDesc(type, item.Description);
+                    if (type === 'news') { this.forms.news.title = item.Title; this.forms.news.content = parsed.content; this.forms.news.externalLink = parsed.externalLink; }
+                    else if (type === 'products') { this.forms.products.name = item.Title; this.forms.products.price = parsed.price; this.forms.products.externalLink = parsed.externalLink; this.forms.products.description = parsed.content; }
+                    else if (type === 'camps') { this.forms.camps.name = item.Title; this.forms.camps.location = parsed.location; this.forms.camps.status = parsed.status; this.forms.camps.externalLink = parsed.externalLink; this.forms.camps.description = parsed.content; }
+                    else if (type === 'podcast') { this.forms.podcast.title = item.Title; this.forms.podcast.externalLink = parsed.externalLink; this.forms.podcast.description = parsed.content; }
+                    else if (type === 'experts') { this.forms.experts.name = item.Name || item.Title; this.forms.experts.role = parsed.role; this.forms.experts.externalLink = parsed.externalLink; this.forms.experts.bio = parsed.content; }
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+                cancelEdit(type) { this.editingId = null; this.clearForm(type); },
+                async submitData(type) {
+                    if (this.editingId) {
+                        const apiType = type === 'products' ? 'product' : (type === 'camps' ? 'camp' : (type === 'experts' ? 'expert' : type));
+                        await this.apiFetch(`delete/${apiType}/${this.editingId}`, 'DELETE');
+                    }
+                    const formData = new FormData();
+                    const form = this.forms[type];
+                    let title = form.title || form.name || '';
+                    let desc = '';
+                    if (type === 'products') desc = `Price: ${form.price || ''} | Link: ${form.externalLink || ''} | ${form.description || ''}`;
+                    else if (type === 'camps') desc = `Location: ${form.location || ''} | Status: ${form.status} | Link: ${form.externalLink || ''} | ${form.description || ''}`;
+                    else if (type === 'experts') desc = `Role: ${form.role || ''} | Link: ${form.externalLink || ''} | ${form.bio || ''}`;
+                    else if (type === 'podcast') desc = `Link: ${form.externalLink || ''} | ${form.description || ''}`;
+                    else if (type === 'news') desc = `Link: ${form.externalLink || ''} | ${form.content || ''}`;
+                    if (!title) return alert('الرجاء تعبئة الاسم');
+                    formData.append('Title', title);
+                    formData.append('Description', desc);
+                    const fileInput = document.getElementById(`${type}-image-input`);
+                    if (fileInput && fileInput.files[0]) formData.append('Image', fileInput.files[0]);
+                    const apiType = type === 'products' ? 'product' : (type === 'camps' ? 'camp' : (type === 'experts' ? 'expert' : type));
+                    const res = await this.apiFetch(apiType, 'POST', formData, true);
+                    if (res && res.ok) { alert('✅ تم الحفظ'); this.editingId = null; this.clearForm(type); this.refreshAllData(); this.loadAllLists(); }
+                },
+                async deleteItem(type, id) {
+                    if (!confirm('هل أنت متأكد؟')) return;
+                    const apiType = type === 'products' ? 'product' : (type === 'camps' ? 'camp' : (type === 'experts' ? 'expert' : type));
+                    await this.apiFetch(`delete/${apiType}/${id}`, 'DELETE');
+                    this.refreshAllData(); this.loadAllLists();
+                },
+                clearForm(type) {
+                    const keys = Object.keys(this.forms[type]);
+                    keys.forEach(k => this.forms[type][k] = (k === 'status' ? 'Available' : ''));
+                    const fileInput = document.getElementById(`${type}-image-input`);
+                    if (fileInput) fileInput.value = '';
+                },
+                getTitle() { const titles = { stats: 'الرئيسية', applications: 'إدارة التقديم', projects: 'مشاريع الأعضاء', news: 'الأخبار', products: 'المنتجات', camps: 'المعسكرات', experts: 'الخبراء', podcast: 'البودكاست', settings: 'إعدادات' }; return titles[this.activeTab]; },
+                logout() { localStorage.removeItem('token'); window.location.href = '../login.html'; }
+            }
+        }
     </script>
 </body>
 </html>

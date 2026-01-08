@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
     
     <link rel="icon" href="../imgaes/شعار صناع (2).png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="../imgaes/شعار صناع (2).png">
     
     <style>
         :root {
@@ -28,12 +27,10 @@
             color: var(--color-dark-text);
             background-color: var(--color-white);
         }
-
         /* توحيد الظلال للأسود الغامق */
         .custom-shadow {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
         }
-
         /* تنسيقات كروت الخدمات */
         .service-card {
             background-color: var(--color-white); 
@@ -52,7 +49,6 @@
     </style>
 </head>
 <body class="antialiased" x-data="{ mobileMenu: false, dropdownOpen: false }">
-
     <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
             
@@ -67,7 +63,6 @@
                     </svg>
                 </button>
             </div>
-
             <nav class="hidden md:flex flex-grow justify-center order-2">
                 <div class="flex items-center md:space-x-8 md:space-x-reverse">
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600 transition" href="../index.html">الرئيسية</a>
@@ -87,14 +82,12 @@
                     </div>
                 </div>
             </nav>
-
             <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
                 <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold" href="./english.html">EN</a>
                 <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold transition hover:bg-blue-50" href="./login.html">تسجيل دخول</a>
                 <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow" href="./register.html">تسجيل</a>
             </div>
         </div>
-
         <div x-show="mobileMenu" x-transition class="md:hidden bg-white border-t border-gray-100 pb-4">
             <div class="flex flex-col p-4 space-y-2">
                 <a class="block px-6 py-3 text-sm" href="../index.html">الرئيسية</a>
@@ -125,7 +118,6 @@
             <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">فريق متكامل ومحاور رئيسية تصاحبك من الفكرة وحتى التسويق والإنتاج</p>
         </div>
     </section>
-
     <section class="pb-24 bg-white">
         <div class="max-w-screen-xl mx-auto px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -157,14 +149,12 @@
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">نصمم هدايا مبتكرة لخدمة ضيوف الرحمن.</p>
                     <a href="./products.html" class="text-blue-600 font-bold text-sm underline">زيارة المتجر ←</a>
                 </div>
-
                 <div data-aos="fade-up" data-aos-delay="400" class="service-card p-8 custom-shadow">
                     <i class="service-icon fas fa-calendar-alt mb-4"></i>
                     <h3 class="text-xl font-bold mb-3">فعاليات صناع</h3>
                     <p class="text-gray-700 text-sm leading-relaxed mb-6">معسكرات وورش ولقاءات تفاعلية.</p>
                     <a href="./camps.html" class="text-blue-600 font-bold text-sm underline">اطلع على الفعاليات ←</a>
                 </div>
-
             </div>
         </div>
     </section>
@@ -183,6 +173,7 @@
                         <li><a href="./about.html" class="hover:text-blue-600">عن صناع</a></li>
                         <li><a href="./services.html" class="hover:text-blue-600">خدماتنا</a></li>
                         <li><a href="./products.html" class="hover:text-blue-600">منتجاتنا</a></li>
+                        <li><a href="./designers.html" class="hover:text-blue-600">الخبراء والمستشارين</a></li>
                     </ul>
                 </div>
                 <div>
@@ -196,20 +187,20 @@
                 </div>
                 <div>
                     <h4 class="font-bold text-blue-600 mb-6">تواصل معنا</h4>
-    <ul class="space-y-4 text-gray-700 text-sm">
-        <li class="flex items-center gap-3 justify-end">
-            <span>info@sunnaasar.com</span>
-            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
-            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span>المملكة العربية السعودية</span>
-            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
-        </li>
-    </ul>
+                    <ul class="space-y-4 text-gray-700 text-sm">
+                        <li class="flex items-center gap-3 justify-end">
+                            <span>info@sunnaasar.com</span>
+                            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
+                        </li>
+                        <li class="flex items-center gap-3 justify-end">
+                            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
+                            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
+                        </li>
+                        <li class="flex items-center gap-3 justify-end">
+                            <span>المملكة العربية السعودية</span>
+                            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="border-t pt-8 text-center text-gray-400 text-xs font-montserrat">
@@ -217,11 +208,38 @@
             </div>
         </div>
     </footer>
-
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+        if(document.getElementById('current-year')) {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        }
+        async function syncGlobalLinks() {
+            try {
+                // ✅ استخدام المنفذ الصحيح 5194
+                const res = await fetch('http://localhost:5194/api/AdminContent/get-settings');
+                if (res.ok) {
+                    const data = await res.json();
+                    
+                    // ✅ معالجة البيانات بشكل صحيح (مراعاة حالة الأحرف)
+                    const maintenanceSetting = data.find(s => s.Key === 'maintenanceMode' || s.key === 'maintenanceMode');
+                    const isMaintenance = maintenanceSetting && String(maintenanceSetting.Value || maintenanceSetting.value) === 'true';
+                    if (isMaintenance) {
+                        document.body.innerHTML = `
+                            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center; font-family: sans-serif; background:#f8fafc;">
+                                <h1 style="font-size:3rem;">🛠️</h1>
+                                <h1 style="color:#1e293b; margin-top:20px;">الموقع في صيانة مؤقتة</h1>
+                                <p style="color:#64748b; margin-top:10px;">نعمل على تحسين المنصة لخدمتكم بشكل أفضل، سنعود قريباً.</p>
+                            </div>`;
+                    }
+                }
+            } catch (e) {
+                console.error("Connection error or maintenance check failed.");
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+             syncGlobalLinks();
+        });
     </script>
 </body>
 </html>

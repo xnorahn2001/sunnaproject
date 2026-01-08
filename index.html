@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شركة صناع الرسالة القابضة</title>
     <link rel="icon" href="./imgaes/شعار صناع (2).png" type="image/x-icon">
     <link rel="apple-touch-icon" href="./imgaes/شعار صناع (2).png">
-
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
     <style>
         :root {
             --color-primary: #155FCF;
@@ -23,25 +21,50 @@
             --color-gray-text: #6b7280;
             --color-white: #ffffff;
         }
-
         body {
             font-family: 'IBM Plex Sans Arabic', sans-serif;
             text-align: right;
             color: var(--color-dark-text);
             background-color: var(--color-white);
         }
-
-        /* توحيد الظلال للأسود الغامق */
+        /* توحيد الظلال */
         .custom-shadow {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1) !important;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
         }
-
-        .service-card:hover, .product-card:hover {
+        /* تعديلات كرت الخدمة الجديد */
+        .service-card {
+            position: relative;
+            margin-top: 35px;
+            /* مسافة للأيقونة العائمة */
+            padding-top: 40px;
+            /* مسافة داخلية من الأعلى */
+        }
+        .service-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4) !important;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2) !important;
             transition: all 0.3s ease;
         }
-
+        .service-icon-container {
+            position: absolute;
+            top: -30px;
+            /* رفع الأيقونة للأعلى */
+            right: 20px;
+            width: 75px;
+            /* تكبير العرض */
+            height: 75px;
+            /* تكبير الارتفاع */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+            /* ظل أزرق خفيف للأيقونة */
+            transition: transform 0.3s ease;
+        }
+        .service-card:hover .service-icon-container {
+            transform: scale(1.1) rotate(6deg);
+            /* تكبير وتدوير بسيط عند الهوفر */
+        }
         /* تنسيق الشعارات الموحد */
         .partner-logo-container {
             flex: 0 0 auto;
@@ -52,12 +75,12 @@
             justify-content: center;
         }
         .partner-logo-container img {
-            max-height: 55px; /* مقاس موحد */
+            max-height: 55px;
+            /* مقاس موحد */
             width: auto;
             object-fit: contain;
             opacity: 0.7;
         }
-
         .scrolling-wrapper {
             white-space: nowrap;
             overflow: hidden;
@@ -65,17 +88,18 @@
             align-items: center;
             direction: ltr;
         }
-
         .scrolling-content {
             display: flex;
             animation: scroll-rtl 40s linear infinite;
         }
-
         @keyframes scroll-rtl {
-            from { transform: translateX(0%); }
-            to { transform: translateX(calc(-150px * 12)); }
+            from {
+                transform: translateX(0%);
+            }
+            to {
+                transform: translateX(calc(-150px * 12));
+            }
         }
-
         .stat-number-large {
             font-family: 'Montserrat', sans-serif;
             font-size: 3rem;
@@ -84,148 +108,160 @@
         }
     </style>
 </head>
-
 <body class="antialiased" x-data="{ mobileMenu: false }">
-
     <div id="main-navbar" class="w-full text-gray-700 bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-screen-xl px-8 mx-auto flex items-center justify-between h-20 md:h-24">
-
             <div class="flex items-center space-x-2 flex-row-reverse order-1">
                 <a href="./index.html" class="focus:outline-none flex items-center">
                     <img src="./imgaes/شعار صناع (2).png" alt="شعار صناع" class="h-12 w-auto">
                 </a>
                 <button @click="mobileMenu = !mobileMenu" class="rounded-lg md:hidden focus:outline-none mr-4">
-                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6"><path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2"></path><path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2"></path></svg>
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                        <path x-show="!mobileMenu" d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2">
+                        </path>
+                        <path x-show="mobileMenu" d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2">
+                        </path>
+                    </svg>
                 </button>
             </div>
-
             <nav class="hidden md:flex flex-grow justify-center order-2">
                 <div class="flex items-center md:space-x-8 md:space-x-reverse">
                     <a class="px-4 py-2 text-sm font-bold text-blue-600" href="./index.html">الرئيسية</a>
-                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600" href="./pages/services.html">الخدمات</a>
+                    <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
+                        href="./pages/services.html">الخدمات</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600" href="./pages/about.html">عن صناع</a>
                     <a class="px-4 py-2 text-sm text-gray-700 hover:text-blue-600" href="./pages/news.html">أخبارنا</a>
-
                     <div class="relative" x-data="{ open: false }">
-                        <button @click="open = !open" @click.away="open = false" class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none">
+                        <button @click="open = !open" @click.away="open = false"
+                            class="flex flex-row items-center px-4 py-2 text-sm text-gray-700 hover:text-blue-600 focus:outline-none">
                             <span>انضم لنا</span>
-                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': open}" fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
+                            <svg class="w-4 h-4 ml-1 transition-transform" :class="{'rotate-180': open}"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z">
+                                </path>
+                            </svg>
                         </button>
-                        <div x-show="open" x-transition class="absolute right-0 w-40 mt-2 origin-top-right bg-white border border-gray-200 rounded-md shadow-xl z-50">
+                        <div x-show="open" x-transition
+                            class="absolute right-0 w-40 mt-2 origin-top-right bg-white border border-gray-200 rounded-md shadow-xl z-50">
                             <a class="block px-4 py-2 text-sm hover:bg-blue-50" href="./pages/forms.html">تدريب</a>
                             <a class="block px-4 py-2 text-sm hover:bg-blue-50" href="./pages/forms.html">توظيف</a>
                         </div>
                     </div>
                 </div>
             </nav>
-
-            <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3">
+            <div class="hidden md:flex items-center space-x-3 space-x-reverse order-3" id="auth-buttons">
+                <!-- هذا القسم يتم تحديثه بالجافاسكربت بناءً على حالة المستخدم -->
                 <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold" href="./pages/english.html">EN</a>
-                <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold" href="./pages/login.html">تسجيل دخول</a>
-                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow" href="./pages/register.html">تسجيل</a>
+                <a class="px-8 py-2 text-sm border-2 border-blue-600 text-blue-600 rounded-full font-bold"
+                    href="./pages/login.html" id="loginLink">تسجيل دخول</a>
+                <a class="px-8 py-2 text-sm bg-blue-600 text-white rounded-full font-bold custom-shadow"
+                    href="./pages/register.html" id="registerLink">تسجيل</a>
             </div>
         </div>
-
         <div x-show="mobileMenu" class="md:hidden bg-white border-t border-gray-100 pb-4">
             <a class="block px-6 py-3 text-sm font-bold text-blue-600" href="./index.html">الرئيسية</a>
             <a class="block px-6 py-3 text-sm" href="./pages/services.html">الخدمات</a>
             <a class="block px-6 py-3 text-sm" href="./pages/about.html">عن صناع</a>
             <div x-data="{ open: false }">
-                <button @click="open = !open" class="flex justify-between w-full px-6 py-3 text-sm">انضم لنا <span>+</span></button>
+                <button @click="open = !open" class="flex justify-between w-full px-6 py-3 text-sm">انضم لنا
+                    <span>+</span></button>
                 <div x-show="open" class="bg-gray-50 px-10 py-2">
                     <a class="block py-2 text-sm" href="./pages/forms.html">تدريب</a>
                     <a class="block py-2 text-sm" href="./pages/forms.html">توظيف</a>
                 </div>
             </div>
-            <div class="px-6 mt-4 space-y-2">
-                <a class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold" href="./pages/register.html">تسجيل</a>
-                <a class="block text-center border border-blue-600 text-blue-600 py-3 rounded-xl font-bold" href="./pages/login.html">تسجيل دخول</a>
+            <div class="px-6 mt-4 space-y-2 mobile-auth-container">
+                <a class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold mobile-reg-btn"
+                    href="./pages/register.html">تسجيل</a>
+                <a class="block text-center border border-blue-600 text-blue-600 py-3 rounded-xl font-bold mobile-login-btn"
+                    href="./pages/login.html">تسجيل دخول</a>
             </div>
         </div>
     </div>
-
     <div class="bg-white py-20 md:py-32 text-center overflow-hidden">
         <div class="max-w-screen-xl px-8 mx-auto">
-            <h1 data-aos="zoom-in" class="text-5xl md:text-7xl lg:text-9xl font-black text-blue-600 leading-none mb-10 tracking-tighter">
-                منصة صناع 
+            <h1 data-aos="zoom-in"
+                class="text-5xl md:text-7xl lg:text-9xl font-black text-blue-600 leading-none mb-10 tracking-tighter">
+                منصة صناع
             </h1>
-            
-            <p data-aos="fade-up" data-aos-delay="200" class="text-xl md:text-2xl text-gray-500 max-w-3xl mx-auto mb-12 font-medium">
+            <p data-aos="fade-up" data-aos-delay="200"
+                class="text-xl md:text-2xl text-gray-500 max-w-3xl mx-auto mb-12 font-medium">
                 صناع معمل لأفكارك
             </p>
-    
-            <div data-aos="fade-up" data-aos-delay="400" class="flex flex-col sm:flex-row justify-center gap-6 items-center">
-                <a href="https://wa.me/message/SHI6NFOGKQ52C1" 
-                   class="w-full sm:w-auto bg-blue-600 text-white px-12 py-5 rounded-full font-black text-lg md:text-xl custom-shadow hover:bg-blue-700 transition-all transform hover:scale-105"
-                   style="font-family: 'Montserrat', sans-serif;">
+            <div data-aos="fade-up" data-aos-delay="400"
+                class="flex flex-col sm:flex-row justify-center gap-6 items-center">
+                <a href="https://wa.me/message/SHI6NFOGKQ52C1"
+                    class="w-full sm:w-auto bg-blue-600 text-white px-12 py-5 rounded-full font-black text-lg md:text-xl custom-shadow hover:bg-blue-700 transition-all transform hover:scale-105"
+                    style="font-family: 'Montserrat', sans-serif;">
                     ابدأ رحلة تصميم فكرتك
                 </a>
-                
-                <a href="./pages/consultations.html" 
-                   class="w-full sm:w-auto bg-white text-gray-900 px-12 py-5 rounded-full font-black text-lg md:text-xl border-2 border-gray-200 hover:border-blue-600 transition-all transform hover:scale-105"
-                   style="font-family: 'Montserrat', sans-serif;">
+                <a href="./pages/consultations.html"
+                    class="w-full sm:w-auto bg-white text-gray-900 px-12 py-5 rounded-full font-black text-lg md:text-xl border-2 border-gray-200 hover:border-blue-600 transition-all transform hover:scale-105"
+                    style="font-family: 'Montserrat', sans-serif;">
                     اطلب استشارة
                 </a>
             </div>
         </div>
     </div>
-
     <section class="py-20 bg-white overflow-hidden">
         <div class="max-w-screen-xl mx-auto px-8">
-            
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">خدمات الشركة</h2>
                 <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
                     فريق متكامل ومحاور رئيسية تصاحبك من الفكرة وحتى التسويق والإنتاج.
                 </p>
             </div>
-    
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 custom-shadow service-card group" data-aos="fade-up">
-                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-12">
-                        <i class="fas fa-pencil-ruler text-2xl"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-6">
+                <!-- Service 1 -->
+                <div class="bg-white px-8 pb-8 rounded-3xl border border-gray-100 custom-shadow service-card group"
+                    data-aos="fade-up">
+                    <div class="service-icon-container bg-blue-600 text-white">
+                        <i class="fas fa-pencil-ruler text-3xl"></i>
                     </div>
-                    <h3 class="font-bold text-xl mb-3 text-gray-900">استديو تصميم المنتجات الملموسة</h3>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900 mt-4">استديو تصميم المنتجات الملموسة</h3>
                     <p class="text-gray-600 text-sm leading-relaxed">نصمم منتجك من مرحلة الفكرة إلى مرحلة التنفيذ.</p>
                 </div>
-    
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 custom-shadow service-card group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-12">
-                        <i class="fas fa-mobile-alt text-2xl"></i>
+                <!-- Service 2 -->
+                <div class="bg-white px-8 pb-8 rounded-3xl border border-gray-100 custom-shadow service-card group"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon-container bg-blue-600 text-white">
+                        <i class="fas fa-mobile-alt text-3xl"></i>
                     </div>
-                    <h3 class="font-bold text-xl mb-3 text-gray-900">استديو تصميم المنتجات الرقمية UI & UX</h3>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900 mt-4">استديو تصميم المنتجات الرقمية UI & UX</h3>
                     <p class="text-gray-600 text-sm leading-relaxed">نصمم منتجات رقمية، وواجهات UI & UX.</p>
                 </div>
-    
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 custom-shadow service-card group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-12">
-                        <i class="fas fa-user-tie text-2xl"></i>
+                <!-- Service 3 -->
+                <div class="bg-white px-8 pb-8 rounded-3xl border border-gray-100 custom-shadow service-card group"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon-container bg-blue-600 text-white">
+                        <i class="fas fa-user-tie text-3xl"></i>
                     </div>
-                    <h3 class="font-bold text-xl mb-3 text-gray-900">استشارات تصميمية متخصصة</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">نقدم استشارة متخصصة في مجال تصميم المنتجات من مرحلة الفكرة إلى الإنتاج والتصنيع إلى مرحلة النزول في الأسواق.</p>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900 mt-4">استشارات تصميمية متخصصة</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">نقدم استشارة متخصصة في مجال تصميم المنتجات من مرحلة
+                        الفكرة إلى الإنتاج والتصنيع.</p>
                 </div>
-    
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 custom-shadow service-card group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-12">
-                        <i class="fas fa-shopping-bag text-2xl"></i>
+                <!-- Service 4 -->
+                <div class="bg-white px-8 pb-8 rounded-3xl border border-gray-100 custom-shadow service-card group"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon-container bg-blue-600 text-white">
+                        <i class="fas fa-shopping-bag text-3xl"></i>
                     </div>
-                    <h3 class="font-bold text-xl mb-3 text-gray-900">متجر صناع</h3>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900 mt-4">متجر صناع</h3>
                     <p class="text-gray-600 text-sm leading-relaxed">نصمم هدايا مبتكرة لخدمة ضيوف الرحمن.</p>
                 </div>
-    
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 custom-shadow service-card group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-12">
-                        <i class="fas fa-users text-2xl"></i>
+                <!-- Service 5 -->
+                <div class="bg-white px-8 pb-8 rounded-3xl border border-gray-100 custom-shadow service-card group"
+                    data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-icon-container bg-blue-600 text-white">
+                        <i class="fas fa-users text-3xl"></i>
                     </div>
-                    <h3 class="font-bold text-xl mb-3 text-gray-900">فعاليات صناع</h3>
+                    <h3 class="font-bold text-xl mb-3 text-gray-900 mt-4">فعاليات صناع</h3>
                     <p class="text-gray-600 text-sm leading-relaxed">معسكرات وورش ولقاءات تفاعلية.</p>
                 </div>
-    
             </div>
         </div>
     </section>
-
     <section class="py-20 bg-white">
         <div class="max-w-screen-xl mx-auto px-8">
             <h2 class="text-3xl font-bold text-center mb-12">منتجات شركة صناع</h2>
@@ -236,34 +272,35 @@
                         <span class="text-blue-600 font-bold text-xs">متجر صناع</span>
                         <h3 class="font-bold text-xl my-2">منتجات حجاج متميزة</h3>
                         <p class="text-gray-600 text-sm mb-4">اكتشف منتجاتنا المبتكرة المتاحة الآن للشراء المباشر.</p>
-                        <a href="https://sunnaasar.com/" class="block text-center bg-gray-900 text-white py-3 rounded-xl font-bold">شراء المنتج</a>
+                        <a href="https://sunnaasar.com/"
+                            class="block text-center bg-gray-900 text-white py-3 rounded-xl font-bold">شراء المنتج</a>
                     </div>
                 </div>
-                <div class="bg-white rounded-2xl overflow-hidden border custom-shadow" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white rounded-2xl overflow-hidden border custom-shadow" data-aos="fade-up"
+                    data-aos-delay="100">
                     <img src="./imgaes/التسويق.png" class="w-full h-48 object-cover">
                     <div class="p-6 text-right">
                         <span class="text-yellow-600 font-bold text-xs">معسكر تدريبي</span>
                         <h3 class="font-bold text-xl my-2">معسكر التسويق الرقمي</h3>
                         <p class="text-gray-600 text-sm mb-4">تعلم استراتيجيات التسويق الحديثة للمنتجات.</p>
-                        <a href="#" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">سجل الآن</a>
+                        <a href="#" class="block text-center bg-blue-600 text-white py-3 rounded-xl font-bold">سجل
+                            الآن</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
     <section class="py-20 bg-white overflow-hidden">
         <div class="max-w-screen-xl mx-auto px-8">
             <div class="flex flex-col lg:flex-row items-center gap-12">
-                
                 <div class="w-full lg:w-1/2 text-right" data-aos="fade-left">
-                    <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-6 text-blue-700 font-bold text-sm">
+                    <div
+                        class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full mb-6 text-blue-700 font-bold text-sm">
                         <i class="fas fa-chart-line ml-2"></i> إنجازاتنا في أرقام 2025
                     </div>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 leading-tight">
                         أثر ممتد لشركة <span class="text-blue-600">صناع</span>
                     </h2>
-                    
                     <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-6 md:gap-8">
                         <div class="border-r-4 border-blue-600 pr-4">
                             <span class="stat-number-large block text-blue-600 font-montserrat">+1486</span>
@@ -299,28 +336,28 @@
                         </div>
                     </div>
                 </div>
-    
                 <div class="w-full lg:w-1/2" data-aos="fade-right">
                     <div class="relative">
                         <div class="absolute -top-4 -right-4 w-full h-full bg-blue-600 rounded-3xl opacity-10"></div>
-                        <img src="./imgaes/Line chart.png" alt="إنجازات صناع" class="relative z-10 w-full h-auto rounded-3xl custom-shadow object-cover aspect-video lg:aspect-square">
-<div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-2xl z-20 hidden md:block border border-gray-100">
-<div class="flex items-center gap-4 text-right">
-<div class="bg-yellow-400 p-3 rounded-lg">
-<i class="fas fa-rocket text-white"></i>
-</div>
-<div>
-<p class="text-xs text-gray-400">نمو </p>
-<p class="font-bold text-gray-900">نفخر بثقتكم التي تدفعنا دائماً للابتكار</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-
+                        <img src="./imgaes/Line chart.png" alt="إنجازات صناع"
+                            class="relative z-10 w-full h-auto rounded-3xl custom-shadow object-cover aspect-video lg:aspect-square">
+                        <div
+                            class="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-2xl z-20 hidden md:block border border-gray-100">
+                            <div class="flex items-center gap-4 text-right">
+                                <div class="bg-yellow-400 p-3 rounded-lg">
+                                    <i class="fas fa-rocket text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-400">نمو </p>
+                                    <p class="font-bold text-gray-900">نفخر بثقتكم التي تدفعنا دائماً للابتكار</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="py-20 bg-gray-50 overflow-hidden">
         <h2 class="text-3xl font-bold text-center mb-12">شركاؤنا في النجاح</h2>
         <div class="scrolling-wrapper">
@@ -336,16 +373,14 @@
             </div>
         </div>
     </section>
-
     <section class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-8">
             <div class="bg-gray-50 p-6 md:p-12 rounded-3xl text-center custom-shadow border border-gray-100">
                 <h2 class="text-2xl md:text-3xl font-bold mb-4">انضم لمجتمع صناع</h2>
                 <p class="text-blue-600 font-bold mb-6 text-lg md:text-xl">تابع كل جديد في مجال تصميم المنتجات</p>
-                
-                <a href="https://chat.whatsapp.com/HzbAg6zf6kn8e64RSnbz9l" target="_blank" 
-                   class="inline-flex items-center justify-center gap-2 md:gap-3 bg-green-600 text-white px-6 py-3 md:px-10 md:py-4 rounded-full font-bold text-base md:text-lg custom-shadow hover:bg-green-700 transition-all transform hover:scale-105">
-                    <i class="fab fa-whatsapp text-xl md:text-2xl"></i> 
+                <a href="https://chat.whatsapp.com/HzbAg6zf6kn8e64RSnbz9l" target="_blank"
+                    class="inline-flex items-center justify-center gap-2 md:gap-3 bg-green-600 text-white px-6 py-3 md:px-10 md:py-4 rounded-full font-bold text-base md:text-lg custom-shadow hover:bg-green-700 transition-all transform hover:scale-105">
+                    <i class="fab fa-whatsapp text-xl md:text-2xl"></i>
                     <span>انضم عبر الواتساب الآن</span>
                 </a>
             </div>
@@ -356,7 +391,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <div>
                     <img src="./imgaes/شعار صناع (2).png" alt="Logo" class="w-24 h-auto mb-6">
-                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة تمكن اصحاب الافكار ورواد الاعمال من تحويل أفكارهم إلى منتجات.</p>
+                    <p class="text-gray-500 text-sm leading-relaxed font-medium">شركة صناع الرسالة القابضة هي منصة شاملة
+                        تمكن اصحاب الافكار ورواد الاعمال من تحويل أفكارهم إلى منتجات.</p>
                 </div>
                 <div>
                     <h4 class="font-bold text-blue-600 mb-6 font-montserrat">الروابط الأساسية</h4>
@@ -365,6 +401,7 @@
                         <li><a href="./pages/about.html" class="hover:text-blue-600">عن صناع</a></li>
                         <li><a href="./pages/services.html" class="hover:text-blue-600">خدماتنا</a></li>
                         <li><a href="./pages/products.html" class="hover:text-blue-600">منتجاتنا</a></li>
+                        <li><a href="./pages/experts.html" class="hover:text-blue-600">الخبراء والمستشارين</a></li>
                     </ul>
                 </div>
                 <div>
@@ -373,25 +410,27 @@
                         <li><a href="./pages/contact.html" class="hover:text-blue-600">تواصل معنا</a></li>
                         <li><a href="./pages/news.html" class="hover:text-blue-600">أخبارنا ومستجداتنا</a></li>
                         <li><a href="./pages/register.html" class="hover:text-blue-600">انضم كصانع</a></li>
-                        <li><a href="./pages/privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصيةوالمستخدم </a></li>
+                        <li><a href="./pages/privacy-policy.html" class="hover:text-blue-600">سياسة الخصوصيةوالمستخدم
+                            </a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-blue-600 mb-6">تواصل معنا</h4>
-    <ul class="space-y-4 text-gray-700 text-sm">
-        <li class="flex items-center gap-3 justify-end">
-            <span>info@sunnaasar.com</span>
-            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388 1493</span>
-            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
-        </li>
-        <li class="flex items-center gap-3 justify-end">
-            <span>المملكة العربية السعودية</span>
-            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
-        </li>
-    </ul>
+                    <ul class="space-y-4 text-gray-700 text-sm">
+                        <li class="flex items-center gap-3 justify-end">
+                            <span>info@sunnaasar.com</span>
+                            <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
+                        </li>
+                        <li class="flex items-center gap-3 justify-end">
+                            <span class="font-montserrat" style="direction: ltr; unicode-bidi: embed;">+966 55 388
+                                1493</span>
+                            <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
+                        </li>
+                        <li class="flex items-center gap-3 justify-end">
+                            <span>المملكة العربية السعودية</span>
+                            <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="border-t pt-8 text-center text-gray-400 text-xs font-montserrat">
@@ -399,11 +438,97 @@
             </div>
         </div>
     </footer>
-
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
+        // 1. تشغيل مكتبة AOS
         AOS.init({ duration: 1000, once: true });
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        if (document.getElementById('current-year')) {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        }
+        // 2. دالة مزامنة الإعدادات (صيانة + واتس)
+        async function syncGlobalLinks() {
+            try {
+                const res = await fetch('http://localhost:5194/api/AdminContent/get-settings');
+                if (res.ok) {
+                    const data = await res.json();
+                    
+                    // فحص وضع الصيانة
+                    const maintenanceSetting = data.find(s => s.Key === 'maintenanceMode' || s.key === 'maintenanceMode');
+                    const isMaintenance = maintenanceSetting && String(maintenanceSetting.Value || maintenanceSetting.value) === 'true';
+                    if (isMaintenance) {
+                        document.body.innerHTML = `
+                            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center; font-family: sans-serif; background:#f8fafc;">
+                                <h1 style="font-size:3rem;">🛠️</h1>
+                                <h1 style="color:#1e293b; margin-top:20px;">الموقع في صيانة مؤقتة</h1>
+                                <p style="color:#64748b; margin-top:10px;">نعمل على تحسين المنصة لخدمتكم بشكل أفضل، سنعود قريباً.</p>
+                            </div>`;
+                        return;
+                    }
+                    // تحديث الواتساب
+                    const whatsappSetting = data.find(s => s.Key === 'whatsapp' || s.key === 'whatsapp');
+                    if (whatsappSetting && whatsappSetting.Value) {
+                        document.querySelectorAll('a[href*="wa.me"]').forEach(el => el.href = `https://wa.me/${whatsappSetting.Value}`);
+                    }
+                }
+            } catch (e) {
+                console.error("Link sync error:", e);
+            }
+        }
+        // 3. إدارة حالة المستخدم في الهيدر (التحديث الأساسي هنا)
+        document.addEventListener('DOMContentLoaded', () => {
+            syncGlobalLinks();
+            
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+            const userName = localStorage.getItem('userName') || 'المستخدم';
+            const userType = localStorage.getItem('userType') || 'Individual'; // نوع المستخدم
+            // تحديد رابط الداشبورد بناءً على النوع
+            let dashboardLink = './pages/General Dashboard.html';
+            
+            if (userType === 'Admin') {
+                dashboardLink = './pages/Admin Dashboard.html'; // توجيه الآدمن
+            }
+            // يمكن إضافة شروط أخرى هنا (مثلاً للمصانع مستقبلاً)
+            const desktopAuthContainer = document.getElementById('auth-buttons');
+            const mobileAuthContainer = document.querySelector('.mobile-auth-container');
+            if (userLoggedIn === 'true') {
+                // --- تحديث نسخة سطح المكتب ---
+                if (desktopAuthContainer) {
+                    desktopAuthContainer.innerHTML = `
+                        <div class="flex items-center gap-3">
+                             <a class="px-3 py-2 text-sm bg-gray-100 rounded-lg font-semibold hover:bg-gray-200 transition" href="./pages/english.html">EN</a>
+                            <div class="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full border border-blue-100">
+                                <span class="text-sm font-bold text-blue-600">مرحباً، ${userName}</span>
+                                <a href="${dashboardLink}" class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition" title="لوحة التحكم">
+                                    <i class="fas fa-user text-xs"></i>
+                                </a>
+                            </div>
+                            <button onclick="logoutUser()" class="text-gray-400 hover:text-red-500 text-sm mr-2 w-8 h-8 flex items-center justify-center" title="تسجيل خروج">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                        </div>
+                    `;
+                }
+                // --- تحديث نسخة الجوال ---
+                if (mobileAuthContainer) {
+                    mobileAuthContainer.innerHTML = `
+                        <div class="flex flex-col items-center gap-3 p-4 bg-blue-50 rounded-xl mx-6 border border-blue-100">
+                            <span class="font-bold text-blue-800">مرحباً، ${userName}</span>
+                            <a href="${dashboardLink}" class="w-full text-center bg-blue-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition">
+                                <i class="fas fa-tachometer-alt ml-2"></i> لوحة التحكم
+                            </a>
+                            <button onclick="logoutUser()" class="text-red-500 text-sm hover:text-red-700 font-medium mt-1">تسجيل خروج</button>
+                        </div>
+                    `;
+                }
+            }
+        });
+        function logoutUser() {
+            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                localStorage.clear();
+                window.location.reload();
+            }
+        }
     </script>
 </body>
-</html> 
+</html>
